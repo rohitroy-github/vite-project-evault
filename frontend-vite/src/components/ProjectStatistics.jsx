@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-const GeneralInformationSection = () => {
+const ProjectStatistics = () => {
   const [counters, setCounters] = useState({
     totalClients: 41,
     totalRegisteredLawyers: 25,
@@ -63,4 +63,4 @@ const GeneralInformationSection = () => {
   );
 };
 
-export default GeneralInformationSection;
+export default ProjectStatistics;
