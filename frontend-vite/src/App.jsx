@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import SignUpComponent from "./components/SignUpComponent";
 import LoginComponent from "./components/LoginComponent";
-import MixedSignUpComponent from "./components/MixedSignUpComponent";
+// import MixedSignUpComponent from "./components/MixedSignUpComponent";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/signup" element={<SignUpComponent />}></Route>
         <Route path="/login" element={<SignUpComponent />}></Route>
-        <Route path="/trialpage" element={<MixedSignUpComponent />}></Route>
+        {/* <Route path="/trialpage" element={<MixedSignUpComponent />}></Route> */}
       </Routes>
 
       <Footer />
