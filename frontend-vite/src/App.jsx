@@ -1,18 +1,25 @@
-import {useState} from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import {Routes, Route} from "react-router-dom";
+
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import ProjectStatistics from "./components/ProjectStatistics";
 import Footer from "./components/Footer";
+
+import HomePage from "./pages/HomePage";
+import SignUpComponent from "./components/SignUpComponent";
+import LoginComponent from "./components/LoginComponent";
+import MixedSignUpComponent from "./components/MixedSignUpComponent";
 
 function App() {
   return (
     <>
       <Navbar />
-      <HeroSection />
-      <ProjectStatistics />
+
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/signup" element={<SignUpComponent />}></Route>
+        <Route path="/login" element={<SignUpComponent />}></Route>
+        <Route path="/trialpage" element={<MixedSignUpComponent />}></Route>
+      </Routes>
+
       <Footer />
     </>
   );

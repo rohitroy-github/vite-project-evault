@@ -1,6 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 
 const HeroSection = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const openPopup = () => {
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-white">
       <div className="text-center text-black">
@@ -11,16 +21,33 @@ const HeroSection = () => {
         </p>
       </div>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-        <button className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md">
+        <button
+          className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md"
+          onClick={openPopup}
+        >
           Continue as a Client
         </button>
-        <button className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md">
+        <button
+          className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md"
+          onClick={openPopup}
+        >
           Continue as a Lawyer
         </button>
-        <button className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md">
+        <button
+          className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md"
+          onClick={openPopup}
+        >
           Continue as a Judge
         </button>
       </div>
+
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 p-6 rounded-lg shadow-md">
+            <RegisterAsLawyer onClose={closePopup} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
