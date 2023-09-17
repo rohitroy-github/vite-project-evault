@@ -16,8 +16,8 @@ const HeroSection = () => {
       <div className="text-center text-black">
         <h1 className="text-4xl font-montserrat mb-4">Project E-Vault</h1>
         <p className="text-xl font-montserrat mb-4">
-          A modernized blockchain-based eVault system for Indian Judicial
-          records
+          A modernized blockchain-based eVault system for Indian Judicial record
+          system.
         </p>
       </div>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">

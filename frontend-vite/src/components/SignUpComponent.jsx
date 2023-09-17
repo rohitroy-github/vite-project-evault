@@ -261,8 +261,10 @@ const SignUpComponent = () => {
         </h1>
         <div className="mb-4 flex justify-center space-x-4">
           <button
-            className={`bg-blue-500 text-white py-2 px-4 rounded-lg ${
-              formType === "lawyer" ? "bg-blue-600" : "bg-blue-300"
+            className={`py-2 px-4 rounded-lg ${
+              formType === "lawyer"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-300 text-gray-600"
             }`}
             onClick={() => {
               setFormType("lawyer");
@@ -272,8 +274,10 @@ const SignUpComponent = () => {
             Sign up as a lawyer
           </button>
           <button
-            className={`bg-blue-500 text-white py-2 px-4 rounded-lg ${
-              formType === "client" ? "bg-blue-600" : "bg-blue-300"
+            className={`py-2 px-4 rounded-lg ${
+              formType === "client"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-300 text-gray-600"
             }`}
             onClick={() => {
               setFormType("client");
@@ -283,8 +287,10 @@ const SignUpComponent = () => {
             Sign up as a client
           </button>
           <button
-            className={`bg-blue-500 text-white py-2 px-4 rounded-lg ${
-              formType === "judge" ? "bg-blue-600" : "bg-blue-300"
+            className={`py-2 px-4 rounded-lg ${
+              formType === "judge"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-300 text-gray-600"
             }`}
             onClick={() => {
               setFormType("judge");
