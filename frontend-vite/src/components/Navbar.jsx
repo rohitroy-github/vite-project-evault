@@ -34,10 +34,10 @@ const Navbar = () => {
             Login
           </Link>
           <Link
-            to="/trialpage"
+            to="/admin"
             className="text-black font-montserrat hover:text-blue-300"
           >
-            Trial
+            Test
           </Link>
         </div>
         <div className="md:hidden flex items-center">

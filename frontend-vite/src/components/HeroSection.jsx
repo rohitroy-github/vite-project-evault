@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 
 const HeroSection = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -21,24 +22,24 @@ const HeroSection = () => {
         </p>
       </div>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
-        <button
+        <Link
+          to="/login/client"
           className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md"
-          onClick={openPopup}
         >
           Continue as a Client
-        </button>
-        <button
+        </Link>
+        <Link
+          to="/login/lawyer"
           className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md"
-          onClick={openPopup}
         >
           Continue as a Lawyer
-        </button>
-        <button
+        </Link>
+        <Link
+          to="/login/judge" // Specify the route you want to link to
           className="bg-white border border-gray-300 text-black font-montserrat py-2 px-4 rounded-md"
-          onClick={openPopup}
         >
           Continue as a Judge
-        </button>
+        </Link>
       </div>
 
       {showPopup && (

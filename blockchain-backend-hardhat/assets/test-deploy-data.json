@@ -1,0 +1,36 @@
+{
+  "lawyer": {
+    "name": "Lawyer1",
+    "dateOfBirth": "2001-12-30",
+    "religion": "Hinduism",
+    "nationality": "Indian",
+    "sex": "Male",
+    "contactNumber": "9051179305",
+    "UID": 791619819989,
+    "PAN": "EQJPR7681F",
+    "associatedCaseIds": []
+  },
+  "judge": {
+    "name": "Judge1",
+    "dateOfBirth": "2001-12-30",
+    "religion": "Hinduism",
+    "nationality": "Indian",
+    "sex": "Male",
+    "contactNumber": "9051179305",
+    "UID": 791619819989,
+    "PAN": "EQJPR7681F",
+    "associatedCaseIds": []
+  },
+  "client": {
+    "name": "Client1",
+    "dateOfBirth": "2001-12-30",
+    "religion": "Hinduism",
+    "nationality": "Indian",
+    "sex": "Male",
+    "contactNumber": "9051179307",
+    "UID": 791619819984,
+    "PAN": "EQJPR7681M",
+    "associatedLawyers": [],
+    "associatedCaseIds": []
+  }
+}

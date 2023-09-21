@@ -1,5 +1,8 @@
-import React, {useState} from "react";
+import {useState, useEffect} from "react";
 import {ethers} from "ethers";
+
+import eVaultMain from "../abis/eVaultMain.json";
+import config from "../backend-config.json";
 
 const SignUpComponent = () => {
   const [formType, setFormType] = useState("lawyer"); // Default form type is lawyer
@@ -14,12 +17,48 @@ const SignUpComponent = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
 
+  const [provider, setProvider] = useState(null);
+  const [eVaultContract, setEVaultContract] = useState({});
+  const [account, setAccount] = useState(null);
+
   const connectMetamaskWallet = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
     const account = ethers.utils.getAddress(accounts[0]);
     setWalletAddress(account);
+  };
+
+  const connectToBlockchain = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+
+    const account = ethers.utils.getAddress(accounts[0]);
+    setAccount(account);
+
+    // updateAccountOfRefreshing/AlteringAccounts
+    window.ethereum.on("accountsChanged", async () => {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      const account = ethers.utils.getAddress(accounts[0]);
+      setAccount(account);
+    });
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    setProvider(provider);
+
+    const connectedNetwork = await provider.getNetwork();
+
+    const eVaultContract = new ethers.Contract(
+      config[connectedNetwork.chainId].contract.address,
+      eVaultMain,
+      provider.getSigner()
+    );
+
+    setEVaultContract(eVaultContract);
   };
 
   const handleSubmit = (e) => {
@@ -34,8 +73,7 @@ const SignUpComponent = () => {
       !dob ||
       !contactNumber ||
       !aadharUID ||
-      !pan ||
-      !walletAddress
+      !pan
     ) {
       alert("Please fill in all the required fields.");
       return; // Prevent form submission
@@ -55,7 +93,71 @@ const SignUpComponent = () => {
     };
     console.log("Submitted data :", formData);
 
+    register(formData);
     // If all required fields are filled, you can proceed with form submission logic here
+  };
+
+  const register = async (formData) => {
+    try {
+      const {
+        fullName,
+        religion,
+        nationality,
+        sex,
+        dob,
+        contactNumber,
+        aadharUID,
+        pan,
+        walletAddress,
+        signingUpAs,
+      } = formData;
+
+      let registrationTransaction;
+
+      if (signingUpAs == "client") {
+        // contractInteraction
+        registrationTransaction = await eVaultContract.registerClient(
+          fullName,
+          dob,
+          religion,
+          nationality,
+          sex,
+          contactNumber,
+          parseInt(aadharUID, 10),
+          pan
+        );
+      } else if (signingUpAs == "judge") {
+        // contractInteraction
+        registrationTransaction = await eVaultContract.registerJudge(
+          fullName,
+          dob,
+          religion,
+          nationality,
+          sex,
+          contactNumber,
+          parseInt(aadharUID, 10),
+          pan
+        );
+      } else if (signingUpAs == "lawyer") {
+        // contractInteraction
+        registrationTransaction = await eVaultContract.registerLawyer(
+          fullName,
+          dob,
+          religion,
+          nationality,
+          sex,
+          contactNumber,
+          parseInt(aadharUID, 10),
+          pan
+        );
+      }
+
+      await registrationTransaction.wait();
+      console.log("Data added to the blockchain successfully.");
+      console.log("Transaction hash:", registrationTransaction.hash);
+    } catch (error) {
+      console.error("Error adding data to the blockchain:", error);
+    }
   };
 
   const renderFormFields = () => {
@@ -248,6 +350,10 @@ const SignUpComponent = () => {
     }
   };
 
+  useEffect(() => {
+    connectToBlockchain();
+  }, []);
+
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
       <div className="bg-white p-8 font-montserrat w-1/2">
@@ -259,6 +365,7 @@ const SignUpComponent = () => {
             ? "Client"
             : "Judge"} */}
         </h1>
+        <h3 className="text-md font-montserrat mb-4 text-center">{account}</h3>
         <div className="mb-4 flex justify-center space-x-4">
           <button
             className={`py-2 px-4 rounded-lg ${

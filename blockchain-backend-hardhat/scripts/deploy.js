@@ -1,34 +1,46 @@
 // FILE -> Writing/DefiningDeployingScripts
 
-const {ethers, run, network} = require("hardhat");
+const {ethers, run, network, upgrades} = require("hardhat");
+
+const {client} = require("../assets/test-deploy-data.json");
 
 async function main() {
-  const SimpleStorageFactory = await ethers.getContractFactory("SimpleStorage");
+  const EVAULTMAIN = await ethers.getContractFactory("eVaultMain");
+  const eVaultMain = await EVAULTMAIN.deploy();
 
-  console.log("Deploying contract \u23F3");
-
-  const simpleStorage = await SimpleStorageFactory.deploy();
-  await simpleStorage.deployed();
+  await eVaultMain.deployed();
 
   console.log("Contract deployed successfully \u2705");
-  console.log(`Contract address : ${simpleStorage.address}`);
+  console.log(`Contract address : ${eVaultMain.address}`);
+  console.log(`Contract owner: ${await eVaultMain.contractOwner()}`);
+  console.log(`Contract name: ${await eVaultMain.contractName()}`);
+
+  // makingATestInterraction
+  // const [deployer] = await ethers.getSigners();
+
+  // const tx = await eVaultMain.connect(deployer).registerClient(
+  //   client.name, // fullName
+  //   client.dateOfBirth, // dob
+  //   client.religion, // religion
+  //   client.nationality, // nationality
+  //   client.sex, // sex
+  //   client.contactNumber, // contactNumber
+  //   client.UID, // aadharUID (parsed as an integer)
+  //   client.PAN // pan
+  // );
+
+  // await tx.wait();
+  // console.log("Data added to the blockchain successfully.");
+
+  // await getClientDetails(eVaultMain, 791619819984);
 
   // what happens when we deploy to our hardhat network?
   if (network.config.chainId === 11155111) {
     console.log("Waiting for block confirmations \u23F3");
     // wait6BlockConfirmations
-    await simpleStorage.deployTransaction.wait(6);
-    await verify(simpleStorage.address, []);
+    await eVaultMain.deployTransaction.wait(6);
+    await verify(eVaultMain.address, []);
   }
-
-  // -> contractInterraction
-  // const currentValue = await simpleStorage.retrieve();
-  // console.log(`Current value : ${currentValue}`);
-
-  // const transactionResponse = await simpleStorage.store(7);
-  // await transactionResponse.wait(1);
-  // const updatedValue = await simpleStorage.retrieve();
-  // console.log(`Updated value : ${updatedValue}`);
 }
 
 // async function verify(contractAddress, args) {
@@ -47,6 +59,23 @@ const verify = async (contractAddress, args) => {
     }
   }
 };
+
+// async function getClientDetails(contract, UID) {
+//   const clientData = await contract.getClientDetailsByUID(UID);
+
+//   console.log("Client Data:");
+//   console.log("Name:", clientData.name);
+//   console.log("Date of Birth:", clientData.dateOfBirth);
+//   console.log("Religion:", clientData.religion);
+//   console.log("Nationality:", clientData.nationality);
+//   console.log("Sex:", clientData.sex);
+//   console.log("Contact Number:", clientData.contactNumber);
+//   console.log("UID:", clientData.UID);
+//   console.log("PAN:", clientData.PAN);
+//   console.log("Associated Lawyers:", clientData.associatedLawyers);
+//   console.log("Associated Case IDs:", clientData.associatedCaseIds);
+//   console.log("Wallet Address:", clientData.walletAddress);
+// }
 
 main().catch((error) => {
   console.error(error);

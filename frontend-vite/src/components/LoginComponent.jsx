@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {ethers} from "ethers";
+import {Link} from "react-router-dom";
 
-const LoginComponent = () => {
-  const [formType, setFormType] = useState("lawyer");
+const LoginComponent = ({initialFormType}) => {
+  const [formType, setFormType] = useState(initialFormType);
   const [fullName, setFullName] = useState("");
   const [aadharUID, setAadharUID] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
@@ -97,6 +98,11 @@ const LoginComponent = () => {
             ? "Client"
             : "Judge"} */}
         </h1>
+        <div className="mb-2 text-center">
+          <Link to="/signup" className="text-blue-500">
+            New user? Register with E-Vault here!
+          </Link>
+        </div>
         <div className="mb-4 flex justify-center space-x-4">
           <button
             className={`py-2 px-4 rounded-lg ${

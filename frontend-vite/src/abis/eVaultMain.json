@@ -1,0 +1,830 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "caseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "CaseRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "ClientRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "JudgeRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "LawyerRegistered",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "caseIdCounter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "clients",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "PAN",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "contractName",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "contractOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_caseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCaseDetailsByCaseId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "UIDOfParty1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UIDOfParty2",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "filedOnDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "associatedLawyers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "string",
+        "name": "associatedJudge",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "caseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "caseSubject",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getClientDetailsByUID",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "PAN",
+        "type": "string"
+      },
+      {
+        "internalType": "address[]",
+        "name": "associatedLawyers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "associatedCaseIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFiledLegalCasesForAClient",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "UIDOfParty1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UIDOfParty2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "filedOnDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "associatedLawyers",
+            "type": "address[]"
+          },
+          {
+            "internalType": "string",
+            "name": "associatedJudge",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "caseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "caseSubject",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct eVaultMain.LegalCase[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getJudgeDetailsByUID",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "dateOfBirth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "religion",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nationality",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "sex",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "contactNumber",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "PAN",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "associatedCaseIds",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct eVaultMain.Judge",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLawyerDetailsByUID",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "dateOfBirth",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "religion",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nationality",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "sex",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "contactNumber",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "PAN",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "associatedCaseIds",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct eVaultMain.Lawyer",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "judges",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "PAN",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "lawyers",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "PAN",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "legalCases",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "UIDOfParty1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UIDOfParty2",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "filedOnDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "associatedJudge",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "caseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "caseSubject",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_PAN",
+        "type": "string"
+      }
+    ],
+    "name": "registerClient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_PAN",
+        "type": "string"
+      }
+    ],
+    "name": "registerJudge",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_PAN",
+        "type": "string"
+      }
+    ],
+    "name": "registerLawyer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UIDOfParty1",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_UIDOfParty2",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_associatedJudge",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_caseSubject",
+        "type": "string"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_associatedLawyers",
+        "type": "address[]"
+      }
+    ],
+    "name": "registerLegalCase",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_newLawyers",
+        "type": "address[]"
+      }
+    ],
+    "name": "updateAssociatedLawyers",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

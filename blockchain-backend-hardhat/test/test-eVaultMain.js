@@ -39,6 +39,18 @@ const lawyer = {
   associatedCaseIds: [],
 };
 
+const judge = {
+  name: "Judge1",
+  dateOfBirth: "2001-12-30",
+  religion: "Hinduism",
+  nationality: "Indian",
+  sex: "Male",
+  contactNumber: "9051179305",
+  UID: 791619819989,
+  PAN: "EQJPR7681F",
+  associatedCaseIds: [],
+};
+
 const legalCase = {
   UIDOfParty1: 791619819984,
   UIDOfParty2: 791619819985,
@@ -297,6 +309,49 @@ describe("eVaultMain", () => {
       // expect(filedCases[0].UIDOfParty2).to.equal(client2.UID);
       // expect(filedCases[0].associatedJudge).to.equal(legalCase.associatedJudge);
       // expect(filedCases[0].caseSubject).to.equal(legalCase.caseSubject);
+    });
+  });
+
+  describe("Judge Management", () => {
+    it("should register a new judge", async () => {
+      await eVaultMain.registerJudge(
+        judge.name,
+        judge.dateOfBirth,
+        judge.religion,
+        judge.nationality,
+        judge.sex,
+        judge.contactNumber,
+        judge.UID,
+        judge.PAN
+      );
+
+      const storedJudge = await eVaultMain.getJudgeDetailsByUID(judge.UID);
+
+      expect(storedJudge.name).to.equal(judge.name);
+      expect(storedJudge.dateOfBirth).to.equal(judge.dateOfBirth);
+      expect(storedJudge.religion).to.equal(judge.religion);
+      expect(storedJudge.nationality).to.equal(judge.nationality);
+      expect(storedJudge.sex).to.equal(judge.sex);
+      expect(storedJudge.contactNumber).to.equal(judge.contactNumber);
+      expect(storedJudge.UID).to.equal(judge.UID);
+      expect(storedJudge.PAN).to.equal(judge.PAN);
+      expect(storedJudge.associatedCaseIds).to.eql(judge.associatedCaseIds);
+      expect(storedJudge.walletAddress).to.equal(deployer.address);
+
+      // Additional checks can be added as needed
+    });
+
+    it("should not retrieve details of a non-existing judge", async () => {
+      const nonExistentUID = 9876543210;
+
+      try {
+        await eVaultMain.getJudgeDetailsByUID(nonExistentUID);
+      } catch (error) {
+        expect(error.message).to.include("Judge with this UID does not exist");
+        return;
+      }
+
+      expect.fail("Expected an error for non-existing judge");
     });
   });
 });

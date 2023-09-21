@@ -45,6 +45,19 @@ contract eVaultMain {
         uint256[] associatedCaseIds;
     }
 
+    struct Judge {
+        string name;
+        address walletAddress;
+        string dateOfBirth;
+        string religion;
+        string nationality;
+        string sex;
+        string contactNumber;
+        uint256 UID;
+        string PAN;
+        uint256[] associatedCaseIds;
+    }
+
     // storeAllTheClients
     mapping(uint256 => Client) public clients;
 
@@ -54,9 +67,13 @@ contract eVaultMain {
     // Create a mapping to store lawyers
     mapping(uint256 => Lawyer) public lawyers;
 
+    // Create a mapping to store judges
+    mapping(uint256 => Judge) public judges;
+
     event ClientRegistered(uint256 UID);
     event CaseRegistered(uint256 caseId);
     event LawyerRegistered(uint256 UID);
+    event JudgeRegistered(uint256 UID);
 
     constructor() {
         contractName = "eVaultMain";
@@ -81,7 +98,7 @@ contract eVaultMain {
         string memory _contactNumber,
         uint256 _UID,
         string memory _PAN
-    ) external onlyOwner {
+    ) external {
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(
             bytes(_dateOfBirth).length > 0,
@@ -114,6 +131,49 @@ contract eVaultMain {
         });
 
         emit ClientRegistered(_UID);
+    }
+
+    // functionToRegisterANewJudge
+    function registerJudge(
+        string memory _name,
+        string memory _dateOfBirth,
+        string memory _religion,
+        string memory _nationality,
+        string memory _sex,
+        string memory _contactNumber,
+        uint256 _UID,
+        string memory _PAN
+    ) external onlyOwner {
+        require(bytes(_name).length > 0, "Name cannot be empty");
+        require(
+            bytes(_dateOfBirth).length > 0,
+            "Date of Birth cannot be empty"
+        );
+        require(bytes(_religion).length > 0, "Religion cannot be empty");
+        require(bytes(_nationality).length > 0, "Nationality cannot be empty");
+        require(bytes(_sex).length > 0, "Sex cannot be empty");
+        require(
+            bytes(_contactNumber).length > 0,
+            "Contact Number cannot be empty"
+        );
+        require(_UID > 0 && _UID <= 999999999999, "Invalid UID");
+
+        uint256[] memory caseIds = new uint256[](0); // Initialize the associatedCaseIds array
+
+        judges[_UID] = Judge({
+            name: _name,
+            dateOfBirth: _dateOfBirth,
+            religion: _religion,
+            nationality: _nationality,
+            sex: _sex,
+            contactNumber: _contactNumber,
+            UID: _UID,
+            PAN: _PAN,
+            associatedCaseIds: caseIds,
+            walletAddress: msg.sender
+        });
+
+        emit JudgeRegistered(_UID);
     }
 
     // functionToViewClientInformation
@@ -229,6 +289,19 @@ contract eVaultMain {
         );
 
         return lawyer;
+    }
+
+    // Function to get Judge details by UID
+    function getJudgeDetailsByUID(
+        uint256 _UID
+    ) external view returns (Judge memory) {
+        Judge memory judge = judges[_UID];
+        require(
+            bytes(judge.name).length > 0,
+            "Judge with this UID does not exist"
+        );
+
+        return judge;
     }
 
     // function to add a legal case for two clients

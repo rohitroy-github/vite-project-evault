@@ -6,6 +6,8 @@ import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
+import ClientAdminPage from "./pages/ClientAdminPage";
+import TestPage from "./pages/TestPage";
 // import MixedSignUpComponent from "./components/MixedSignUpComponent";
 
 function App() {
@@ -16,7 +18,11 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/signup" element={<SignUpPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/login/:initialFormType" element={<LoginPage />}></Route>
+        <Route path="/test" element={<TestPage />}></Route>
+
+        <Route path="/admin" element={<ClientAdminPage />}></Route>
+
         {/* <Route path="/trialpage" element={<MixedSignUpComponent />}></Route> */}
       </Routes>
 
