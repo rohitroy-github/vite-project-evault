@@ -21,7 +21,7 @@
     "PAN": "EQJPR7681F",
     "associatedCaseIds": []
   },
-  "client": {
+  "client1": {
     "name": "Client1",
     "dateOfBirth": "2001-12-30",
     "religion": "Hinduism",
@@ -32,5 +32,28 @@
     "PAN": "EQJPR7681M",
     "associatedLawyers": [],
     "associatedCaseIds": []
+  },
+  "client2": {
+    "name": "Client2",
+    "dateOfBirth": "2001-12-30",
+    "religion": "Hinduism",
+    "nationality": "Indian",
+    "sex": "Male",
+    "contactNumber": "9051179308",
+    "UID": 791619819985,
+    "PAN": "EQJPR7681N",
+    "associatedLawyers": [],
+    "associatedCaseIds": []
+  },
+  "legalCase": {
+    "UIDOfParty1": 791619819984,
+    "UIDOfParty2": 791619819985,
+    "associatedLawyers": [
+      "0xD34861D1DC54BDAa9B42a9FBc875BF9685804B17",
+      "0x3BcC4202014dF6590E7bFf29783188B1a72d5aF4"
+    ],
+    "associatedJudge": "Justice Gomes",
+    "caseSubject": "Car Accident",
+    "caseId": 1
   }
 }

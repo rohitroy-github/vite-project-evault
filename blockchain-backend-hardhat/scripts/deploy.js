@@ -2,7 +2,12 @@
 
 const {ethers, run, network, upgrades} = require("hardhat");
 
-const {client} = require("../assets/test-deploy-data.json");
+const {
+  lawyer,
+  judge,
+  client,
+  legalCase,
+} = require("../assets/test-deploy-data.json");
 
 async function main() {
   const EVAULTMAIN = await ethers.getContractFactory("eVaultMain");
@@ -14,25 +19,6 @@ async function main() {
   console.log(`Contract address : ${eVaultMain.address}`);
   console.log(`Contract owner: ${await eVaultMain.contractOwner()}`);
   console.log(`Contract name: ${await eVaultMain.contractName()}`);
-
-  // makingATestInterraction
-  // const [deployer] = await ethers.getSigners();
-
-  // const tx = await eVaultMain.connect(deployer).registerClient(
-  //   client.name, // fullName
-  //   client.dateOfBirth, // dob
-  //   client.religion, // religion
-  //   client.nationality, // nationality
-  //   client.sex, // sex
-  //   client.contactNumber, // contactNumber
-  //   client.UID, // aadharUID (parsed as an integer)
-  //   client.PAN // pan
-  // );
-
-  // await tx.wait();
-  // console.log("Data added to the blockchain successfully.");
-
-  // await getClientDetails(eVaultMain, 791619819984);
 
   // what happens when we deploy to our hardhat network?
   if (network.config.chainId === 11155111) {
