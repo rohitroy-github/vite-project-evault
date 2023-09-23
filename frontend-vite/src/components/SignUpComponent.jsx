@@ -5,7 +5,7 @@ import eVaultMain from "../abis/eVaultMain.json";
 import config from "../backend-config.json";
 
 const SignUpComponent = () => {
-  const [formType, setFormType] = useState("lawyer"); // Default form type is lawyer
+  const [formType, setFormType] = useState("lawyer");
   const [fullName, setFullName] = useState("");
   const [religion, setReligion] = useState("");
   const [nationality, setNationality] = useState("");

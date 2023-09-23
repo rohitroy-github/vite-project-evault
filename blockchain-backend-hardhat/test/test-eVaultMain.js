@@ -354,4 +354,41 @@ describe("eVaultMain", () => {
       expect.fail("Expected an error for non-existing judge");
     });
   });
+
+  // LoginFunctionalitiesTest
+
+  describe("Login Functionalities", () => {
+    it("should login as a client", async () => {
+      // Register a new client
+      await eVaultMain.registerClient(
+        client.name,
+        client.dateOfBirth,
+        client.religion,
+        client.nationality,
+        client.sex,
+        client.contactNumber,
+        client.UID,
+        client.PAN
+      );
+
+      // Check if the client is registered by calling the loginAsAClient function
+      const isClientRegistered = await eVaultMain.loginAsAClient(client.UID);
+
+      // Assert that the client is registered (should return true)
+      expect(isClientRegistered).to.equal(true);
+    });
+
+    it("should not login as a non-existing client", async () => {
+      // Attempt to check login for a non-existing client UID
+      const nonExistentUID = 9876543210;
+
+      // Check if the client is registered by calling the loginAsAClient function
+      const isClientRegistered = await eVaultMain.loginAsAClient(
+        nonExistentUID
+      );
+
+      // Assert that the client is not registered (should return false)
+      expect(isClientRegistered).to.equal(false);
+    });
+  });
 });

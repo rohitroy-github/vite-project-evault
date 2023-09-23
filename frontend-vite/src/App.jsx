@@ -19,9 +19,13 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/signup" element={<SignUpPage />}></Route>
         <Route path="/login/:initialFormType" element={<LoginPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+
         <Route path="/test" element={<TestPage />}></Route>
 
         <Route path="/admin" element={<ClientAdminPage />}></Route>
+
+        <Route path="/logout" element={<HomePage />}></Route>
 
         {/* <Route path="/trialpage" element={<MixedSignUpComponent />}></Route> */}
       </Routes>

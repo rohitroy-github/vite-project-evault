@@ -3,11 +3,10 @@ import React from "react";
 const ClientAdminDashboardComponent = () => {
   return (
     <div className="flex items-center justify-center h-screen flex-col md:flex-row">
-      {/* Container */}
       {/* Left Section */}
-      <div className="md:w-1/2 p-4 flex flex-col items-center">
+      <div className="md:w-1/2 flex flex-col items-center">
         <div className="text-left">
-          <h3 className="text-2xl font-montserrat mb-2">User Information</h3>
+          <h3 className="text-2xl font-montserrat mb-5">User Information</h3>
           {/* Add a div for text alignment */}
           <p className="font-montserrat mb-2">Full Name: John Doe</p>
           <p className="font-montserrat mb-2">Contact Number: (123) 456-7890</p>
@@ -20,7 +19,7 @@ const ClientAdminDashboardComponent = () => {
       </div>
 
       {/* Right Section */}
-      <div className="md:w-1/2 p-4">
+      <div className="md:w-1/2">
         <div className="flex flex-col md:flex-row md:flex-wrap">
           <div className="md:w-1/2 p-4">
             <div className="bg-white p-4 rounded-lg mb-4 shadow-md">

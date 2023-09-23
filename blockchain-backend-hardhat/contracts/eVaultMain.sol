@@ -395,4 +395,11 @@ contract eVaultMain {
             registeredLegalCase.caseSubject
         );
     }
+
+    // LoginFunctionalities
+
+    function loginAsAClient(uint256 _UID) external view returns (bool) {
+        // Check if the client with the given UID exists in the clients mapping
+        return bytes(clients[_UID].name).length > 0;
+    }
 }

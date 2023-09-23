@@ -1,6 +1,9 @@
 import React, {useState} from "react";
 import {ethers} from "ethers";
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"; // Import Redirect from React Router
+import {useNavigate} from "react-router-dom";
+
+import loginAsAClient from "../blockchain-api/loginAsAClient";
 
 const LoginComponent = ({initialFormType}) => {
   const [formType, setFormType] = useState(initialFormType);
@@ -10,6 +13,8 @@ const LoginComponent = ({initialFormType}) => {
 
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
 
+  const navigate = useNavigate();
+
   const connectMetamaskWallet = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -18,7 +23,7 @@ const LoginComponent = ({initialFormType}) => {
     setWalletAddress(account);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check if any of the required fields are empty
@@ -35,7 +40,17 @@ const LoginComponent = ({initialFormType}) => {
     };
     console.log("Submitted data :", formData);
 
-    // If all required fields are filled, you can proceed with form submission logic here
+    const isClientRegistered = await loginAsAClient(aadharUID);
+
+    if (isClientRegistered) {
+      // Client is registered, you can proceed with the login logic here
+      alert("Login successful!");
+      navigate("/admin");
+      // Redirect or perform other actions as needed
+    } else {
+      // Client is not registered
+      alert("Client with this Aadhar UID is not registered.");
+    }
   };
 
   const renderFormFields = () => {
