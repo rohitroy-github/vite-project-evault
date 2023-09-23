@@ -133,8 +133,8 @@ const SearchCaseDetailsComponent = () => {
                   </td>
                   <td className="border  p-2">
                     <button
-                      type="submit"
                       className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full"
+                      onClick={() => navigate("/case-details")}
                     >
                       Search
                     </button>
