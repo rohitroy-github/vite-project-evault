@@ -1,10 +1,12 @@
-// FILE -> Writing/DefiningDeployingScripts
+// Test >>>
+// > Registering 2 new client
+// > Registering a new case between these 2 clients.
 
-const {ethers, run, network, upgrades} = require("hardhat");
+const {ethers, run, network} = require("hardhat");
 
 const {
-  lawyer,
-  judge,
+  //   lawyer,
+  //   judge,
   client1,
   client2,
   legalCase,
@@ -139,4 +141,4 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// ToExecute -> npx hardhat run scripts/deploy.js --network <network-name>
+// ToExecute -> npx hardhat run scripts/deploy_registerANewCase.js --network <network-name>
