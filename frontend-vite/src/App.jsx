@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import ClientAdminPage from "./pages/ClientAdminPage";
 import TestPage from "./pages/TestPage";
 import GetCaseDetailsPage from "./pages/GetCaseDetailsPage";
+import CaseDetailsPage from "./pages/CaseDetailsPage";
 // import MixedSignUpComponent from "./components/MixedSignUpComponent";
 
 function App() {
@@ -25,9 +26,10 @@ function App() {
         <Route path="/admin" element={<ClientAdminPage />}></Route>
         <Route path="/logout" element={<HomePage />}></Route>
         <Route
-          path="//get-case-details"
+          path="/get-case-details"
           element={<GetCaseDetailsPage />}
         ></Route>
+        <Route path="/case-details" element={<CaseDetailsPage />}></Route>
 
         {/* <Route path="/trialpage" element={<MixedSignUpComponent />}></Route> */}
       </Routes>
