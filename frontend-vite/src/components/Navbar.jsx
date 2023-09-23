@@ -38,6 +38,12 @@ const Navbar = () => {
               >
                 Login
               </Link>
+              <Link
+                to="/get-case-details"
+                className="text-black font-montserrat hover:text-blue-300"
+              >
+                Get Case Details
+              </Link>
             </>
           )}
           {isAdminRoute ? (
