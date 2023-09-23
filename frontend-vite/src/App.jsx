@@ -10,6 +10,7 @@ import ClientAdminPage from "./pages/ClientAdminPage";
 import TestPage from "./pages/TestPage";
 import GetCaseDetailsPage from "./pages/GetCaseDetailsPage";
 import CaseDetailsPage from "./pages/CaseDetailsPage";
+
 // import MixedSignUpComponent from "./components/MixedSignUpComponent";
 
 function App() {
@@ -30,8 +31,6 @@ function App() {
           element={<GetCaseDetailsPage />}
         ></Route>
         <Route path="/case-details" element={<CaseDetailsPage />}></Route>
-
-        {/* <Route path="/trialpage" element={<MixedSignUpComponent />}></Route> */}
       </Routes>
 
       <Footer />

@@ -45,7 +45,18 @@
     "associatedLawyers": [],
     "associatedCaseIds": []
   },
-  "legalCase": {
+  "legalCase1": {
+    "UIDOfParty1": 791619819984,
+    "UIDOfParty2": 791619819985,
+    "associatedLawyers": [
+      "0xD34861D1DC54BDAa9B42a9FBc875BF9685804B17",
+      "0x3BcC4202014dF6590E7bFf29783188B1a72d5aF4"
+    ],
+    "associatedJudge": "Justice Vinayak",
+    "caseSubject": "Hit and Run",
+    "caseId": 1
+  },
+  "legalCase2": {
     "UIDOfParty1": 791619819984,
     "UIDOfParty2": 791619819985,
     "associatedLawyers": [

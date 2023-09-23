@@ -9,7 +9,8 @@ const {
   //   judge,
   client1,
   client2,
-  legalCase,
+  legalCase1,
+  legalCase2,
 } = require("../assets/test-deploy-data.json");
 
 async function main() {
@@ -69,23 +70,40 @@ async function main() {
   await getClientDetails(eVaultMain, 791619819985);
   console.log("Client 2 verified \u2705");
 
-  console.log("Filing a new demo case between these 2 client now ... \u23F3");
+  console.log("Filing 2 new demo case between these 2 client now ... \u23F3");
 
-  const legalCaseTx = await eVaultMain.connect(deployer).registerLegalCase(
-    legalCase.UIDOfParty1,
-    legalCase.UIDOfParty2,
-    legalCase.associatedJudge,
-    legalCase.caseSubject,
-    legalCase.associatedLawyers.map((lawyerAddress) =>
+  const legalCase1Tx = await eVaultMain.connect(deployer).registerLegalCase(
+    legalCase1.UIDOfParty1,
+    legalCase1.UIDOfParty2,
+    legalCase1.associatedJudge,
+    legalCase1.caseSubject,
+    legalCase1.associatedLawyers.map((lawyerAddress) =>
       ethers.utils.getAddress(lawyerAddress)
     )
   );
 
-  await legalCaseTx.wait();
-  console.log("Demo legal case added to the blockchain \u2705");
+  await legalCase1Tx.wait();
 
-  console.log("Checking if case is registered successfully \u23F3");
+  const legalCase2Tx = await eVaultMain.connect(deployer).registerLegalCase(
+    legalCase2.UIDOfParty1,
+    legalCase2.UIDOfParty2,
+    legalCase2.associatedJudge,
+    legalCase2.caseSubject,
+    legalCase2.associatedLawyers.map((lawyerAddress) =>
+      ethers.utils.getAddress(lawyerAddress)
+    )
+  );
+
+  await legalCase2Tx.wait();
+
+  console.log("Demo legal cases added to the blockchain \u2705");
+
+  console.log("Checking if Case 1 is registered successfully \u23F3");
   await getLegalCaseDetails(eVaultMain, 1);
+  console.log("Case verified \u2705");
+
+  console.log("Checking if Case 2 is registered successfully \u23F3");
+  await getLegalCaseDetails(eVaultMain, 2);
   console.log("Case verified \u2705");
 
   // what happens when we deploy to our hardhat network?
@@ -124,16 +142,19 @@ async function getClientDetails(contract, UID) {
 async function getLegalCaseDetails(contract, caseId) {
   const caseDetails = await contract.getCaseDetailsByCaseId(caseId);
 
-  console.log("UID of Party 1:", caseDetails[0].toString());
-  console.log("UID of Party 2:", caseDetails[1].toString());
-  console.log("Filed On Date:", new Date(caseDetails[2].toNumber() * 1000)); // Convert to readable date
+  console.log("UID of Party 1:", caseDetails.UIDOfParty1);
+  console.log("UID of Party 2:", caseDetails.UIDOfParty2);
+  console.log(
+    "Filed On Date:",
+    new Date(caseDetails.filedOnDate.toNumber() * 1000)
+  ); // Convert to readable date
   //   console.log(
   //     "Associated Lawyers:",
   //     caseDetails[3].map((address) => address.toString())
   //   );
-  //   console.log("Associated Judge:", caseDetails[4]);
-  console.log("Case ID:", caseDetails[5].toString());
-  console.log("Case Subject:", caseDetails[6]);
+  console.log("Associated Judge:", caseDetails.associatedJudge);
+  console.log("Case ID:", caseDetails.caseId.toString());
+  console.log("Case Subject:", caseDetails.caseSubject);
 }
 
 main().catch((error) => {
