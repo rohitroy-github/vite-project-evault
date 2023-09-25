@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Link, useLocation} from "react-router-dom";
+import {ethers} from "ethers"; // Import ethers.js
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [isMetamaskConnected, setIsMetamaskConnected] = useState(false);
+  const [metamaskAccount, setMetamaskAccount] = useState("");
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -11,13 +14,50 @@ const Navbar = () => {
 
   const isAdminRoute = location.pathname === "/admin";
 
+  useEffect(() => {
+    // Check if Metamask is connected on component load
+    checkMetamaskConnection();
+  }, []);
+
+  const checkMetamaskConnection = async () => {
+    if (window.ethereum) {
+      try {
+        // Request Metamask to connect
+        await window.ethereum.request({method: "eth_requestAccounts"});
+        setIsMetamaskConnected(true);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        setMetamaskAccount(address);
+      } catch (error) {
+        console.error("Error connecting to Metamask:", error);
+      }
+    }
+  };
+
+  const connectMetamask = async () => {
+    if (window.ethereum) {
+      try {
+        // Request Metamask to connect
+        await window.ethereum.request({method: "eth_requestAccounts"});
+        setIsMetamaskConnected(true);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        setMetamaskAccount(address);
+      } catch (error) {
+        console.error("Error connecting to Metamask:", error);
+      }
+    }
+  };
+
   return (
     <nav className="bg-white w-full border-b border-gray-300 px-10 py-5">
       <div className="flex justify-between items-center">
         <div className="text-black font-montserrat text-xl">
           <Link to="/">E-Vault Project</Link>
         </div>
-        <div className="hidden md:flex space-x-10 ">
+        <div className="hidden md:flex space-x-10 items-center">
           {!isAdminRoute && (
             <>
               <Link
@@ -60,14 +100,52 @@ const Navbar = () => {
               >
                 Test
               </Link>
+
+              {!isMetamaskConnected ? (
+                <Link to="/get-case-details">
+                  <button
+                    onClick={connectMetamask}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
+                  >
+                    Connect Metamask
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  // onClick={connectMetamask}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
+                >
+                  Metamask Connected
+                </button>
+              )}
             </>
           ) : (
-            <Link
-              to="/admin"
-              className="text-black font-montserrat hover:text-blue-300"
-            >
-              Admin
-            </Link>
+            <>
+              <Link
+                to="/admin"
+                className="text-black font-montserrat hover:text-blue-300"
+              >
+                Admin
+              </Link>
+
+              {!isMetamaskConnected ? (
+                <Link to="/get-case-details">
+                  <button
+                    onClick={connectMetamask}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
+                  >
+                    Connect Metamask
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  // onClick={connectMetamask}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
+                >
+                  Metamask Connected
+                </button>
+              )}
+            </>
           )}
         </div>
         <div className="md:hidden flex items-center">
@@ -141,6 +219,18 @@ const Navbar = () => {
               </Link>
             )}
           </div>
+          {!isMetamaskConnected ? (
+            <button
+              onClick={connectMetamask}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded mt-4"
+            >
+              Connect Metamask
+            </button>
+          ) : (
+            <div className="mt-4">
+              <p className="text-black font-montserrat">Metamask Connected</p>
+            </div>
+          )}
         </div>
       )}
     </nav>
