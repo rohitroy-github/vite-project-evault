@@ -4,6 +4,8 @@ import {ethers} from "ethers";
 import eVaultMain from "../abis/eVaultMain.json";
 import config from "../backend-config.json";
 
+import registerToEVault from "../blockchain-api/registerToEVault";
+
 const SignUpComponent = () => {
   const [formType, setFormType] = useState("lawyer");
   const [fullName, setFullName] = useState("");
@@ -61,7 +63,7 @@ const SignUpComponent = () => {
     setEVaultContract(eVaultContract);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check if any of the required fields are empty
@@ -91,72 +93,13 @@ const SignUpComponent = () => {
       walletAddress,
       signingUpAs,
     };
-    console.log("Submitted data :", formData);
 
-    register(formData);
-    // If all required fields are filled, you can proceed with form submission logic here
-  };
-
-  const register = async (formData) => {
+    // console.log("Submitted data :", formData);
     try {
-      const {
-        fullName,
-        religion,
-        nationality,
-        sex,
-        dob,
-        contactNumber,
-        aadharUID,
-        pan,
-        walletAddress,
-        signingUpAs,
-      } = formData;
-
-      let registrationTransaction;
-
-      if (signingUpAs == "client") {
-        // contractInteraction
-        registrationTransaction = await eVaultContract.registerClient(
-          fullName,
-          dob,
-          religion,
-          nationality,
-          sex,
-          contactNumber,
-          parseInt(aadharUID, 10),
-          pan
-        );
-      } else if (signingUpAs == "judge") {
-        // contractInteraction
-        registrationTransaction = await eVaultContract.registerJudge(
-          fullName,
-          dob,
-          religion,
-          nationality,
-          sex,
-          contactNumber,
-          parseInt(aadharUID, 10),
-          pan
-        );
-      } else if (signingUpAs == "lawyer") {
-        // contractInteraction
-        registrationTransaction = await eVaultContract.registerLawyer(
-          fullName,
-          dob,
-          religion,
-          nationality,
-          sex,
-          contactNumber,
-          parseInt(aadharUID, 10),
-          pan
-        );
-      }
-
-      await registrationTransaction.wait();
-      console.log("Data added to the blockchain successfully.");
-      console.log("Transaction hash:", registrationTransaction.hash);
+      const register = await registerToEVault(formData);
+      alert(register);
     } catch (error) {
-      console.error("Error adding data to the blockchain:", error);
+      console.error("Error during registration >>> ", error);
     }
   };
 

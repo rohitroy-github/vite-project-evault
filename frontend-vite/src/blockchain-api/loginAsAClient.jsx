@@ -23,9 +23,6 @@ const loginAsAClient = async (aadharUID) => {
       throw new Error("Please connect your wallet.");
     }
 
-    // Get the connected signer
-    const signer = provider.getSigner();
-
     // Call your contract's loginAsAClient function
     const isClientRegistered = await eVaultContract.loginAsAClient(aadharUID);
 

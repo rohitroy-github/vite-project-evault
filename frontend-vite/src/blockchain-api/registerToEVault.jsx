@@ -5,11 +5,20 @@ import eVaultMain from "../abis/eVaultMain.json";
 import config from "../backend-config.json";
 
 // Define the loginAsAClient function
-const registerAsAClient = async (aadharUID) => {
+const registerToEVault = async ({
+  fullName,
+  religion,
+  nationality,
+  sex,
+  dob,
+  contactNumber,
+  aadharUID,
+  pan,
+  walletAddress,
+  signingUpAs,
+}) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-
   const connectedNetwork = await provider.getNetwork();
-
   // Create a contract instance
   const eVaultContract = new ethers.Contract(
     config[connectedNetwork.chainId].contract.address,
@@ -17,25 +26,55 @@ const registerAsAClient = async (aadharUID) => {
     provider.getSigner()
   );
 
+  let registrationTransaction;
+
   try {
-    // Ensure that the user has connected their wallet with MetaMask or other provider
-    if (!provider || !provider.getSigner) {
-      throw new Error("Please connect your wallet.");
+    if (signingUpAs == "client") {
+      // contractInteraction
+      registrationTransaction = await eVaultContract.registerClient(
+        fullName,
+        dob,
+        religion,
+        nationality,
+        sex,
+        contactNumber,
+        parseInt(aadharUID, 10),
+        pan
+      );
+    } else if (signingUpAs == "judge") {
+      // contractInteraction
+      registrationTransaction = await eVaultContract.registerJudge(
+        fullName,
+        dob,
+        religion,
+        nationality,
+        sex,
+        contactNumber,
+        parseInt(aadharUID, 10),
+        pan
+      );
+    } else if (signingUpAs == "lawyer") {
+      // contractInteraction
+      registrationTransaction = await eVaultContract.registerLawyer(
+        fullName,
+        dob,
+        religion,
+        nationality,
+        sex,
+        contactNumber,
+        parseInt(aadharUID, 10),
+        pan
+      );
     }
 
-    // Get the connected signer
-    const signer = provider.getSigner();
+    await registrationTransaction.wait();
 
-    // Call your contract's loginAsAClient function
-    const isClientRegistered = await eVaultContract.registerLawyer(aadharUID);
-
-    // You may want to do additional checks or processing here
-
-    return isClientRegistered; // Return the result
+    // console.log("Transaction hash:", registrationTransaction.hash);
+    return `Successfully registred as a ${signingUpAs}`;
   } catch (error) {
-    console.error("Error during loginAsAClient:", error);
+    console.error(`Can't register as a ${signingUpAs} : `, error);
     throw error;
   }
 };
 
-export default registerAsAClient;
+export default registerToEVault;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {ethers} from "ethers"; // Import ethers.js
 
@@ -13,27 +13,6 @@ const Navbar = () => {
   };
 
   const isAdminRoute = location.pathname === "/admin";
-
-  useEffect(() => {
-    // Check if Metamask is connected on component load
-    checkMetamaskConnection();
-  }, []);
-
-  const checkMetamaskConnection = async () => {
-    if (window.ethereum) {
-      try {
-        // Request Metamask to connect
-        await window.ethereum.request({method: "eth_requestAccounts"});
-        setIsMetamaskConnected(true);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        setMetamaskAccount(address);
-      } catch (error) {
-        console.error("Error connecting to Metamask:", error);
-      }
-    }
-  };
 
   const connectMetamask = async () => {
     if (window.ethereum) {
@@ -102,19 +81,14 @@ const Navbar = () => {
               </Link>
 
               {!isMetamaskConnected ? (
-                <Link to="/get-case-details">
-                  <button
-                    onClick={connectMetamask}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
-                  >
-                    Connect Metamask
-                  </button>
-                </Link>
-              ) : (
                 <button
-                  // onClick={connectMetamask}
+                  onClick={connectMetamask}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
                 >
+                  Connect Metamask
+                </button>
+              ) : (
+                <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
                   Metamask Connected
                 </button>
               )}
@@ -129,19 +103,14 @@ const Navbar = () => {
               </Link>
 
               {!isMetamaskConnected ? (
-                <Link to="/get-case-details">
-                  <button
-                    onClick={connectMetamask}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
-                  >
-                    Connect Metamask
-                  </button>
-                </Link>
-              ) : (
                 <button
-                  // onClick={connectMetamask}
+                  onClick={connectMetamask}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
                 >
+                  Connect Metamask
+                </button>
+              ) : (
+                <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
                   Metamask Connected
                 </button>
               )}
