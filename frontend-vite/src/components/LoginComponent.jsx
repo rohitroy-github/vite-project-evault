@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {ethers} from "ethers";
 import {Link} from "react-router-dom"; // Import Redirect from React Router
 import {useNavigate} from "react-router-dom";
@@ -7,33 +7,36 @@ import loginAsAClient from "../blockchain-api/loginAsAClient";
 
 const LoginComponent = ({initialFormType}) => {
   const [formType, setFormType] = useState(initialFormType);
-  const [fullName, setFullName] = useState("");
   const [aadharUID, setAadharUID] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
-
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
+  const [isConnected, setIsConnected] = useState(false);
 
   const navigate = useNavigate();
 
   const connectMetamaskWallet = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    const account = ethers.utils.getAddress(accounts[0]);
-    setWalletAddress(account);
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const account = ethers.utils.getAddress(accounts[0]);
+      setWalletAddress(account);
+      setIsConnected(true);
+    } catch (error) {
+      console.error("Error connecting to Ethereum:", error);
+      setIsConnected(false);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if any of the required fields are empty
-    if (!fullName || !aadharUID || !walletAddress) {
+    if (!aadharUID || !walletAddress) {
       alert("Please fill in all the required fields.");
-      return; // Prevent form submission
+      return;
     }
 
     const formData = {
-      fullName,
       aadharUID,
       walletAddress,
       signingUpAs,
@@ -53,72 +56,22 @@ const LoginComponent = ({initialFormType}) => {
     }
   };
 
-  const renderFormFields = () => {
-    switch (formType) {
-      case "lawyer":
-        return (
-          <>
-            <div className="mb-4">
-              <label className="block mb-2">Full Name</label>
-              <input
-                type="text"
-                className="border rounded-lg py-2 px-4 w-full"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
-            </div>
-          </>
-        );
-      case "client":
-        return (
-          <>
-            <div className="mb-4">
-              <label className="block mb-2">Full Name</label>
-              <input
-                type="text"
-                className="border rounded-lg py-2 px-4 w-full"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
-            </div>
-          </>
-        );
-      case "judge":
-        return (
-          <>
-            <div className="mb-4">
-              <label className="block mb-2">Full Name</label>
-              <input
-                type="text"
-                className="border rounded-lg py-2 px-4 w-full"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
-            </div>
-          </>
-        );
-      default:
-        return null;
-    }
-  };
+  useEffect(() => {
+    connectMetamaskWallet();
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
-      <div className="bg-white p-8 font-montserrat w-1/2">
-        <h1 className="text-3xl font-montserrat mb-4 text-center">
+      <div className="bg-white p-8 font-montserrat w-[50%]">
+        <h1 className="text-3xl font-montserrat mb-5 text-center">
           E-Vault login
-          {/* {formType === "lawyer"
-            ? "Lawyer"
-            : formType === "client"
-            ? "Client"
-            : "Judge"} */}
         </h1>
-        <div className="mb-2 text-center">
+        <div className="mb-5 text-center">
           <Link to="/signup" className="text-blue-500">
             New user? Register with E-Vault here!
           </Link>
         </div>
-        <div className="mb-4 flex justify-center space-x-4">
+        <div className="mb-10 flex justify-center space-x-4">
           <button
             className={`py-2 px-4 rounded-lg ${
               formType === "lawyer"
@@ -160,41 +113,40 @@ const LoginComponent = ({initialFormType}) => {
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          {renderFormFields()}
-          {/* Rest of the common form fields */}
-
-          <div className="mb-4">
-            <label className="block mb-2">Aadhar UID</label>
+          <div className="mb-5">
+            {/* Replace the label with a placeholder */}
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
+              placeholder="Enter your Aadhar number ? "
               value={aadharUID}
               onChange={(e) => setAadharUID(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label className="block mb-2">Wallet Address</label>
+          <div className="mb-10">
             <div className="flex">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-3/4"
+                className="border rounded-lg py-2 px-4 w-[70%]"
+                placeholder="Wallet Address"
                 value={
-                  walletAddress.slice(0, 6) +
-                  "..." +
-                  walletAddress.slice(30, 42)
+                  walletAddress.slice(0, 15) +
+                  ". . ." +
+                  walletAddress.slice(28, 42)
                 }
+                // value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
               />
               <button
                 type="button"
-                className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg"
+                className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg w-[35%]"
                 onClick={connectMetamaskWallet}
               >
-                Connect Wallet
+                {isConnected ? "Wallet Connected" : "Connect Wallet"}
               </button>
             </div>
           </div>
-          <div className="text-center mt-4 w-full">
+          <div className="text-center mt-5 w-full">
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2"
