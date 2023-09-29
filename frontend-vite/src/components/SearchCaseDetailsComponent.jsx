@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {ethers} from "ethers";
-import {Link} from "react-router-dom";
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
 
 const SearchCaseDetailsComponent = () => {

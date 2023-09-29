@@ -24,6 +24,7 @@ function App() {
         <Route path="/login/:initialFormType" element={<LoginPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/test" element={<TestPage />}></Route>
+        <Route path="/admin/:clientUID" element={<ClientAdminPage />} />
         <Route path="/admin" element={<ClientAdminPage />}></Route>
         <Route path="/logout" element={<HomePage />}></Route>
         <Route

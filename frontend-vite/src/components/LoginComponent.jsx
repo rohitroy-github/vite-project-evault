@@ -45,7 +45,7 @@ const LoginComponent = ({initialFormType}) => {
     if (isClientRegistered) {
       // Client is registered, you can proceed with the login logic here
       alert("Login successful!");
-      navigate("/admin");
+      navigate(`/admin/${aadharUID}`);
       // Redirect or perform other actions as needed
     } else {
       // Client is not registered
