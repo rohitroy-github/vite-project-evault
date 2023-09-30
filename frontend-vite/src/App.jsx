@@ -16,25 +16,27 @@ import CaseDetailsPage from "./pages/CaseDetailsPage";
 function App() {
   return (
     <>
-      <Navbar />
+      <div className="min-h-screen">
+        <Navbar />
 
-      <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/signup" element={<SignUpPage />}></Route>
-        <Route path="/login/:initialFormType" element={<LoginPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/test" element={<TestPage />}></Route>
-        <Route path="/admin/:clientUID" element={<ClientAdminPage />} />
-        <Route path="/admin" element={<ClientAdminPage />}></Route>
-        <Route path="/logout" element={<HomePage />}></Route>
-        <Route
-          path="/get-case-details"
-          element={<GetCaseDetailsPage />}
-        ></Route>
-        <Route path="/case-details" element={<CaseDetailsPage />}></Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/signup" element={<SignUpPage />}></Route>
+          <Route path="/login/:initialFormType" element={<LoginPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/test" element={<TestPage />}></Route>
+          <Route path="/admin/:clientUID" element={<ClientAdminPage />} />
+          <Route path="/admin" element={<ClientAdminPage />}></Route>
+          <Route path="/logout" element={<HomePage />}></Route>
+          <Route
+            path="/get-case-details"
+            element={<GetCaseDetailsPage />}
+          ></Route>
+          <Route path="/case-details" element={<CaseDetailsPage />}></Route>
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }
