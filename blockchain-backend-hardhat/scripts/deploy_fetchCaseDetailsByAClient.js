@@ -10,8 +10,11 @@ const {
   //   judge,
   client1,
   client2,
+  client3,
+  client4,
   legalCase1,
   legalCase2,
+  legalCase3,
 } = require("../assets/test-deploy-data.json");
 
 async function main() {
@@ -25,7 +28,7 @@ async function main() {
   console.log(`Contract owner: ${await eVaultMain.contractOwner()}`);
   console.log(`Contract name: ${await eVaultMain.contractName()}`);
 
-  console.log("Registering 2 new demo clients now ... \u23F3");
+  console.log("Registering 4 new demo clients now ... \u23F3");
 
   // makingATestInterraction
   const [deployer] = await ethers.getSigners();
@@ -64,14 +67,58 @@ async function main() {
 
   console.log("Client 2 added to the blockchain. \u2705");
 
+  const client3Tx = await eVaultMain
+    .connect(deployer)
+    .registerClient(
+      client3.name,
+      client3.dateOfBirth,
+      client3.religion,
+      client3.nationality,
+      client3.sex,
+      client3.contactNumber,
+      client3.UID,
+      client3.PAN
+    );
+
+  await client3Tx.wait();
+
+  console.log("Client 3 added to the blockchain. \u2705");
+
+  const client4Tx = await eVaultMain
+    .connect(deployer)
+    .registerClient(
+      client4.name,
+      client4.dateOfBirth,
+      client4.religion,
+      client4.nationality,
+      client4.sex,
+      client4.contactNumber,
+      client4.UID,
+      client4.PAN
+    );
+
+  await client4Tx.wait();
+
+  console.log("Client 4 added to the blockchain. \u2705");
+
   console.log("Checking if client are registered successfully \u23F3");
   await getClientDetails(eVaultMain, 791619819984);
   console.log("Client 1 verified \u2705");
 
-  await getClientDetails(eVaultMain, 791619819985);
+  await getClientDetails(eVaultMain, 791619819988);
   console.log("Client 2 verified \u2705");
 
-  console.log("Filing 2 new demo case between these 2 client now ... \u23F3");
+  await getClientDetails(eVaultMain, 791619819986);
+  console.log("Client 3 verified \u2705");
+
+  await getClientDetails(eVaultMain, 791619819987);
+  console.log("Client 4 verified \u2705");
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+
+  console.log(
+    `Filing 3 new demo case between client : ${client1.UID} and 3 other clients ... \u23F3`
+  );
 
   const legalCase1Tx = await eVaultMain.connect(deployer).registerLegalCase(
     legalCase1.UIDOfParty1,
@@ -97,15 +144,31 @@ async function main() {
 
   await legalCase2Tx.wait();
 
+  const legalCase3Tx = await eVaultMain.connect(deployer).registerLegalCase(
+    legalCase3.UIDOfParty1,
+    legalCase3.UIDOfParty2,
+    legalCase3.associatedJudge,
+    legalCase3.caseSubject,
+    legalCase3.associatedLawyers.map((lawyerAddress) =>
+      ethers.utils.getAddress(lawyerAddress)
+    )
+  );
+
+  await legalCase3Tx.wait();
+
   console.log("Demo legal cases added to the blockchain \u2705");
 
   console.log("Checking if Case 1 is registered successfully \u23F3");
   await getLegalCaseDetails(eVaultMain, 1);
-  console.log("Case verified \u2705");
+  console.log("Case 1 verified \u2705");
 
   console.log("Checking if Case 2 is registered successfully \u23F3");
   await getLegalCaseDetails(eVaultMain, 2);
-  console.log("Case verified \u2705");
+  console.log("Case 2 verified \u2705");
+
+  console.log("Checking if Case 3 is registered successfully \u23F3");
+  await getLegalCaseDetails(eVaultMain, 3);
+  console.log("Case 3 verified \u2705");
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
