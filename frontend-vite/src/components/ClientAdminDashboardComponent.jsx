@@ -40,20 +40,20 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
 
   return (
     <>
-      <div className="flex items-center justify-center h-[10vh] md:flex-col">
+      <div className="flex items-center justify-center pt-5 md:flex-col">
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
           Client Dashboard
         </button>
       </div>
       <div className="flex items-center justify-center min-h-[90vh] md:flex-row md:w-full">
         {/* Left Section */}
-        <div className="md:w-1/2 flex flex-col items-center">
+        <div className="md:w-[60%] flex flex-col items-center px-5">
           <div className=" text-black">
             <h2 className="text-3xl font-montserrat mb-4">Your Recent Cases</h2>
           </div>
 
           {last3Cases ? (
-            <div className="space-y-4 md:space-y-3 w-full">
+            <div className="space-y-4 md:space-y-3 w-[90%]">
               {last3Cases.map((caseInfo, index) => (
                 <div
                   key={index}
@@ -90,14 +90,14 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
         </div>
 
         {/* Right Section */}
-        <div className="md:w-1/2 flex flex-col items-center">
-          <div className="text-left">
-            <h2 className="text-3xl font-montserrat mb-4">
+        <div className="md:w-[40%] flex flex-col items-center px-5">
+          <div className="w-[90%]">
+            <h2 className="text-3xl font-montserrat mb-4 text-center">
               Client Profile Information
             </h2>{" "}
             {clientDetails ? (
               <>
-                <div className="bg-white p-5 rounded-lg border border-gray-300 w-[full]">
+                <div className="bg-white p-5 rounded-lg border border-gray-300 w-[full] text-left">
                   <p className="font-montserrat mb-2">
                     Full Name: {clientDetails.name}
                   </p>
