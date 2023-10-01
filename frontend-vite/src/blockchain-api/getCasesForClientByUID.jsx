@@ -19,10 +19,7 @@ const getClientCases = async (clientUID) => {
       clientUID
     );
 
-    // justTakingTheLast3Cases
-    const justLast3Cases = fetchedCases.slice(-3);
-
-    const formattedCases = justLast3Cases.map((details) => ({
+    const formattedCases = fetchedCases.map((details) => ({
       UIDOfParty1: details[0].toNumber(),
       UIDOfParty2: details[1].toNumber(),
       filedOnDate: new Date(details[2].toNumber() * 1000),
