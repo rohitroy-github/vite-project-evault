@@ -4,21 +4,9 @@ import getClientDetailsByUID from "../blockchain-api/getClientDetailsByUID";
 import getCasesForClientByUID from "../blockchain-api/getCasesForClientByUID";
 
 const ClientAdminDashboardComponent = ({clientUID}) => {
-  const [counters, setCounters] = useState({
-    totalClients: 41,
-    totalRegisteredLawyers: 25,
-    totalRegisteredJudges: 12,
-    totalRecordedCases: 112,
-  });
-  const counterHeadings = {
-    totalClients: "Total Registered Clients",
-    totalRegisteredLawyers: "Total Registered Lawyers",
-    totalRegisteredJudges: "Total Registered Judges",
-    totalRecordedCases: "Total Recorded Cases",
-  };
-
   const [clientDetails, setClientDetails] = useState(null);
 
+  const [allCasesOnClient, setAllCasesOnClient] = useState([]);
   const [last3Cases, setLast3Cases] = useState([]);
 
   const fetchData = async () => {
@@ -26,9 +14,13 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
       const result1 = await getClientDetailsByUID(clientUID);
       setClientDetails(result1);
 
-      // Fetch the last 3 cases
+      // FetchignAllTheCasesOnTheClient
       const result2 = await getCasesForClientByUID(clientUID);
-      setLast3Cases(result2);
+      setAllCasesOnClient(result2);
+
+      // justTakingTheLast3Cases
+      const justLast3Cases = result2.slice(-3);
+      setLast3Cases(justLast3Cases);
     } catch (error) {
       console.error("Error fetching client details:", error);
     }
@@ -57,18 +49,18 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
               {last3Cases.map((caseInfo, index) => (
                 <div
                   key={index}
-                  className="bg-white p-5 rounded-lg border border-gray-300"
+                  className="bg-white p-5 rounded-lg border border-gray-300 hover:bg-gray-100"
                   style={{position: "relative"}}
                 >
                   <div className="flex flex-row justify-between">
                     <div className="order-first">
-                      <p className="text-lg font-montserrat ">
+                      <p className="text-lg font-montserrat">
                         Case Subject: {caseInfo.caseSubject}
                       </p>
                     </div>
 
                     <div className="order-last">
-                      <p className="text-sm font-montserrat ">
+                      <p className="text-sm font-montserrat">
                         Case ID: {caseInfo.caseId}
                       </p>
                     </div>
@@ -126,6 +118,56 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
             )}
           </div>
         </div>
+      </div>
+      <div className="flex items-center justify-center min-h-[90vh] md:flex-col md:w-full">
+        <div className="text-black">
+          <h2 className="text-3xl font-montserrat mb-4">Your Past Cases</h2>
+        </div>
+
+        {allCasesOnClient ? (
+          <div className="space-y-4 md:space-y-3 w-[90%]">
+            {allCasesOnClient.map((caseInfo, index) => (
+              <div
+                key={index}
+                className="bg-white p-5 rounded-lg border border-gray-300 hover:bg-gray-100"
+                style={{position: "relative"}}
+              >
+                <div className="flex flex-row justify-between">
+                  <div className="order-first">
+                    <p className="text-lg font-montserrat">
+                      Case Subject: {caseInfo.caseSubject}
+                    </p>
+                  </div>
+
+                  <div className="order-last">
+                    <p className="text-sm font-montserrat">
+                      Case ID: {caseInfo.caseId}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-sm font-montserrat">
+                  Case judged by : {caseInfo.associatedJudge}
+                </p>
+
+                <p className="text-sm font-montserrat">
+                  Filed On: {caseInfo.filedOnDate.toLocaleString()}
+                </p>
+
+                <p className="text-sm font-montserrat">
+                  {/* Case status : {caseInfo.associatedJudge} */}
+                  Case status : Pending
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-4 md:space-y-3">
+            <p className="text-lg font-montserrat">
+              Fetching your past cases ...
+            </p>
+          </div>
+        )}
       </div>
     </>
   );
