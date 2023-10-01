@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 
 import getClientDetailsByUID from "../blockchain-api/getClientDetailsByUID";
 import getCasesForClientByUID from "../blockchain-api/getCasesForClientByUID";
@@ -121,11 +122,19 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
       </div>
       <div className="flex items-center justify-center min-h-[90vh] md:flex-col md:w-full">
         <div className="text-black">
-          <h2 className="text-3xl font-montserrat mb-4">Your Past Cases</h2>
+          <h2 className="text-3xl font-montserrat pb-5">Your Past Cases</h2>
+        </div>
+        <div className="pb-5">
+          <Link
+            to="/register-new-case"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-3 px-5 rounded"
+          >
+            Register New Case
+          </Link>
         </div>
 
         {allCasesOnClient ? (
-          <div className="space-y-4 md:space-y-3 w-[90%]">
+          <div className="space-y-4 md:space-y-3 w-[75%]">
             {allCasesOnClient.map((caseInfo, index) => (
               <div
                 key={index}
@@ -134,7 +143,7 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
               >
                 <div className="flex flex-row justify-between">
                   <div className="order-first">
-                    <p className="text-lg font-montserrat">
+                    <p className="text-md font-montserrat font-semibold">
                       Case Subject: {caseInfo.caseSubject}
                     </p>
                   </div>

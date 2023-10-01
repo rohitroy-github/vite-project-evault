@@ -68,10 +68,16 @@ const Navbar = () => {
           {isAdminRoute ? (
             <>
               <Link
+                to="/register-new-case"
+                className="text-black font-montserrat hover:text-blue-300"
+              >
+                Register New Case
+              </Link>
+              <Link
                 to="/get-case-details"
                 className="text-black font-montserrat hover:text-blue-300"
               >
-                Get Case Details
+                Case Search
               </Link>
               <Link
                 to="/logout"
