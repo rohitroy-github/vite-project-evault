@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {ethers} from "ethers"; // Import ethers.js
+import {ethers} from "ethers";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +12,7 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const isAdminRoute = location.pathname === "/admin";
+  const isAdminRoute = location.pathname.startsWith("/admin/");
 
   const connectMetamask = async () => {
     if (window.ethereum) {
@@ -68,16 +68,16 @@ const Navbar = () => {
           {isAdminRoute ? (
             <>
               <Link
+                to="/get-case-details"
+                className="text-black font-montserrat hover:text-blue-300"
+              >
+                Get Case Details
+              </Link>
+              <Link
                 to="/logout"
                 className="text-black font-montserrat hover:text-blue-300"
               >
                 Logout
-              </Link>
-              <Link
-                to="/admin"
-                className="text-black font-montserrat hover:text-blue-300"
-              >
-                Test
               </Link>
 
               {!isMetamaskConnected ? (
@@ -95,12 +95,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link
+              {/* <Link
                 to="/admin"
                 className="text-black font-montserrat hover:text-blue-300"
               >
                 Admin
-              </Link>
+              </Link> */}
 
               {!isMetamaskConnected ? (
                 <button
