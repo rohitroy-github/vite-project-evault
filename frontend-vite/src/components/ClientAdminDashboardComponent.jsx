@@ -121,8 +121,8 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
         </div>
       </div>
       <div className="flex items-center justify-center min-h-[90vh] md:flex-col md:w-full">
-        <div className="text-black">
-          <h2 className="text-3xl font-montserrat pb-5">Your Past Cases</h2>
+        <div className="text-black pb-5">
+          <h2 className="text-3xl font-montserrat p-0">Your Past Cases</h2>
         </div>
         <div className="pb-5">
           <Link
