@@ -133,7 +133,7 @@ contract eVaultMain {
         emit ClientRegistered(_UID);
     }
 
-        // functionToViewClientInformation
+    // functionToViewClientInformation
     function getClientDetailsByUID(
         uint256 _UID
     )
@@ -311,7 +311,7 @@ contract eVaultMain {
         string memory _associatedJudge,
         string memory _caseSubject,
         address[] memory _associatedLawyers
-    ) external onlyOwner {
+    ) external onlyOwner returns (uint256) {
         Client storage client1 = clients[_UIDOfParty1];
         Client storage client2 = clients[_UIDOfParty2];
 
@@ -340,6 +340,8 @@ contract eVaultMain {
         caseIdCounter++;
 
         emit CaseRegistered(_caseId);
+
+        return _caseId;
     }
 
     // function to get the filed legal cases for a client
