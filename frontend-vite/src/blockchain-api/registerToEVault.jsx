@@ -1,5 +1,4 @@
 import {ethers} from "ethers";
-import {useState} from "react";
 
 import eVaultMain from "../abis/eVaultMain.json";
 import config from "../backend-config.json";

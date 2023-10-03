@@ -1,7 +1,12 @@
 import React from "react";
+import RegisterANewCaseComponent from "../components/RegisterANewCaseComponent";
 
 const RegisterNewLegalCasePage = () => {
-  return <div>RegisterNewLegalCasePage</div>;
+  return (
+    <>
+      <RegisterANewCaseComponent />
+    </>
+  );
 };
 
 export default RegisterNewLegalCasePage;

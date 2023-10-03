@@ -1,6 +1,6 @@
 <h2>Project E-Vault (EVM Based)</h2>
 
-<b>This is a decentralized appliocation to improve the system for storing legal record for the Indian Judicial System powered by blockchain, using Vite JS.</b>
+<b>This is a decentralized application to improve the system for storing legal record for the Indian Judicial System powered by blockchain, using Vite JS.</b>
 
 <!-- Currently, the app is working on localhost using <b>Sepolia test network</b> and Alchemy. -->
 
