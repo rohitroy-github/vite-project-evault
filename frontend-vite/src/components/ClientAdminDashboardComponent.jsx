@@ -87,7 +87,7 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
           <div className="w-[90%]">
             <h2 className="text-3xl font-montserrat mb-4 text-center">
               Client Profile Information
-            </h2>{" "}
+            </h2>
             {clientDetails ? (
               <>
                 <div className="bg-white p-5 rounded-lg border border-gray-300 w-[full] text-left">
@@ -126,7 +126,7 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
         </div>
         <div className="pb-5">
           <Link
-            to="/register-new-case"
+            to={`/admin/register-new-case`}
             className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-3 px-5 rounded"
           >
             Register New Case
