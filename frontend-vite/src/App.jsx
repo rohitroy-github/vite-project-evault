@@ -35,7 +35,7 @@ function App() {
           ></Route>
           <Route path="/case-details" element={<CaseDetailsPage />}></Route>
           <Route
-            path="/register-new-case"
+            path="/admin/register-new-case"
             element={<RegisterNewLegalCasePage />}
           ></Route>
         </Routes>

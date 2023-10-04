@@ -19,9 +19,9 @@ const registerNewCase = async ({
     provider.getSigner()
   );
 
-  const lawyerAddresses = associatedLawyers
-    .split(",")
-    .map((address) => address.trim());
+  // const lawyerAddresses = associatedLawyers
+  //   .split(",")
+  //   .map((address) => address.trim());
 
   try {
     const tx = await eVaultContract.registerLegalCase(

@@ -2,45 +2,45 @@ import React, {useState, useEffect} from "react";
 import {ethers} from "ethers";
 import registerNewCase from "../blockchain-api/registerNewCase";
 
-const RegisterANewCaseComponent = ({cientAccount}) => {
-  const [UIDOfParty1, setUIDOfParty1] = useState("");
-  const [UIDOfParty2, setUIDOfParty2] = useState("");
-  const [associatedJudge, setAssociatedJudge] = useState("");
-  const [caseSubject, setCaseSubject] = useState("");
-  const [associatedLawyers, setAssociatedLawyers] = useState([]);
-  const [callerAccount, setCallerAccount] = useState("");
+// Define the initial state
+const initialState = {
+  UIDOfParty1: "",
+  UIDOfParty2: "",
+  associatedJudge: "",
+  caseSubject: "",
+  associatedLawyers: [],
+  callerAccount: "",
+};
+
+const RegisterANewCaseComponent = () => {
+  const [formData, setFormData] = useState({...initialState});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check if any of the required fields are empty
     if (
-      !UIDOfParty1 ||
-      !UIDOfParty2 ||
-      !associatedJudge ||
-      !caseSubject ||
-      !associatedLawyers ||
-      !callerAccount
+      !formData.UIDOfParty1 ||
+      !formData.UIDOfParty2 ||
+      !formData.associatedJudge ||
+      !formData.caseSubject ||
+      !formData.associatedLawyers.length ||
+      !formData.callerAccount
     ) {
       alert("Please fill in all the required fields.");
       return;
     }
 
-    const formData = {
-      UIDOfParty1,
-      UIDOfParty2,
-      associatedJudge,
-      caseSubject,
-      associatedLawyers,
-      account: callerAccount,
-    };
+    console.log("Submitted data:", formData);
 
-    console.log("Submitted data :", formData);
     try {
       const register = await registerNewCase(formData);
       alert(register);
+
+      // Reset the form data to the initial state after a successful submission
+      setFormData({...initialState});
     } catch (error) {
-      console.error("Error during registration >>> ", error);
+      console.error("Error during registration >>>", error);
     }
   };
 
@@ -53,16 +53,28 @@ const RegisterANewCaseComponent = ({cientAccount}) => {
           });
 
           if (accounts.length > 0) {
-            setCallerAccount(accounts[0]); // Set the first account as the callerAccount
+            // Set the first account as the callerAccount
+            setFormData((prevData) => ({
+              ...prevData,
+              callerAccount: accounts[0],
+            }));
           }
         } catch (error) {
-          console.error("Error fetching caller account: ", error);
+          console.error("Error fetching caller account:", error);
         }
       }
     };
 
     fetchCallerAccount();
   }, []);
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
@@ -73,56 +85,59 @@ const RegisterANewCaseComponent = ({cientAccount}) => {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-5">
-            {/* Replace the label with a placeholder */}
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Enter UID for Part 1 ? "
-              value={UIDOfParty1}
-              onChange={(e) => setUIDOfParty1(e.target.value)}
+              placeholder="Enter UID for Party 1 ?"
+              name="UIDOfParty1"
+              value={formData.UIDOfParty1}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-5">
-            {/* Replace the label with a placeholder */}
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Enter UID for Part 2 ? "
-              value={UIDOfParty2}
-              onChange={(e) => setUIDOfParty2(e.target.value)}
+              placeholder="Enter UID for Party 2 ?"
+              name="UIDOfParty2"
+              value={formData.UIDOfParty2}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-5">
-            {/* Replace the label with a placeholder */}
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Case Subject ? "
-              value={caseSubject}
-              onChange={(e) => setCaseSubject(e.target.value)}
+              placeholder="Case Subject ?"
+              name="caseSubject"
+              value={formData.caseSubject}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-5">
-            {/* Replace the label with a placeholder */}
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Case Judge ? "
-              value={associatedJudge}
-              onChange={(e) => setAssociatedJudge(e.target.value)}
+              placeholder="Case Judge ?"
+              name="associatedJudge"
+              value={formData.associatedJudge}
+              onChange={handleChange}
             />
           </div>
           <div className="mb-5">
-            {/* Replace the label with a placeholder */}
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Associated Lawyers (comma-separated) ? "
-              value={associatedLawyers}
+              placeholder="Associated Lawyers (comma-separated) ?"
+              name="associatedLawyers"
+              value={formData.associatedLawyers.join(", ")}
               onChange={(e) =>
-                setAssociatedLawyers(
-                  e.target.value.split(",").map((lawyer) => lawyer.trim())
-                )
+                setFormData((prevData) => ({
+                  ...prevData,
+                  associatedLawyers: e.target.value
+                    .split(",")
+                    .map((lawyer) => lawyer.trim()),
+                }))
               }
             />
           </div>
