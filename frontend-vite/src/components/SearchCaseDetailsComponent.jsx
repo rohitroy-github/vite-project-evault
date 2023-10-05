@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import {ethers} from "ethers";
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
 
@@ -62,7 +62,9 @@ const SearchCaseDetailsComponent = () => {
       console.log("Fetched case details:", caseDetails);
     } catch (error) {
       console.error("Error fetching case details:", error);
-      alert("Error fetching case details. Please try again.");
+      alert(
+        "Error fetching case details. There's isn't any case registered with this caseID !"
+      );
     }
   };
 
@@ -131,12 +133,11 @@ const SearchCaseDetailsComponent = () => {
                     {caseDetails.associatedLawyers.join(", ")}
                   </td>
                   <td className="border  p-2">
-                    <button
-                      className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full"
-                      onClick={() => navigate("/case-details")}
-                    >
-                      Search
-                    </button>
+                    <Link to={`/case-details?caseid=${caseDetails.caseId}`}>
+                      <button className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full">
+                        Details
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               </tbody>
