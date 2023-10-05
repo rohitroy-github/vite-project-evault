@@ -55,20 +55,25 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
                 >
                   <div className="flex flex-row justify-between">
                     <div className="order-first">
-                      <p className="text-lg font-montserrat">
+                      <p className="text-md font-montserrat">
                         Case Subject: {caseInfo.caseSubject}
                       </p>
                     </div>
 
                     <div className="order-last">
-                      <p className="text-sm font-montserrat">
+                      <p className="text-xs font-montserrat">
                         Case ID: {caseInfo.caseId}
                       </p>
                     </div>
                   </div>
 
-                  <p className="text-lg font-montserrat">
+                  <p className="text-md font-montserrat">
                     Filed On: {caseInfo.filedOnDate.toLocaleString()}
+                  </p>
+
+                  <p className="text-md font-montserrat">
+                    Case latest update:{" "}
+                    {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
                   </p>
                 </div>
               ))}
@@ -143,13 +148,13 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
               >
                 <div className="flex flex-row justify-between">
                   <div className="order-first">
-                    <p className="text-md font-montserrat font-semibold">
+                    <p className="text-md font-montserrat">
                       Case Subject: {caseInfo.caseSubject}
                     </p>
                   </div>
 
                   <div className="order-last">
-                    <p className="text-sm font-montserrat">
+                    <p className="text-xs font-montserrat">
                       Case ID: {caseInfo.caseId}
                     </p>
                   </div>
@@ -163,9 +168,14 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
                   Filed On: {caseInfo.filedOnDate.toLocaleString()}
                 </p>
 
-                <p className="text-sm font-montserrat">
+                <p className="text-sm font-montserrat font-semibold">
                   {/* Case status : {caseInfo.associatedJudge} */}
                   Case status : Pending
+                </p>
+
+                <p className="text-sm font-montserrat font-semibold">
+                  Latest case progress :{" "}
+                  {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
                 </p>
               </div>
             ))}

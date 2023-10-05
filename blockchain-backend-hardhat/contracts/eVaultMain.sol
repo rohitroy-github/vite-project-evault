@@ -16,6 +16,7 @@ contract eVaultMain {
         string associatedJudge;
         uint256 caseId;
         string caseSubject;
+        string[] caseProgress;
     }
 
     struct Client {
@@ -272,7 +273,7 @@ contract eVaultMain {
             contactNumber: _contactNumber,
             UID: _UID,
             PAN: _PAN,
-            associatedCaseIds: caseIds // Initialize the associatedCaseIds array
+            associatedCaseIds: caseIds
         });
 
         emit LawyerRegistered(_UID);
@@ -330,8 +331,12 @@ contract eVaultMain {
             associatedLawyers: _associatedLawyers,
             associatedJudge: _associatedJudge,
             caseId: _caseId,
-            caseSubject: _caseSubject
+            caseSubject: _caseSubject,
+            caseProgress: new string[](0)
         });
+
+        // AddingInitialStatusToTheCaseProgressList
+        legalCases[_caseId].caseProgress.push("Case registered with E-Vault.");
 
         // Add the legal case to the clients' associatedCaseIds
         client1.associatedCaseIds.push(_caseId);
@@ -342,6 +347,21 @@ contract eVaultMain {
         emit CaseRegistered(_caseId);
 
         return _caseId;
+    }
+
+    // Function to update the case progress by caseId
+    function updateCaseProgressWithCaseId(
+        uint256 _caseId,
+        string memory _progress
+    ) external onlyOwner {
+        LegalCase storage legalCase = legalCases[_caseId];
+        require(
+            bytes(legalCase.associatedJudge).length > 0,
+            "Legal case with this caseId does not exist"
+        );
+
+        // Append the new status to the caseProgress array
+        legalCase.caseProgress.push(_progress);
     }
 
     // function to get the filed legal cases for a client
@@ -378,7 +398,8 @@ contract eVaultMain {
             address[] memory associatedLawyers,
             string memory associatedJudge,
             uint256 caseId,
-            string memory caseSubject
+            string memory caseSubject,
+            string[] memory caseProgress
         )
     {
         LegalCase memory registeredLegalCase = legalCases[_caseId];
@@ -394,7 +415,8 @@ contract eVaultMain {
             registeredLegalCase.associatedLawyers,
             registeredLegalCase.associatedJudge,
             registeredLegalCase.caseId,
-            registeredLegalCase.caseSubject
+            registeredLegalCase.caseSubject,
+            registeredLegalCase.caseProgress
         );
     }
 
