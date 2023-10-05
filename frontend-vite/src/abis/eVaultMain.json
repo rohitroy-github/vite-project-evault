@@ -198,6 +198,11 @@
         "internalType": "string",
         "name": "caseSubject",
         "type": "string"
+      },
+      {
+        "internalType": "string[]",
+        "name": "caseProgress",
+        "type": "string[]"
       }
     ],
     "stateMutability": "view",
@@ -318,6 +323,11 @@
             "internalType": "string",
             "name": "caseSubject",
             "type": "string"
+          },
+          {
+            "internalType": "string[]",
+            "name": "caseProgress",
+            "type": "string[]"
           }
         ],
         "internalType": "struct eVaultMain.LegalCase[]",
@@ -848,6 +858,24 @@
       }
     ],
     "name": "updateAssociatedLawyers",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_caseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_progress",
+        "type": "string"
+      }
+    ],
+    "name": "updateCaseProgressWithCaseId",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

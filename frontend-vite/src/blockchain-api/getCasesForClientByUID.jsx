@@ -27,6 +27,7 @@ const getClientCases = async (clientUID) => {
       associatedJudge: details[4],
       caseId: details[5].toNumber(),
       caseSubject: details[6],
+      caseProgress: details[7],
     }));
 
     // console.log("Last 3 fetched cases : ", formattedCases);

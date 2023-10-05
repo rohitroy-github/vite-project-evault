@@ -61,6 +61,7 @@ const legalCase = {
   associatedJudge: "Justice Gomes",
   caseSubject: "Car Accident",
   caseId: 1,
+  caseProgress: ["Case registered with E-Vault."],
 };
 
 const legalCase2 = {
@@ -73,6 +74,7 @@ const legalCase2 = {
   associatedJudge: "Justice Mathur",
   caseSubject: "Murder",
   caseId: 2,
+  caseProgress: ["Case registered with E-Vault."],
 };
 
 describe("eVaultMain", () => {
@@ -252,6 +254,12 @@ describe("eVaultMain", () => {
         legalCase2.caseSubject,
         legalCase2.associatedLawyers
       );
+
+      // updatingCaseProgess
+      await eVaultMain.updateCaseProgressWithCaseId(
+        legalCase.caseId,
+        "Clients, Lawyers & Judge notified."
+      );
     });
 
     it("should add a legal case between two clients", async () => {
@@ -282,6 +290,12 @@ describe("eVaultMain", () => {
         legalCase.associatedJudge
       );
       expect(storedLegalCase.caseSubject).to.equal(legalCase.caseSubject);
+      expect(storedLegalCase.caseProgress).to.eql([
+        "Case registered with E-Vault",
+        "Clients, Lawyers & Judge notified.",
+      ]);
+
+      // console.log("Case progress :", storedLegalCase.caseProgress);
     });
 
     it("should retrieve filed legal cases for a client", async () => {
