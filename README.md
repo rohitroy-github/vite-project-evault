@@ -6,6 +6,8 @@
 
 <b>Snapshots from the project : </b>
 
+![image](https://github.com/rohitroy-github/sih-evault-project/assets/68563695/e7d73879-868a-4794-9f84-31f5fa10d60e)
+
 <b>This project is still under development </b>
 
 <b>Design file : <a href="https://www.figma.com/file/KxWQBN9kWSZFAdaGUGrT21/vite-project-evault?type=whiteboard&node-id=0-1">Figjam file</a> </b>
