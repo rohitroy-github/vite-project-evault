@@ -72,7 +72,7 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
                   </p>
 
                   <p className="text-md font-montserrat">
-                    Case latest update:{" "}
+                    Latest case update:{" "}
                     {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
                   </p>
                 </div>
