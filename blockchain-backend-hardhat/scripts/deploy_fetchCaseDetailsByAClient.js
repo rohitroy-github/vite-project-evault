@@ -183,27 +183,55 @@ async function main() {
       legalCase1.progress2 // Use the progress2 value from the data
     );
   await updateProgress1Tx.wait();
-  console.log("Case 1 progress updated \u2705");
-
-  // Update progress2 for legalCase2
   const updateProgress2Tx = await eVaultMain
     .connect(deployer)
     .updateCaseProgressWithCaseId(
-      2, // Case ID of legalCase2
-      legalCase2.progress2 // Use the progress2 value from the data
+      1, // Case ID of legalCase1
+      "Progress 3" // Use the progress2 value from the data
     );
   await updateProgress2Tx.wait();
-  console.log("Case 2 progress updated \u2705");
-
-  // Update progress2 for legalCase3
   const updateProgress3Tx = await eVaultMain
     .connect(deployer)
     .updateCaseProgressWithCaseId(
-      3, // Case ID of legalCase3
-      legalCase3.progress2 // Use the progress2 value from the data
+      1, // Case ID of legalCase1
+      "Progress 4" // Use the progress2 value from the data
     );
   await updateProgress3Tx.wait();
-  console.log("Case 3 progress updated \u2705");
+  const updateProgress4Tx = await eVaultMain
+    .connect(deployer)
+    .updateCaseProgressWithCaseId(
+      1, // Case ID of legalCase1
+      "Progress 5" // Use the progress2 value from the data
+    );
+  await updateProgress4Tx.wait();
+  const updateProgress5Tx = await eVaultMain
+    .connect(deployer)
+    .updateCaseProgressWithCaseId(
+      1, // Case ID of legalCase1
+      "Progress 6" // Use the progress2 value from the data
+    );
+  await updateProgress5Tx.wait();
+  console.log("Case 1 progress timeline updated \u2705");
+
+  // // Update progress2 for legalCase2
+  // const updateProgress2Tx = await eVaultMain
+  //   .connect(deployer)
+  //   .updateCaseProgressWithCaseId(
+  //     2, // Case ID of legalCase2
+  //     legalCase2.progress2 // Use the progress2 value from the data
+  //   );
+  // await updateProgress2Tx.wait();
+  // console.log("Case 2 progress updated \u2705");
+
+  // // Update progress2 for legalCase3
+  // const updateProgress3Tx = await eVaultMain
+  //   .connect(deployer)
+  //   .updateCaseProgressWithCaseId(
+  //     3, // Case ID of legalCase3
+  //     legalCase3.progress2 // Use the progress2 value from the data
+  //   );
+  // await updateProgress3Tx.wait();
+  // console.log("Case 3 progress updated \u2705");
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 

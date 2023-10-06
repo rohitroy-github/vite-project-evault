@@ -24,6 +24,7 @@ const getCaseDetailsByCaseID = async (caseID) => {
       associatedJudge: caseDetails[4],
       caseId: caseDetails[5].toNumber(),
       caseSubject: caseDetails[6],
+      caseProgress: caseDetails[7],
     };
   } catch (error) {
     console.error("Error while fetching case details:", error);
