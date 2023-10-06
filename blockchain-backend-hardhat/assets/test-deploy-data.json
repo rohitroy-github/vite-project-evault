@@ -78,7 +78,8 @@
     ],
     "associatedJudge": "Justice Vinayak",
     "caseSubject": "Hit and Run",
-    "caseId": 1
+    "caseId": 1,
+    "progress2": "Clients, Lawyers & Judge Notified."
   },
   "legalCase2": {
     "UIDOfParty1": 791619819984,
@@ -89,7 +90,8 @@
     ],
     "associatedJudge": "Justice Gomes",
     "caseSubject": "Car Accident",
-    "caseId": 1
+    "caseId": 1,
+    "progress2": "Clients, Lawyers & Judge Notified."
   },
   "legalCase3": {
     "UIDOfParty1": 791619819984,
@@ -100,6 +102,7 @@
     ],
     "associatedJudge": "Justice Smith",
     "caseSubject": "Property Dispute",
-    "caseId": 3
+    "caseId": 3,
+    "progress2": "Clients, Lawyers & Judge Notified."
   }
 }

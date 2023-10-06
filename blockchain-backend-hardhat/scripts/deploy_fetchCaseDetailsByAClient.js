@@ -172,6 +172,41 @@ async function main() {
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
+  // addingNewUpdatesForCases
+  console.log("Adding progress for registered case files ... \u23F3");
+
+  // Update progress2 for legalCase1
+  const updateProgress1Tx = await eVaultMain
+    .connect(deployer)
+    .updateCaseProgressWithCaseId(
+      1, // Case ID of legalCase1
+      legalCase1.progress2 // Use the progress2 value from the data
+    );
+  await updateProgress1Tx.wait();
+  console.log("Case 1 progress updated \u2705");
+
+  // Update progress2 for legalCase2
+  const updateProgress2Tx = await eVaultMain
+    .connect(deployer)
+    .updateCaseProgressWithCaseId(
+      2, // Case ID of legalCase2
+      legalCase2.progress2 // Use the progress2 value from the data
+    );
+  await updateProgress2Tx.wait();
+  console.log("Case 2 progress updated \u2705");
+
+  // Update progress2 for legalCase3
+  const updateProgress3Tx = await eVaultMain
+    .connect(deployer)
+    .updateCaseProgressWithCaseId(
+      3, // Case ID of legalCase3
+      legalCase3.progress2 // Use the progress2 value from the data
+    );
+  await updateProgress3Tx.wait();
+  console.log("Case 3 progress updated \u2705");
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+
   await getLegalCasesForClient(eVaultMain, client1.UID);
 
   // what happens when we deploy to our hardhat network?
