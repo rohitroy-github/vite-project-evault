@@ -4,6 +4,8 @@ import {Link} from "react-router-dom"; // Import Redirect from React Router
 import {useNavigate} from "react-router-dom";
 
 import loginAsAClient from "../blockchain-api/loginAsAClient";
+import loginAsALawyer from "../blockchain-api/loginAsALawyer";
+import loginAsAJudge from "../blockchain-api/loginAsAJudge";
 
 const LoginComponent = ({initialFormType}) => {
   const [formType, setFormType] = useState(initialFormType);
@@ -41,18 +43,36 @@ const LoginComponent = ({initialFormType}) => {
       walletAddress,
       signingUpAs,
     };
+
     console.log("Submitted data :", formData);
 
-    const isClientRegistered = await loginAsAClient(aadharUID);
-
-    if (isClientRegistered) {
-      // Client is registered, you can proceed with the login logic here
-      alert("Login successful!");
-      navigate(`/admin/${aadharUID}`);
-      // Redirect or perform other actions as needed
-    } else {
-      // Client is not registered
-      alert("Client with this Aadhar UID is not registered.");
+    if (signingUpAs === "lawyer") {
+      const isLawyerLoggedIn = await loginAsALawyer(aadharUID);
+      if (isLawyerLoggedIn) {
+        // Lawyer login logic
+        alert("Login as a lawyer successful!");
+        navigate(`/admin/${aadharUID}`);
+      } else {
+        alert("Login as a lawyer failed.");
+      }
+    } else if (signingUpAs === "judge") {
+      const isJudgeLoggedIn = await loginAsAJudge(aadharUID);
+      if (isJudgeLoggedIn) {
+        // Judge login logic
+        alert("Login as a judge successful!");
+        navigate(`/admin/${aadharUID}`);
+      } else {
+        alert("Login as a judge failed.");
+      }
+    } else if (signingUpAs === "client") {
+      const isClientLoggedIn = await loginAsAClient(aadharUID);
+      if (isClientLoggedIn) {
+        // Client login logic
+        alert("Login as a client successful!");
+        navigate(`/admin/${aadharUID}`);
+      } else {
+        alert("Login as a client failed.");
+      }
     }
   };
 

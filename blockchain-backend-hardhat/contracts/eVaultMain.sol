@@ -427,4 +427,16 @@ contract eVaultMain {
         // Check if the client with the given UID exists in the clients mapping
         return bytes(clients[_UID].name).length > 0;
     }
+
+    // login : lawyer
+    function loginAsALawyer(uint256 _UID) external view returns (bool) {
+        // Check if the lawyer with the given UID exists in the lawyers mapping
+        return bytes(lawyers[_UID].name).length > 0;
+    }
+
+    // login : judge
+    function loginAsAJudge(uint256 _UID) external view returns (bool) {
+        // Check if the lawyer with the given UID exists in the lawyers mapping
+        return bytes(judges[_UID].name).length > 0;
+    }
 }

@@ -4,7 +4,7 @@ import eVaultMain from "../abis/eVaultMain.json";
 import config from "../backend-config.json";
 
 // Define the loginAsAClient function
-const loginAsAClient = async (aadharUID) => {
+const loginAsALawyer = async (aadharUID) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
   const connectedNetwork = await provider.getNetwork();
@@ -23,15 +23,15 @@ const loginAsAClient = async (aadharUID) => {
     }
 
     // Call your contract's loginAsAClient function
-    const isClientRegistered = await eVaultContract.loginAsAClient(aadharUID);
+    const isLawyerRegistered = await eVaultContract.loginAsALawyer(aadharUID);
 
     // You may want to do additional checks or processing here
 
-    return isClientRegistered; // Return the result
+    return isLawyerRegistered; // Return the result
   } catch (error) {
-    console.error("Error during client login :(", error);
+    console.error("Error during lawyer login :(", error);
     throw error;
   }
 };
 
-export default loginAsAClient;
+export default loginAsALawyer;
