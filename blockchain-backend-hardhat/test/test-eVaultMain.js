@@ -291,7 +291,7 @@ describe("eVaultMain", () => {
       );
       expect(storedLegalCase.caseSubject).to.equal(legalCase.caseSubject);
       expect(storedLegalCase.caseProgress).to.eql([
-        "Case registered with E-Vault",
+        "Case registered with E-Vault.",
         "Clients, Lawyers & Judge notified.",
       ]);
 
@@ -372,6 +372,7 @@ describe("eVaultMain", () => {
   // LoginFunctionalitiesTest
 
   describe("Login Functionalities", () => {
+    // clientLogin
     it("should login as a client", async () => {
       // Register a new client
       await eVaultMain.registerClient(
@@ -390,6 +391,48 @@ describe("eVaultMain", () => {
 
       // Assert that the client is registered (should return true)
       expect(isClientRegistered).to.equal(true);
+    });
+
+    // lawyerLogin
+    it("should login as a lawyer", async () => {
+      // Register a new client
+      await eVaultMain.registerLawyer(
+        lawyer.name,
+        lawyer.dateOfBirth,
+        lawyer.religion,
+        lawyer.nationality,
+        lawyer.sex,
+        lawyer.contactNumber,
+        lawyer.UID,
+        lawyer.PAN
+      );
+
+      // Check if the client is registered by calling the loginAsAClient function
+      const isLawyerRegistered = await eVaultMain.loginAsALawyer(lawyer.UID);
+
+      // Assert that the client is registered (should return true)
+      expect(isLawyerRegistered).to.equal(true);
+    });
+
+    // judgeLogin
+    it("should login as a judge", async () => {
+      // Register a new client
+      await eVaultMain.registerJudge(
+        judge.name,
+        judge.dateOfBirth,
+        judge.religion,
+        judge.nationality,
+        judge.sex,
+        judge.contactNumber,
+        judge.UID,
+        judge.PAN
+      );
+
+      // Check if the client is registered by calling the loginAsAClient function
+      const isJudgeRegistered = await eVaultMain.loginAsAJudge(judge.UID);
+
+      // Assert that the client is registered (should return true)
+      expect(isJudgeRegistered).to.equal(true);
     });
 
     it("should not login as a non-existing client", async () => {
