@@ -76,15 +76,16 @@ const LoginComponent = ({initialFormType}) => {
     }
   };
 
-  useEffect(() => {
-    connectMetamaskWallet();
-  }, []);
+  // useEffect(() => {
+  //   // connectsWalletButtonInsideTheLoginFormOnPageLoad
+  //   connectMetamaskWallet();
+  // }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
       <div className="bg-white p-8 font-montserrat w-[50%]">
         <h1 className="text-3xl font-montserrat mb-5 text-center">
-          E-Vault login
+          E-Vault Login
         </h1>
         <div className="mb-5 text-center">
           <Link to="/signup" className="text-blue-500">
