@@ -8,6 +8,8 @@
 
 ![image](https://github.com/rohitroy-github/sih-evault-project/assets/68563695/e7d73879-868a-4794-9f84-31f5fa10d60e)
 
+![image](https://github.com/rohitroy-github/sih-evault-project/assets/68563695/2e35a5cf-43a2-4faf-bff8-48c455b41e01)
+
 <b>Design file : <a href="https://www.figma.com/file/KxWQBN9kWSZFAdaGUGrT21/vite-project-evault?type=whiteboard&node-id=0-1">Figjam file</a> </b>
 
 <b>Features :</b>
