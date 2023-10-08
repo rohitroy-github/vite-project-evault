@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import {ethers} from "ethers";
 import registerNewCase from "../blockchain-api/registerNewCase";
 
 // Define the initial state
