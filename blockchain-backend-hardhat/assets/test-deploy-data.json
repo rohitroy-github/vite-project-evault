@@ -79,7 +79,11 @@
     "associatedJudge": "Justice Vinayak",
     "caseSubject": "Hit and Run",
     "caseId": 1,
-    "progress2": "Clients, Lawyers & Judge Notified."
+    "progress2": "Clients, Lawyers & Judge Notified.",
+    "progress3": "First hearing completed.",
+    "progress4": "Second hearing postponed.",
+    "progress5": "Second hearing completed.",
+    "progress6": "Verdict announced."
   },
   "legalCase2": {
     "UIDOfParty1": 791619819984,
