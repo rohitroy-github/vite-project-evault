@@ -91,7 +91,7 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
         <div className="md:w-[40%] flex flex-col items-center px-5">
           <div className="w-[90%]">
             <h2 className="text-3xl font-montserrat mb-4 text-center">
-              Client Profile Information
+              Profile Information
             </h2>
             {clientDetails ? (
               <>
