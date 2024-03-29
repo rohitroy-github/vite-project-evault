@@ -134,7 +134,7 @@ const SignUpComponent = () => {
                   value={religion}
                   onChange={(e) => setReligion(e.target.value)}
                 >
-                  <option value="">Select your religion ?</option>
+                  <option value="">Religion ?</option>
                   <option value="Hinduism">Hinduism</option>
                   <option value="Islam">Islam</option>
                   <option value="Christianity">Christianity</option>
@@ -146,7 +146,7 @@ const SignUpComponent = () => {
                   value={nationality}
                   onChange={(e) => setNationality(e.target.value)}
                 >
-                  <option value="">Select your nationality ?</option>
+                  <option value="">Nationality ?</option>
                   <option value="Indian">Indian</option>
                 </select>
               </div>
@@ -392,8 +392,8 @@ const SignUpComponent = () => {
         </div>
       </div>
 
-      <div className="right-section w-[55%] bg-white p-8 pr-0 font-montserrat border-l border-gray-300 items-center justify-center flex">
-        <form onSubmit={handleSubmit}>
+      <div className="right-section w-[55%] bg-white p-8 pr-0 pl-5 font-montserrat border-l border-gray-300 items-center justify-center flex">
+        <form onSubmit={handleSubmit} className="w-[90%]">
           {renderFormFields()}
 
           <div className="mb-5 flex gap-5">

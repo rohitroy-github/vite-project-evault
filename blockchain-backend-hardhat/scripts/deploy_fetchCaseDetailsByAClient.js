@@ -8,6 +8,9 @@ const {ethers, run, network} = require("hardhat");
 const {
   //   lawyer,
   judge,
+  lawyer1,
+  lawyer2,
+  lawyer3,
   client1,
   client2,
   client3,
@@ -18,6 +21,10 @@ const {
 } = require("../assets/test-deploy-data.json");
 
 const {registerJudge} = require("./script-functions/function_judge");
+const {
+  registerLawyer,
+  verifyLawyerRegistration,
+} = require("./script-functions/function_lawyer");
 const {
   registerClient,
   getClientDetails,
@@ -130,6 +137,22 @@ async function main() {
   await getLegalCasesForClient(eVaultMain, client1.UID);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
+  console.log("Registering 3 new lawyers now ... \u23F3");
+
+  // registeringANewLawyer
+  await registerLawyer(deployer, eVaultMain, lawyer1);
+  await registerLawyer(deployer, eVaultMain, lawyer2);
+  await registerLawyer(deployer, eVaultMain, lawyer3);
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+
+  console.log("Verifying 3 new lawyers now ... \u23F3");
+
+  await verifyLawyerRegistration(eVaultMain, lawyer1);
+  await verifyLawyerRegistration(eVaultMain, lawyer2);
+  await verifyLawyerRegistration(eVaultMain, lawyer3);
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
 
   // registeringANewJudge
   await registerJudge(deployer, eVaultMain, judge);
@@ -168,3 +191,5 @@ main().catch((error) => {
 });
 
 // ToExecute -> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network <network-name>
+
+// ToExecute -> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network localhost
