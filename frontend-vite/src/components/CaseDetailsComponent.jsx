@@ -124,11 +124,11 @@ const CaseDetailsComponent = ({caseID}) => {
           <p>Loading case details...</p>
         )}
       </div>
-      <div className="flex w-[80%] mb-5 mt-10">
-        <div className="w-[20%] flex flex-col justify-center">
+      <div className="w-[80%] mb-5 mt-10 flex flex-col">
+        <div className="w-full flex mb-8">
           <h2 className="text-2xl font-montserrat">Case Progress</h2>
         </div>
-        <div className="w-[80%]">
+        <div className="w-full">
           {caseDetails ? (
             <div className="flex flex-col">
               {createSnakePattern(caseDetails.caseProgress).map(
@@ -140,12 +140,14 @@ const CaseDetailsComponent = ({caseID}) => {
                     {row.map((progress, index) => (
                       <div
                         key={index}
-                        className={`insideLoop2 w-1/3 h-[75px] p-3 mb-3 ml-3 border rounded-lg ${
+                        className={`insideLoop2 w-1/3 h-[75px] p-3 mb-3 border rounded-lg ${
                           caseDetails.caseProgress.indexOf(progress) + 1 ===
                           caseDetails.caseProgress.length
                             ? "bg-blue-300 animate-blink"
                             : "bg-blue-100"
-                        } hover:border-2 hover:border-blue-500 border-white-500 border-2 cursor-pointer`}
+                        } hover:border-2 hover:border-blue-500 border-white-500 border-2 cursor-pointer ${
+                          index == 0 || index % 5 == 0 ? "ml-0" : "ml-3"
+                        }`}
                       >
                         {/* {index < row.length - 1 && (
                         <div className="absolute top-1/2 right-0 -mr-2 w-4 h-4 bg-gray-300 rounded-full" />
