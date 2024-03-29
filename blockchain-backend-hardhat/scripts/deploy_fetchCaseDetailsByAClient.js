@@ -167,4 +167,4 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// ToExecute -> npx hardhat run scripts/deploy_registerANewCase.js --network <network-name>
+// ToExecute -> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network <network-name>

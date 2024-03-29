@@ -69,6 +69,42 @@
     "associatedLawyers": [],
     "associatedCaseIds": []
   },
+  "client5": {
+    "name": "Client5",
+    "dateOfBirth": "1995-05-15",
+    "religion": "Islam",
+    "nationality": "Bangladeshi",
+    "sex": "Female",
+    "contactNumber": "9051179310",
+    "UID": 791619819990,
+    "PAN": "ABC1234567",
+    "associatedLawyers": [],
+    "associatedCaseIds": []
+  },
+  "client6": {
+    "name": "Client6",
+    "dateOfBirth": "1980-10-20",
+    "religion": "Christianity",
+    "nationality": "American",
+    "sex": "Male",
+    "contactNumber": "9051179311",
+    "UID": 791619819991,
+    "PAN": "XYZ7654321",
+    "associatedLawyers": [],
+    "associatedCaseIds": []
+  },
+  "client7": {
+    "name": "Client7",
+    "dateOfBirth": "1978-03-08",
+    "religion": "Buddhism",
+    "nationality": "Japanese",
+    "sex": "Female",
+    "contactNumber": "9051179312",
+    "UID": 791619819992,
+    "PAN": "LMN9876543",
+    "associatedLawyers": [],
+    "associatedCaseIds": []
+  },
   "legalCase1": {
     "UIDOfParty1": 791619819984,
     "UIDOfParty2": 791619819988,
@@ -94,7 +130,7 @@
     ],
     "associatedJudge": "Justice Gomes",
     "caseSubject": "Car Accident",
-    "caseId": 1,
+    "caseId": 2,
     "progress2": "Clients, Lawyers & Judge Notified."
   },
   "legalCase3": {
