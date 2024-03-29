@@ -44,18 +44,20 @@ const ProjectStatistics = () => {
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-white">
       <div className="text-center text-black">
-        <h2 className="text-4xl font-montserrat mb-4">Project Statistics</h2>
+        <h2 className="text-4xl font-montserrat mb-8 text-blue-500">
+          Project Statistics
+        </h2>
       </div>
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
         {Object.entries(counters).map(([counter, value]) => (
           <div
             key={counter}
-            className="bg-white p-4 rounded-lg border border-gray-300 text-center"
+            className="bg-white px-5 py-3 rounded-lg border border-blue-500 text-center"
           >
-            <h3 className="text-2xl font-montserrat mb-2">
+            <p className="text-xl font-montserrat mb-2">
               {counterHeadings[counter]}
-            </h3>
-            <p className="text-3xl font-montserrat">{value}</p>
+            </p>
+            <p className="text-2xl font-montserrat">{value}</p>
           </div>
         ))}
       </div>

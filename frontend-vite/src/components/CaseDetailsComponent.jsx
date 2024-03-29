@@ -39,10 +39,8 @@ const CaseDetailsComponent = ({caseID}) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-5">
-      <div>
-        <h2 className="text-3xl font-montserrat mb-4 text-center">
-          Case Details
-        </h2>
+      <div className="w-[80%]">
+        <h2 className="text-2xl font-montserrat mb-8">Case Information</h2>
       </div>
       <div className="w-[80%] flex items-center justify-center">
         {caseDetails ? (

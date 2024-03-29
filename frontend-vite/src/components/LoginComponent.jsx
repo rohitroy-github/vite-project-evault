@@ -94,7 +94,7 @@ const LoginComponent = ({initialFormType}) => {
         </div>
         <div className="flex justify-center space-x-4 text-sm">
           <button
-            className={`py-2 px-4 rounded-sm ${
+            className={`py-2 px-4 rounded-md ${
               formType === "lawyer"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -107,7 +107,7 @@ const LoginComponent = ({initialFormType}) => {
             Login as a lawyer
           </button>
           <button
-            className={`py-2 px-4 rounded-sm ${
+            className={`py-2 px-4 rounded-md ${
               formType === "client"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -120,7 +120,7 @@ const LoginComponent = ({initialFormType}) => {
             Login as a client
           </button>
           <button
-            className={`py-2 px-4 rounded-sm ${
+            className={`py-2 px-4 rounded-md ${
               formType === "judge"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"

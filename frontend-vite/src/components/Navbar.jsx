@@ -33,35 +33,29 @@ const Navbar = () => {
   return (
     <nav className="bg-white w-full border-b border-gray-300 px-10 py-5">
       <div className="flex justify-between items-center">
-        <div className="text-black font-montserrat text-xl">
-          <Link to="/">E-Vault Project</Link>
+        <div className="font-montserrat text-xl text-blue-500">
+          <Link to="/">Project E-Vault</Link>
         </div>
         <div className="hidden md:flex space-x-10 items-center">
           {!isAdminRoute && (
             <>
               <Link
-                to="/"
+                to="/get-case-details"
                 className="text-black font-montserrat hover:text-blue-300"
               >
-                Home
+                Get Case Details
               </Link>
               <Link
                 to="/signup"
                 className="text-black font-montserrat hover:text-blue-300"
               >
-                SignUp
+                Sign Up
               </Link>
               <Link
                 to="/login"
                 className="text-black font-montserrat hover:text-blue-300"
               >
                 Login
-              </Link>
-              <Link
-                to="/get-case-details"
-                className="text-black font-montserrat hover:text-blue-300"
-              >
-                Get Case Details
               </Link>
             </>
           )}
