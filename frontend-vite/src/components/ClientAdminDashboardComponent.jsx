@@ -53,28 +53,30 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
                   className="bg-white p-5 rounded-lg border border-gray-300 hover:bg-gray-100"
                   style={{position: "relative"}}
                 >
-                  <div className="flex flex-row justify-between">
-                    <div className="order-first">
-                      <p className="text-md font-montserrat">
-                        Case Subject: {caseInfo.caseSubject}
-                      </p>
+                  <Link to={`/case-details?caseid=${caseInfo.caseId}`}>
+                    <div className="flex flex-row justify-between">
+                      <div className="order-first">
+                        <p className="text-md font-montserrat">
+                          Case Subject: {caseInfo.caseSubject}
+                        </p>
+                      </div>
+
+                      <div className="order-last">
+                        <p className="text-xs font-montserrat">
+                          Case ID: {caseInfo.caseId}
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="order-last">
-                      <p className="text-xs font-montserrat">
-                        Case ID: {caseInfo.caseId}
-                      </p>
-                    </div>
-                  </div>
+                    <p className="text-md font-montserrat">
+                      Filed On: {caseInfo.filedOnDate.toLocaleString()}
+                    </p>
 
-                  <p className="text-md font-montserrat">
-                    Filed On: {caseInfo.filedOnDate.toLocaleString()}
-                  </p>
-
-                  <p className="text-md font-montserrat">
-                    Latest case update:{" "}
-                    {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
-                  </p>
+                    <p className="text-md font-montserrat">
+                      Latest case update:{" "}
+                      {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
+                    </p>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -146,37 +148,39 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
                 className="bg-white p-5 rounded-lg border border-gray-300 hover:bg-gray-100"
                 style={{position: "relative"}}
               >
-                <div className="flex flex-row justify-between">
-                  <div className="order-first">
-                    <p className="text-md font-montserrat">
-                      Case Subject: {caseInfo.caseSubject}
-                    </p>
+                <Link to={`/case-details?caseid=${caseInfo.caseId}`}>
+                  <div className="flex flex-row justify-between">
+                    <div className="order-first">
+                      <p className="text-md font-montserrat">
+                        Case Subject: {caseInfo.caseSubject}
+                      </p>
+                    </div>
+
+                    <div className="order-last">
+                      <p className="text-xs font-montserrat">
+                        Case ID: {caseInfo.caseId}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="order-last">
-                    <p className="text-xs font-montserrat">
-                      Case ID: {caseInfo.caseId}
-                    </p>
-                  </div>
-                </div>
+                  <p className="text-sm font-montserrat">
+                    Case judged by : {caseInfo.associatedJudge}
+                  </p>
 
-                <p className="text-sm font-montserrat">
-                  Case judged by : {caseInfo.associatedJudge}
-                </p>
+                  <p className="text-sm font-montserrat">
+                    Filed On: {caseInfo.filedOnDate.toLocaleString()}
+                  </p>
 
-                <p className="text-sm font-montserrat">
-                  Filed On: {caseInfo.filedOnDate.toLocaleString()}
-                </p>
+                  <p className="text-sm font-montserrat font-semibold">
+                    {/* Case status : {caseInfo.associatedJudge} */}
+                    Case status : Pending
+                  </p>
 
-                <p className="text-sm font-montserrat font-semibold">
-                  {/* Case status : {caseInfo.associatedJudge} */}
-                  Case status : Pending
-                </p>
-
-                <p className="text-sm font-montserrat font-semibold">
-                  Latest case progress :{" "}
-                  {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
-                </p>
+                  <p className="text-sm font-montserrat font-semibold">
+                    Latest case progress :{" "}
+                    {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
+                  </p>
+                </Link>
               </div>
             ))}
           </div>

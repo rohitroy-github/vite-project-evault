@@ -83,18 +83,18 @@ const LoginComponent = ({initialFormType}) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
-      <div className="bg-white p-8 font-montserrat w-[50%]">
-        <h1 className="text-3xl font-montserrat mb-5 text-center">
+      <div className="left-section w-[45%] bg-white p-8 pl-0 font-montserrat items-center justify-center flex flex-col">
+        <h1 className="text-2xl font-montserrat mb-5 text-center">
           E-Vault Login
         </h1>
-        <div className="mb-5 text-center">
+        <div className="mb-5 text-center text-md">
           <Link to="/signup" className="text-blue-500">
-            New user? Register with E-Vault here!
+            New user? Register with E-Vault here !
           </Link>
         </div>
-        <div className="mb-10 flex justify-center space-x-4">
+        <div className="flex justify-center space-x-4 text-sm">
           <button
-            className={`py-2 px-4 rounded-lg ${
+            className={`py-2 px-4 rounded-md ${
               formType === "lawyer"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -107,7 +107,7 @@ const LoginComponent = ({initialFormType}) => {
             Login as a lawyer
           </button>
           <button
-            className={`py-2 px-4 rounded-lg ${
+            className={`py-2 px-4 rounded-md ${
               formType === "client"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -120,7 +120,7 @@ const LoginComponent = ({initialFormType}) => {
             Login as a client
           </button>
           <button
-            className={`py-2 px-4 rounded-lg ${
+            className={`py-2 px-4 rounded-md ${
               formType === "judge"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -133,9 +133,10 @@ const LoginComponent = ({initialFormType}) => {
             Login as a judge
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-5">
-            {/* Replace the label with a placeholder */}
+      </div>
+      <div className="right-section w-[55%] bg-white p-8 pr-0 font-montserrat border-l border-gray-300 items-center justify-center flex">
+        <form onSubmit={handleSubmit} className="w-[90%]">
+          <div className="mb-5 flex gap-5">
             <input
               type="text"
               className="border rounded-lg py-2 px-4 w-full"
@@ -144,33 +145,32 @@ const LoginComponent = ({initialFormType}) => {
               onChange={(e) => setAadharUID(e.target.value)}
             />
           </div>
-          <div className="mb-10">
-            <div className="flex">
+
+          <div className="mb-10 flex gap-5">
+            <div className="w-2/3">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-[70%]"
-                placeholder="Wallet Address"
-                value={
-                  walletAddress.slice(0, 15) +
-                  ". . ." +
-                  walletAddress.slice(28, 42)
-                }
-                // value={walletAddress}
+                className="border rounded-lg py-2 px-4 w-full"
+                placeholder="Click on 'Connect Wallet' here !"
+                value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
               />
+            </div>
+            <div className="w-1/3">
               <button
                 type="button"
-                className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg w-[35%]"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md w-full"
                 onClick={connectMetamaskWallet}
               >
                 {isConnected ? "Wallet Connected" : "Connect Wallet"}
               </button>
             </div>
           </div>
+
           <div className="text-center mt-5 w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2"
+              className="bg-blue-500 text-white py-2 px-4 rounded-md w-1/3"
             >
               Login
             </button>

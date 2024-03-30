@@ -1,8 +1,10 @@
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {ethers} from "ethers";
 
 import eVaultMain from "../abis/eVaultMain.json";
 import config from "../backend-config.json";
+
+import {Link} from "react-router-dom";
 
 import registerToEVault from "../blockchain-api/registerToEVault";
 
@@ -132,7 +134,7 @@ const SignUpComponent = () => {
                   value={religion}
                   onChange={(e) => setReligion(e.target.value)}
                 >
-                  <option value="">Select your religion ?</option>
+                  <option value="">Religion ?</option>
                   <option value="Hinduism">Hinduism</option>
                   <option value="Islam">Islam</option>
                   <option value="Christianity">Christianity</option>
@@ -144,7 +146,7 @@ const SignUpComponent = () => {
                   value={nationality}
                   onChange={(e) => setNationality(e.target.value)}
                 >
-                  <option value="">Select your nationality ?</option>
+                  <option value="">Nationality ?</option>
                   <option value="Indian">Indian</option>
                 </select>
               </div>
@@ -169,6 +171,15 @@ const SignUpComponent = () => {
                 placeholder="Enter your DOB (Date Of Birth) ?"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
+              />
+            </div>
+            <div className="mb-5">
+              <input
+                type="text"
+                className="border rounded-lg py-2 px-4 w-full"
+                placeholder="Enter your contact number ?"
+                value={contactNumber}
+                onChange={(e) => setContactNumber(e.target.value)}
               />
             </div>
           </>
@@ -231,6 +242,15 @@ const SignUpComponent = () => {
                 onChange={(e) => setDob(e.target.value)}
               />
             </div>
+            <div className="mb-5">
+              <input
+                type="text"
+                className="border rounded-lg py-2 px-4 w-full"
+                placeholder="Enter your contact number ?"
+                value={contactNumber}
+                onChange={(e) => setContactNumber(e.target.value)}
+              />
+            </div>
           </>
         );
       case "judge":
@@ -291,6 +311,15 @@ const SignUpComponent = () => {
                 onChange={(e) => setDob(e.target.value)}
               />
             </div>
+            <div className="mb-5">
+              <input
+                type="text"
+                className="border rounded-lg py-2 px-4 w-full"
+                placeholder="Enter your contact number ?"
+                value={contactNumber}
+                onChange={(e) => setContactNumber(e.target.value)}
+              />
+            </div>
           </>
         );
       default:
@@ -305,19 +334,24 @@ const SignUpComponent = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
-      <div className="bg-white p-8 font-montserrat w-[75%]">
-        <h1 className="text-3xl font-montserrat mb-5 text-center">
-          E-Vault Sign Up
+      <div className="left-section w-[45%] bg-white p-8 pl-0 font-montserrat items-center justify-center flex flex-col">
+        <h1 className="text-2xl font-montserrat mb-5 text-center">
+          E-Vault Registration
           {/* {formType === "lawyer"
             ? "Lawyer"
             : formType === "client"
             ? "Client"
             : "Judge"} */}
         </h1>
-        <h3 className="text-md font-montserrat mb-4 text-center">{account}</h3>
-        <div className="mb-10 flex justify-center space-x-4">
+        <div className="mb-5 text-center text-md">
+          <Link to="/login" className="text-blue-500">
+            Already registered ? Login with your credentials !
+          </Link>
+        </div>
+        {/* <h3 className="text-lg font-montserrat mb-4 text-center">{account}</h3> */}
+        <div className="flex justify-center space-x-4 text-sm">
           <button
-            className={`py-2 px-4 rounded-lg ${
+            className={`py-2 px-4 rounded-md ${
               formType === "lawyer"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -330,7 +364,7 @@ const SignUpComponent = () => {
             Sign up as a lawyer
           </button>
           <button
-            className={`py-2 px-4 rounded-lg ${
+            className={`py-2 px-4 rounded-md ${
               formType === "client"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -343,7 +377,7 @@ const SignUpComponent = () => {
             Sign up as a client
           </button>
           <button
-            className={`py-2 px-4 rounded-lg ${
+            className={`py-2 px-4 rounded-md ${
               formType === "judge"
                 ? "bg-blue-600 text-white"
                 : "bg-gray-300 text-gray-600"
@@ -356,19 +390,11 @@ const SignUpComponent = () => {
             Sign up as a judge
           </button>
         </div>
-        <form onSubmit={handleSubmit}>
-          {renderFormFields()}
-          {/* Rest of the common form fields */}
+      </div>
 
-          <div className="mb-5">
-            <input
-              type="text"
-              className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Enter your contact number ?"
-              value={contactNumber}
-              onChange={(e) => setContactNumber(e.target.value)}
-            />
-          </div>
+      <div className="right-section w-[55%] bg-white p-8 pr-0 pl-5 font-montserrat border-l border-gray-300 items-center justify-center flex">
+        <form onSubmit={handleSubmit} className="w-[90%]">
+          {renderFormFields()}
 
           <div className="mb-5 flex gap-5">
             <div className="w-1/2">
@@ -405,7 +431,7 @@ const SignUpComponent = () => {
             <div className="w-1/3">
               <button
                 type="button"
-                className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md w-full"
                 onClick={connectMetamaskWallet}
               >
                 {isConnected ? "Wallet Connected" : "Connect Wallet"}
@@ -416,7 +442,7 @@ const SignUpComponent = () => {
           <div className="text-center mt-5 w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/3"
+              className="bg-blue-500 text-white py-2 px-4 rounded-md w-1/3"
             >
               Sign Up
             </button>
