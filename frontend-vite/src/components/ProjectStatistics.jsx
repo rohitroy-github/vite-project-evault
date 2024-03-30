@@ -16,10 +16,10 @@ const ProjectStatistics = () => {
   };
 
   const counterHeadings = {
-    totalClients: "Total Registered Clients",
-    totalRegisteredLawyers: "Total Registered Lawyers",
-    totalRegisteredJudges: "Total Registered Judges",
-    totalRecordedCases: "Total Recorded Cases",
+    totalClients: "Total Clients",
+    totalRegisteredLawyers: "Total Lawyers",
+    totalRegisteredJudges: "Total Judges",
+    totalRecordedCases: "Total Cases",
   };
 
   useEffect(() => {
@@ -43,23 +43,38 @@ const ProjectStatistics = () => {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-white">
-      <div className="text-center text-black">
-        <h2 className="text-4xl font-montserrat mb-8 text-blue-500">
+      <div className="text-center text-black mb-8">
+        <h2 className="text-4xl font-montserrat text-blue-500">
           Project Statistics
         </h2>
       </div>
-      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        {Object.entries(counters).map(([counter, value]) => (
-          <div
-            key={counter}
-            className="bg-white px-5 py-3 rounded-lg border border-blue-500 text-center"
-          >
-            <p className="text-xl font-montserrat mb-2">
-              {counterHeadings[counter]}
-            </p>
-            <p className="text-2xl font-montserrat">{value}</p>
+
+      <div className="flex w-full">
+        {/* LeftSection >>> Data*/}
+        <div className="left-section w-[40%]">
+          <div className="flex flex-wrap gap-5 justify-center">
+            {Object.entries(counters).map(([counter, value]) => (
+              <div
+                key={counter}
+                className="w-full md:w-[45%] bg-white py-3 rounded-lg border border-blue-500 text-center"
+              >
+                <p className="text-xl font-montserrat mb-2">
+                  {counterHeadings[counter]}
+                </p>
+                <p className="text-2xl font-montserrat font-bold text-blue-500">
+                  {value}
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* RightSection >>> StaticticalChart*/}
+        <div className="right-section w-[60%] border border-blue-500 rounded-lg flex justify-center items-center font-montserrat">
+          <div>
+            <h3>Chart Code</h3>
+          </div>
+        </div>
       </div>
     </div>
   );
