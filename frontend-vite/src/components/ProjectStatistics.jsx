@@ -37,7 +37,7 @@ const data = [
     client: 57,
     lawyer: 13,
     judge: 17,
-    cases: 42
+    cases: 42,
   },
   {
     name: "Apr-24",
@@ -137,27 +137,31 @@ const ProjectStatistics = () => {
                 tick={{ strokeWidth: 1.5, fontSize: 10 }}
                 width={30}
               />
-              <Legend height={25} />
+              <Legend height={25} wrapperStyle={{ fontSize: 13 }} />
               <Line
                 type="monotone"
                 strokeWidth={2.5}
-                name="client"
+                name="Clients"
                 dataKey="client" // the key-value pair should match in data array
                 stroke="#4472C4"
               />
               <Line
                 type="monotone"
+                name="Lawyers"
                 strokeWidth={2.5}
                 dataKey="lawyer" // the key-value pair should match in data array
                 stroke="#FFC000"
               />
               <Line
                 type="monotone"
+                name="Judges"
                 strokeWidth={2.5}
                 dataKey="judge" // the key-value pair should match in data array
                 stroke="#A5A5A5"
-              /><Line
+              />
+              <Line
                 type="monotone"
+                name="Cases"
                 strokeWidth={2.5}
                 dataKey="cases" // the key-value pair should match in data array
                 stroke="#ED7D31"
