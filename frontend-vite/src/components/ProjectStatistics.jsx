@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   LineChart,
   Line,
@@ -7,60 +7,61 @@ import {
   CartesianGrid,
   Legend,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 
 // this data can be from api or other js files
 const data = [
   {
     name: "Jan-23",
-    client: 14,
+    client: 26,
     lawyer: 6,
     judge: 1,
-    cases: 2,
+    cases: 15,
   },
   {
     name: "Apr-23",
-    client: 18,
-    lawyer: 7,
-    judge: 3,
+    client: 41,
+    lawyer: 15,
+    judge: 13,
     cases: 16,
   },
   {
     name: "Jul-23",
-    client: 31,
-    lawyer: 15,
-    judge: 6,
-    cases: 18,
+    client: 42,
+    lawyer: 32,
+    judge: 13,
+    cases: 36,
   },
   {
     name: "Dec-23",
-    client: 57,
-    lawyer: 13,
-    judge: 17,
-    cases: 42,
+    client: 60,
+    lawyer: 32,
+    judge: 13,
+    cases: 94,
   },
   {
     name: "Apr-24",
-    client: 65,
-    lawyer: 26,
-    judge: 19,
-    cases: 63,
+    client: 84,
+    lawyer: 60,
+    judge: 32,
+    cases: 106,
   },
 ];
 
 const ProjectStatistics = () => {
   const [counters, setCounters] = useState({
-    totalClients: 41,
-    totalRegisteredLawyers: 25,
-    totalRegisteredJudges: 12,
-    totalRecordedCases: 112,
+    totalClients: 84,
+    totalRegisteredLawyers: 60,
+    totalRegisteredJudges: 32,
+    totalRecordedCases: 106,
   });
 
   const counterSpeeds = {
-    totalClients: 2000, // Counter 1 updates every 2 seconds
-    totalRegisteredLawyers: 3000, // Counter 2 updates every 3 seconds
-    totalRegisteredJudges: 10000, // Counter 3 updates every 10 seconds
-    totalRecordedCases: 1500, // Counter 4 updates every 1.5 seconds
+    totalClients: 6000, // Counter 1 updates every 2 seconds
+    totalRegisteredLawyers: 9000, // Counter 2 updates every 3 seconds
+    totalRegisteredJudges: 30000, // Counter 3 updates every 10 seconds
+    totalRecordedCases: 4500, // Counter 4 updates every 1.5 seconds
   };
 
   const counterHeadings = {
@@ -99,12 +100,12 @@ const ProjectStatistics = () => {
 
       <div className="flex w-full">
         {/* LeftSection >>> Data*/}
-        <div className="left-section w-[40%]">
-          <div className="flex flex-wrap gap-5 justify-center">
+        <div className="left-section w-[40%] p-5 justify-center items-center h-full">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-6 justify-center">
             {Object.entries(counters).map(([counter, value]) => (
               <div
                 key={counter}
-                className="w-full md:w-[45%] bg-white py-3 rounded-lg border border-blue-500 text-center"
+                className="md:p-12 p-16 bg-white rounded-lg border border-blue-500 text-center"
               >
                 <p className="text-xl font-montserrat mb-2">
                   {counterHeadings[counter]}
@@ -118,53 +119,59 @@ const ProjectStatistics = () => {
         </div>
 
         {/* RightSection >>> StaticticalChart*/}
-        <div className="right-section w-[60%] border border-blue-500 rounded-lg flex justify-center items-center font-montserrat">
+
+        <div className="right-section w-[60%] flex justify-center items-center font-montserrat p-5 h-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <CartesianGrid horizontal={false} vertical={false} />
               <XAxis
                 dataKey="name" // the key-value pair should match in data array
-                angle={-35}
+                angle={0}
                 height={30}
-                tick={{ strokeWidth: 1.5, fontSize: 10, dy: 10, x: 0, y: 0 }}
-                padding={{ left: 20, right: 20 }}
+                tick={{strokeWidth: 1.5, fontSize: 10, dy: 5, x: 0, y: 0}}
+                padding={{left: 20, right: 20}}
               />
               <YAxis
                 type="number"
                 includeHidden={false}
                 axisLine={false}
-                padding={{ top: 10, bottom: 10 }}
-                tick={{ strokeWidth: 1.5, fontSize: 10 }}
+                padding={{top: 5, bottom: 25}}
+                tick={{strokeWidth: 1.5, fontSize: 10}}
                 width={30}
               />
-              <Legend height={25} wrapperStyle={{ fontSize: 13 }} />
+              <Tooltip wrapperStyle={{fontSize: 12}} />
+              <Legend height={1} wrapperStyle={{fontSize: 13, paddingTop: 0}} />
               <Line
                 type="monotone"
                 strokeWidth={2.5}
                 name="Clients"
                 dataKey="client" // the key-value pair should match in data array
-                stroke="#4472C4"
+                stroke="#C3DDFD"
+                activeDot={{r: 7}}
               />
               <Line
                 type="monotone"
                 name="Lawyers"
                 strokeWidth={2.5}
                 dataKey="lawyer" // the key-value pair should match in data array
-                stroke="#FFC000"
+                stroke="#76A9FA"
+                activeDot={{r: 7}}
               />
               <Line
                 type="monotone"
                 name="Judges"
                 strokeWidth={2.5}
                 dataKey="judge" // the key-value pair should match in data array
-                stroke="#A5A5A5"
+                stroke="#1C64F2"
+                activeDot={{r: 7}}
               />
               <Line
                 type="monotone"
                 name="Cases"
                 strokeWidth={2.5}
                 dataKey="cases" // the key-value pair should match in data array
-                stroke="#ED7D31"
+                stroke="#1E429F"
+                activeDot={{r: 7}}
               />
             </LineChart>
           </ResponsiveContainer>
