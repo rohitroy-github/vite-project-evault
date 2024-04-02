@@ -8,6 +8,7 @@ async function registerLawyer(deployer, contract, lawyerData) {
     contactNumber,
     UID,
     PAN,
+    walletAddress,
   } = lawyerData;
 
   // console.log(`Registering lawyer : [ ${name} ] ... \u23F3`);
@@ -22,7 +23,8 @@ async function registerLawyer(deployer, contract, lawyerData) {
       sex,
       contactNumber,
       UID,
-      PAN
+      PAN,
+      walletAddress
     );
 
   await registerLawyerTx.wait();

@@ -8,7 +8,8 @@
     "contactNumber": "9051179305",
     "UID": 791619819989,
     "PAN": "EQJPR7681F",
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
   },
   "lawyer2": {
     "name": "Lawyer2",
@@ -19,7 +20,8 @@
     "contactNumber": "9876543210",
     "UID": 123456789012,
     "PAN": "ABCDEF1234G",
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
   },
   "lawyer3": {
     "name": "Lawyer3",
@@ -30,9 +32,10 @@
     "contactNumber": "9988776655",
     "UID": 987654321098,
     "PAN": "WXYZ1234H",
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
   },
-  "judge": {
+  "judge1": {
     "name": "Judge1",
     "dateOfBirth": "2001-12-30",
     "religion": "Hinduism",
@@ -41,7 +44,32 @@
     "contactNumber": "9051179305",
     "UID": 791619819989,
     "PAN": "EQJPR7681F",
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0x90f79bf6eb2c4f870365e785982e1f101e93b906"
+  },
+  "judge2": {
+    "name": "Judge2",
+    "dateOfBirth": "1975-06-15",
+    "religion": "Christianity",
+    "nationality": "American",
+    "sex": "Female",
+    "contactNumber": "555-123-4567",
+    "UID": 123456789012,
+    "PAN": "ABCPD1234E",
+    "associatedCaseIds": [],
+    "walletAddress": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65"
+  },
+  "judge3": {
+    "name": "Judge3",
+    "dateOfBirth": "1980-03-25",
+    "religion": "Islam",
+    "nationality": "Pakistani",
+    "sex": "Male",
+    "contactNumber": "+92 300 1234567",
+    "UID": 987654321098,
+    "PAN": "PQRXY5678Z",
+    "associatedCaseIds": [],
+    "walletAddress": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc"
   },
   "client1": {
     "name": "Client1",
@@ -53,7 +81,8 @@
     "UID": 791619819984,
     "PAN": "EQJPR7681M",
     "associatedLawyers": [],
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0x976ea74026e726554db657fa54763abd0c3a0aa9"
   },
   "client2": {
     "name": "Client2",
@@ -65,7 +94,8 @@
     "UID": 791619819988,
     "PAN": "EQJPR7681N",
     "associatedLawyers": [],
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0x14dc79964da2c08b23698b3d3cc7ca32193d9955"
   },
   "client3": {
     "name": "Client3",
@@ -77,62 +107,15 @@
     "UID": 791619819986,
     "PAN": "EQJPR7681N",
     "associatedLawyers": [],
-    "associatedCaseIds": []
-  },
-  "client4": {
-    "name": "Client4",
-    "dateOfBirth": "2001-12-30",
-    "religion": "Hinduism",
-    "nationality": "Indian",
-    "sex": "Male",
-    "contactNumber": "9051179308",
-    "UID": 791619819987,
-    "PAN": "EQJPR7681N",
-    "associatedLawyers": [],
-    "associatedCaseIds": []
-  },
-  "client5": {
-    "name": "Client5",
-    "dateOfBirth": "1995-05-15",
-    "religion": "Islam",
-    "nationality": "Bangladeshi",
-    "sex": "Female",
-    "contactNumber": "9051179310",
-    "UID": 791619819990,
-    "PAN": "ABC1234567",
-    "associatedLawyers": [],
-    "associatedCaseIds": []
-  },
-  "client6": {
-    "name": "Client6",
-    "dateOfBirth": "1980-10-20",
-    "religion": "Christianity",
-    "nationality": "American",
-    "sex": "Male",
-    "contactNumber": "9051179311",
-    "UID": 791619819991,
-    "PAN": "XYZ7654321",
-    "associatedLawyers": [],
-    "associatedCaseIds": []
-  },
-  "client7": {
-    "name": "Client7",
-    "dateOfBirth": "1978-03-08",
-    "religion": "Buddhism",
-    "nationality": "Japanese",
-    "sex": "Female",
-    "contactNumber": "9051179312",
-    "UID": 791619819992,
-    "PAN": "LMN9876543",
-    "associatedLawyers": [],
-    "associatedCaseIds": []
+    "associatedCaseIds": [],
+    "walletAddress": "0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f"
   },
   "legalCase1": {
     "UIDOfParty1": 791619819984,
     "UIDOfParty2": 791619819988,
     "associatedLawyers": [
-      "0xD34861D1DC54BDAa9B42a9FBc875BF9685804B17",
-      "0x3BcC4202014dF6590E7bFf29783188B1a72d5aF4"
+      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
     ],
     "associatedJudge": "Justice Vinayak",
     "caseSubject": "Hit and Run",
@@ -144,11 +127,11 @@
     "progress6": "Verdict announced."
   },
   "legalCase2": {
-    "UIDOfParty1": 791619819984,
+    "UIDOfParty1": 791619819988,
     "UIDOfParty2": 791619819986,
     "associatedLawyers": [
-      "0xD34861D1DC54BDAa9B42a9FBc875BF9685804B17",
-      "0x3BcC4202014dF6590E7bFf29783188B1a72d5aF4"
+      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
     ],
     "associatedJudge": "Justice Gomes",
     "caseSubject": "Car Accident",
@@ -156,10 +139,10 @@
     "progress2": "Clients, Lawyers & Judge Notified."
   },
   "legalCase3": {
-    "UIDOfParty1": 791619819984,
-    "UIDOfParty2": 791619819987,
+    "UIDOfParty1": 791619819986,
+    "UIDOfParty2": 791619819984,
     "associatedLawyers": [
-      "0xD34861D1DC54BDAa9B42a9FBc875BF9685804B17",
+      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
       "0x3BcC4202014dF6590E7bFf29783188B1a72d5aF4"
     ],
     "associatedJudge": "Justice Smith",

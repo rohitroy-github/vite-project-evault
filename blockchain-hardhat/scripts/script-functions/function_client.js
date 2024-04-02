@@ -10,6 +10,7 @@ async function registerClient(deployer, contract, clientData) {
     contactNumber,
     UID,
     PAN,
+    walletAddress,
   } = clientData;
 
   //   console.log(`Registering client : [ ${name} ] ... \u23F3`);
@@ -24,7 +25,8 @@ async function registerClient(deployer, contract, clientData) {
       sex,
       contactNumber,
       UID,
-      PAN
+      PAN,
+      walletAddress
     );
 
   await registerClientTX.wait();

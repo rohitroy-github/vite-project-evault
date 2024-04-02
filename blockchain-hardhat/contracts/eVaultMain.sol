@@ -98,7 +98,8 @@ contract eVaultMain {
         string memory _sex,
         string memory _contactNumber,
         uint256 _UID,
-        string memory _PAN
+        string memory _PAN,
+        address _walletAddress
     ) external {
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(
@@ -128,7 +129,7 @@ contract eVaultMain {
             PAN: _PAN,
             associatedLawyers: lawyers,
             associatedCaseIds: caseIds,
-            walletAddress: msg.sender
+            walletAddress: _walletAddress
         });
 
         emit ClientRegistered(_UID);
@@ -184,7 +185,8 @@ contract eVaultMain {
         string memory _sex,
         string memory _contactNumber,
         uint256 _UID,
-        string memory _PAN
+        string memory _PAN,
+        address _walletAddress
     ) external onlyOwner {
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(
@@ -212,7 +214,7 @@ contract eVaultMain {
             UID: _UID,
             PAN: _PAN,
             associatedCaseIds: caseIds,
-            walletAddress: msg.sender
+            walletAddress: _walletAddress
         });
 
         emit JudgeRegistered(_UID);
@@ -245,7 +247,8 @@ contract eVaultMain {
         string memory _sex,
         string memory _contactNumber,
         uint256 _UID,
-        string memory _PAN
+        string memory _PAN,
+        address _walletAddress
     ) external onlyOwner {
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(
@@ -265,7 +268,7 @@ contract eVaultMain {
 
         lawyers[_UID] = Lawyer({
             name: _name,
-            walletAddress: msg.sender,
+            walletAddress: _walletAddress,
             dateOfBirth: _dateOfBirth,
             religion: _religion,
             nationality: _nationality,

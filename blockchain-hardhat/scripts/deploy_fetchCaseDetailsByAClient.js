@@ -7,14 +7,15 @@ const {ethers, run, network} = require("hardhat");
 
 const {
   //   lawyer,
-  judge,
+  judge1,
+  judge2,
+  judge3,
   lawyer1,
   lawyer2,
   lawyer3,
   client1,
   client2,
   client3,
-  client4,
   legalCase1,
   legalCase2,
   legalCase3,
@@ -52,13 +53,12 @@ async function main() {
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
-  console.log("Registering 4 new clients now ... \u23F3");
+  console.log("Registering 3 new clients now ... \u23F3");
 
   // Register a new judge using the provided data
   await registerClient(deployer, eVaultMain, client1);
   await registerClient(deployer, eVaultMain, client2);
   await registerClient(deployer, eVaultMain, client3);
-  await registerClient(deployer, eVaultMain, client4);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
@@ -66,8 +66,32 @@ async function main() {
   await getClientDetails(eVaultMain, 791619819984);
   await getClientDetails(eVaultMain, 791619819988);
   await getClientDetails(eVaultMain, 791619819986);
-  await getClientDetails(eVaultMain, 791619819987);
   console.log("All 4 clients are verified successfully. \u2705");
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+  console.log("Registering 3 new lawyers now ... \u23F3");
+
+  // registeringANewLawyer
+  await registerLawyer(deployer, eVaultMain, lawyer1);
+  await registerLawyer(deployer, eVaultMain, lawyer2);
+  await registerLawyer(deployer, eVaultMain, lawyer3);
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+
+  console.log("Verifying 3 new lawyers now ... \u23F3");
+
+  await verifyLawyerRegistration(eVaultMain, lawyer1);
+  await verifyLawyerRegistration(eVaultMain, lawyer2);
+  await verifyLawyerRegistration(eVaultMain, lawyer3);
+
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+
+  console.log("Registering 3 new judges now ... \u23F3");
+
+  // registeringANewJudge
+  await registerJudge(deployer, eVaultMain, judge1);
+  await registerJudge(deployer, eVaultMain, judge2);
+  await registerJudge(deployer, eVaultMain, judge3);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
@@ -135,27 +159,6 @@ async function main() {
 
   // fetchingCasesForAClient?
   await getLegalCasesForClient(eVaultMain, client1.UID);
-
-  console.log("- - - - - - - - - - - - - - - - - - - - -");
-  console.log("Registering 3 new lawyers now ... \u23F3");
-
-  // registeringANewLawyer
-  await registerLawyer(deployer, eVaultMain, lawyer1);
-  await registerLawyer(deployer, eVaultMain, lawyer2);
-  await registerLawyer(deployer, eVaultMain, lawyer3);
-
-  console.log("- - - - - - - - - - - - - - - - - - - - -");
-
-  console.log("Verifying 3 new lawyers now ... \u23F3");
-
-  await verifyLawyerRegistration(eVaultMain, lawyer1);
-  await verifyLawyerRegistration(eVaultMain, lawyer2);
-  await verifyLawyerRegistration(eVaultMain, lawyer3);
-
-  console.log("- - - - - - - - - - - - - - - - - - - - -");
-
-  // registeringANewJudge
-  await registerJudge(deployer, eVaultMain, judge);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 

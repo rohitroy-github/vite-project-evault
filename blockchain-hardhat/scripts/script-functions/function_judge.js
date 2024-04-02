@@ -8,9 +8,10 @@ async function registerJudge(deployer, contract, judgeData) {
     contactNumber,
     UID,
     PAN,
+    walletAddress,
   } = judgeData;
 
-  console.log(`Registering Judge : [ ${name} ] ... \u23F3`);
+  // console.log(`Registering Judge : [ ${name} ] ... \u23F3`);
 
   const registerJudgeTx = await contract
     .connect(deployer)
@@ -22,7 +23,8 @@ async function registerJudge(deployer, contract, judgeData) {
       sex,
       contactNumber,
       UID,
-      PAN
+      PAN,
+      walletAddress
     );
 
   await registerJudgeTx.wait();
