@@ -29,7 +29,7 @@ async function registerLawyer(deployer, contract, lawyerData) {
 
   await registerLawyerTx.wait();
 
-  console.log(`Lawyer [ ${name} | ${UID} ] added successfully. \u2705`);
+  console.log(`Lawyer [ ${name} | ${UID} ] added to blockchain. \u2705`);
 }
 
 async function verifyLawyerRegistration(contract, lawyerData) {

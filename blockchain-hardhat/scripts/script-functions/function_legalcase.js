@@ -14,9 +14,7 @@ async function registerLegalCase(deployer, contract, caseData) {
     UIDOfParty2,
     associatedJudge,
     caseSubject,
-    associatedLawyers.map((lawyerAddress) =>
-      ethers.utils.getAddress(lawyerAddress)
-    )
+    associatedLawyers.map((lawyerAddress) => lawyerAddress)
   );
 
   await registerCaseTX.wait();
@@ -57,7 +55,7 @@ async function updateCaseProgressWithCaseId(
 
   await updateCaseProgressTX.wait();
 
-  console.log(`Case progress : [ ${caseID} | ${progress} ] updated. \u2705`);
+  console.log(`Case progress : [ ${caseID} | ${progress} ]. \u2705`);
 }
 
 module.exports = {

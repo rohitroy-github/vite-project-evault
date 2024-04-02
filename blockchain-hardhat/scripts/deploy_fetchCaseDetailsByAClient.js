@@ -28,7 +28,7 @@ const {
 } = require("./script-functions/function_lawyer");
 const {
   registerClient,
-  getClientDetails,
+  verifyClientRegistration,
   getLegalCasesForClient,
 } = require("./script-functions/function_client");
 const {
@@ -48,30 +48,30 @@ async function main() {
   console.log(`Contract owner: ${await eVaultMain.contractOwner()}`);
   console.log(`Contract name: ${await eVaultMain.contractName()}`);
 
-  // makingATestInterraction
   const [deployer] = await ethers.getSigners();
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
   console.log("Registering 3 new clients now ... \u23F3");
 
-  // Register a new judge using the provided data
   await registerClient(deployer, eVaultMain, client1);
   await registerClient(deployer, eVaultMain, client2);
   await registerClient(deployer, eVaultMain, client3);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
-  console.log("Checking if client are registered successfully \u23F3");
-  await getClientDetails(eVaultMain, 791619819984);
-  await getClientDetails(eVaultMain, 791619819988);
-  await getClientDetails(eVaultMain, 791619819986);
-  console.log("All 4 clients are verified successfully. \u2705");
+  console.log("Verifying 3 newly added clients \u23F3");
+
+  await verifyClientRegistration(eVaultMain, client1);
+  await verifyClientRegistration(eVaultMain, client2);
+  await verifyClientRegistration(eVaultMain, client3);
+
+  console.log("All 3 clients are verified successfully. \u2705");
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
+
   console.log("Registering 3 new lawyers now ... \u23F3");
 
-  // registeringANewLawyer
   await registerLawyer(deployer, eVaultMain, lawyer1);
   await registerLawyer(deployer, eVaultMain, lawyer2);
   await registerLawyer(deployer, eVaultMain, lawyer3);
@@ -88,7 +88,6 @@ async function main() {
 
   console.log("Registering 3 new judges now ... \u23F3");
 
-  // registeringANewJudge
   await registerJudge(deployer, eVaultMain, judge1);
   await registerJudge(deployer, eVaultMain, judge2);
   await registerJudge(deployer, eVaultMain, judge3);
@@ -96,18 +95,18 @@ async function main() {
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
   console.log(
-    `Filing 3 new legal cases between client : ${client1.UID} and 3 other clients ... \u23F3`
+    `Filing 3 new legal cases between client : ${client1.UID} and 2 other clients ... \u23F3`
   );
 
   await registerLegalCase(deployer, eVaultMain, legalCase1);
   await registerLegalCase(deployer, eVaultMain, legalCase2);
   await registerLegalCase(deployer, eVaultMain, legalCase3);
 
-  console.log("Demo legal cases added to the blockchain \u2705");
+  console.log("Legal cases added to blockchain \u2705");
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
-  console.log("Checking if cases are registered successfully \u23F3");
+  console.log("Verifying 3 newly added cases ... \u23F3");
 
   await getLegalCaseDetails(eVaultMain, 1);
   await getLegalCaseDetails(eVaultMain, 2);
@@ -115,7 +114,6 @@ async function main() {
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 
-  // addingNewUpdatesForCases
   console.log(
     `Updating progress for case [ ${legalCase1.caseId} | ${legalCase1.caseSubject} ] ... \u23F3`
   );
@@ -152,7 +150,7 @@ async function main() {
   );
 
   console.log(
-    `Case [ ${legalCase1.caseId} | ${legalCase1.caseSubject} ] progress timeline updated \u2705`
+    `Case [ ${legalCase1.caseId} | ${legalCase1.caseSubject} ] progress updated \u2705`
   );
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");

@@ -1,5 +1,3 @@
-const {getLegalCaseDetails} = require("../script-functions/function_legalcase");
-
 async function registerClient(deployer, contract, clientData) {
   const {
     name,
@@ -34,15 +32,21 @@ async function registerClient(deployer, contract, clientData) {
   console.log(`Client : [ ${name} | ${UID} ] added to blockchain. \u2705`);
 }
 
-async function getClientDetails(contract, UID) {
+async function verifyClientRegistration(contract, clientData) {
   try {
-    const clientData = await contract.getClientDetailsByUID(UID);
+    const isClientRegistered = await contract.loginAsAClient(clientData.UID);
 
-    console.log(
-      `Client : [ ${clientData.name} | ${clientData.UID} ] verified. \u2705`
-    );
+    if (isClientRegistered) {
+      console.log(
+        `Lawyer : [ ${clientData.name} | ${clientData.UID} ] verified. \u2705`
+      );
+    } else {
+      console.log(
+        `Lawyer : [ ${clientData.name} | ${clientData.UID} ] not found. \0x274C`
+      );
+    }
   } catch (error) {
-    console.log(`Error while checking for client : [ ${UID} ] : ${error}`);
+    console.log(`Error while verifying client : [ ${UID} ] : ${error}`);
   }
 }
 
@@ -52,13 +56,11 @@ async function getLegalCasesForClient(contract, UID) {
   );
   const filedCases = await contract.getFiledLegalCasesForAClient(UID);
 
-  for (let i = 0; i < filedCases.length; i++) {
-    const caseId = filedCases[i].caseId.toNumber();
-    // console.log(`Fetching details for Case ${caseId} \u23F3`);
-    await getLegalCaseDetails(contract, caseId);
-  }
-
-  console.log(`Case details fetched successfully. \u2705`);
+  console.log(`${filedCases.length} Case files fetched successfully. \u2705`);
 }
 
-module.exports = {registerClient, getClientDetails, getLegalCasesForClient};
+module.exports = {
+  registerClient,
+  verifyClientRegistration,
+  getLegalCasesForClient,
+};
