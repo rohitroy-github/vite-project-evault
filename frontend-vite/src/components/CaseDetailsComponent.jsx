@@ -1,6 +1,15 @@
 import React, {useState, useEffect} from "react";
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
-import {ethers} from "ethers";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -128,9 +137,56 @@ const CaseDetailsComponent = ({caseID}) => {
       <div className="w-[80%] mb-5 mt-10 flex flex-col">
         <div className="w-full flex items-center justify-between mb-8">
           <h2 className="text-2xl font-montserrat">Case Progress</h2>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-xs">
-            Update Progress
-          </button>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-xs">
+                Update Progress
+              </button>
+            </DialogTrigger>
+
+            <DialogContent className="sm:max-w-[425px] font-montserrat">
+              <DialogHeader>
+                <DialogTitle>Update case progress</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile here. Click save when you're
+                  done.
+                </DialogDescription>
+              </DialogHeader>
+              {/* <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    value="Pedro Duarte"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="username" className="text-right">
+                    Username
+                  </Label>
+                  <Input
+                    id="username"
+                    value="@peduarte"
+                    className="col-span-3"
+                  />
+                </div>
+              </div> */}
+              <DialogFooter
+                className={"text-center items-center justify-center"}
+              >
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-xs"
+                >
+                  Update Progress
+                </button>{" "}
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="w-full">
           {caseDetails ? (
