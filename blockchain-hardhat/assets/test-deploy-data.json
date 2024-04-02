@@ -8,7 +8,7 @@
     "contactNumber": "9051179305",
     "UID": 791619819989,
     "PAN": "EQJPR7681F",
-    "associatedCaseIds": [],
+    "associatedCaseIds": [1, 2, 3],
     "walletAddress": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
   },
   "lawyer2": {
@@ -18,7 +18,7 @@
     "nationality": "Indian",
     "sex": "Female",
     "contactNumber": "9876543210",
-    "UID": 123456789012,
+    "UID": 791619819987,
     "PAN": "ABCDEF1234G",
     "associatedCaseIds": [],
     "walletAddress": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
@@ -42,9 +42,9 @@
     "nationality": "Indian",
     "sex": "Male",
     "contactNumber": "9051179305",
-    "UID": 791619819989,
+    "UID": 791619819970,
     "PAN": "EQJPR7681F",
-    "associatedCaseIds": [],
+    "associatedCaseIds": [1, 2],
     "walletAddress": "0x90f79bf6eb2c4f870365e785982e1f101e93b906"
   },
   "judge2": {
@@ -113,10 +113,7 @@
   "legalCase1": {
     "UIDOfParty1": 791619819984,
     "UIDOfParty2": 791619819988,
-    "associatedLawyers": [
-      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
-      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
-    ],
+    "associatedLawyers": [791619819989, 791619819987],
     "associatedJudge": "Justice Vinayak",
     "caseSubject": "Hit and Run",
     "caseId": 1,
@@ -128,11 +125,8 @@
   },
   "legalCase2": {
     "UIDOfParty1": 791619819988,
-    "UIDOfParty2": 791619819986,
-    "associatedLawyers": [
-      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
-      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
-    ],
+    "UIDOfParty2": 791619819984,
+    "associatedLawyers": [791619819989, 987654321098],
     "associatedJudge": "Justice Gomes",
     "caseSubject": "Car Accident",
     "caseId": 2,
@@ -141,10 +135,7 @@
   "legalCase3": {
     "UIDOfParty1": 791619819986,
     "UIDOfParty2": 791619819984,
-    "associatedLawyers": [
-      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
-      "0x3BcC4202014dF6590E7bFf29783188B1a72d5aF4"
-    ],
+    "associatedLawyers": [791619819989, 987654321098],
     "associatedJudge": "Justice Smith",
     "caseSubject": "Property Dispute",
     "caseId": 3,

@@ -16,11 +16,15 @@ const getCaseDetailsByCaseID = async (caseID) => {
 
     const caseDetails = await eVaultContract.getCaseDetailsByCaseId(caseID);
 
+    const associatedLawyers = caseDetails[3].map((lawyer) =>
+      parseInt(lawyer.toString())
+    );
+
     return {
       UIDOfParty1: caseDetails[0].toString(),
       UIDOfParty2: caseDetails[1].toString(),
       filedOnDate: new Date(caseDetails[2].toNumber() * 1000), // Assuming filedOnDate is in Unix timestamp format
-      associatedLawyers: caseDetails[3],
+      associatedLawyers: associatedLawyers,
       associatedJudge: caseDetails[4],
       caseId: caseDetails[5].toNumber(),
       caseSubject: caseDetails[6],

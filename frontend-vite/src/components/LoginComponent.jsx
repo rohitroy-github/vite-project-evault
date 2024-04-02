@@ -51,7 +51,7 @@ const LoginComponent = ({initialFormType}) => {
       if (isLawyerLoggedIn) {
         // Lawyer login logic
         alert("Login as a lawyer successful!");
-        navigate(`/admin/${aadharUID}`);
+        navigate(`/admin/lawyer/${aadharUID}`);
       } else {
         alert("Login as a lawyer failed.");
       }
@@ -60,7 +60,7 @@ const LoginComponent = ({initialFormType}) => {
       if (isJudgeLoggedIn) {
         // Judge login logic
         alert("Login as a judge successful!");
-        navigate(`/admin/${aadharUID}`);
+        navigate(`/admin/judge/${aadharUID}`);
       } else {
         alert("Login as a judge failed.");
       }
@@ -69,7 +69,7 @@ const LoginComponent = ({initialFormType}) => {
       if (isClientLoggedIn) {
         // Client login logic
         alert("Login as a client successful!");
-        navigate(`/admin/${aadharUID}`);
+        navigate(`/admin/client/${aadharUID}`);
       } else {
         alert("Login as a client failed.");
       }

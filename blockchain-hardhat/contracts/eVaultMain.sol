@@ -12,7 +12,7 @@ contract eVaultMain {
         uint256 UIDOfParty1;
         uint256 UIDOfParty2;
         uint256 filedOnDate;
-        address[] associatedLawyers;
+        uint256[] associatedLawyers;
         string associatedJudge;
         uint256 caseId;
         string caseSubject;
@@ -28,14 +28,13 @@ contract eVaultMain {
         string contactNumber;
         uint256 UID;
         string PAN;
-        address[] associatedLawyers;
+        uint256[] associatedLawyers;
         uint256[] associatedCaseIds;
         address walletAddress;
     }
 
     struct Lawyer {
         string name;
-        address walletAddress;
         string dateOfBirth;
         string religion;
         string nationality;
@@ -44,6 +43,7 @@ contract eVaultMain {
         uint256 UID;
         string PAN;
         uint256[] associatedCaseIds;
+        address walletAddress;
     }
 
     struct Judge {
@@ -115,7 +115,7 @@ contract eVaultMain {
         );
         require(_UID > 0 && _UID <= 999999999999, "Invalid UID");
 
-        address[] memory lawyers = new address[](0);
+        uint256[] memory lawyers = new uint256[](0);
         uint256[] memory caseIds = new uint256[](0); // Initialize the associatedCaseIds array
 
         clients[_UID] = Client({
@@ -150,7 +150,7 @@ contract eVaultMain {
             string memory contactNumber,
             uint256 UID,
             string memory PAN,
-            address[] memory associatedLawyers,
+            uint256[] memory associatedLawyers,
             uint256[] memory associatedCaseIds,
             address walletAddress
         )
@@ -223,8 +223,8 @@ contract eVaultMain {
     // Add a function to update the associated lawyers
     function updateAssociatedLawyers(
         uint256 _UID,
-        address[] memory _newLawyers
-    ) external onlyOwner {
+        uint256[] memory _newLawyers
+    ) external {
         require(
             _newLawyers.length > 0,
             "The array of associated lawyers cannot be empty"
@@ -249,7 +249,7 @@ contract eVaultMain {
         uint256 _UID,
         string memory _PAN,
         address _walletAddress
-    ) external onlyOwner {
+    ) external {
         require(bytes(_name).length > 0, "Name cannot be empty");
         require(
             bytes(_dateOfBirth).length > 0,
@@ -285,14 +285,40 @@ contract eVaultMain {
     // Function to get lawyer details by UID
     function getLawyerDetailsByUID(
         uint256 _UID
-    ) external view returns (Lawyer memory) {
+    )
+        external
+        view
+        returns (
+            string memory name,
+            string memory dateOfBirth,
+            string memory religion,
+            string memory nationality,
+            string memory sex,
+            string memory contactNumber,
+            uint256 UID,
+            string memory PAN,
+            uint256[] memory associatedCaseIds,
+            address walletAddress
+        )
+    {
         Lawyer memory lawyer = lawyers[_UID];
         require(
             bytes(lawyer.name).length > 0,
             "Lawyer with this UID does not exist"
         );
 
-        return lawyer;
+        return (
+            lawyer.name,
+            lawyer.dateOfBirth,
+            lawyer.religion,
+            lawyer.nationality,
+            lawyer.sex,
+            lawyer.contactNumber,
+            lawyer.UID,
+            lawyer.PAN,
+            lawyer.associatedCaseIds,
+            lawyer.walletAddress
+        );
     }
 
     // Function to get Judge details by UID
@@ -314,7 +340,7 @@ contract eVaultMain {
         uint256 _UIDOfParty2,
         string memory _associatedJudge,
         string memory _caseSubject,
-        address[] memory _associatedLawyers
+        uint256[] memory _associatedLawyers
     ) external onlyOwner returns (uint256) {
         Client storage client1 = clients[_UIDOfParty1];
         Client storage client2 = clients[_UIDOfParty2];
@@ -344,6 +370,12 @@ contract eVaultMain {
         // Add the legal case to the clients' associatedCaseIds
         client1.associatedCaseIds.push(_caseId);
         client2.associatedCaseIds.push(_caseId);
+
+        // Update associatedCaseIds of lawyers
+        for (uint256 i = 0; i < _associatedLawyers.length; i++) {
+            Lawyer storage lawyer = lawyers[_associatedLawyers[i]];
+            lawyer.associatedCaseIds.push(_caseId);
+        }
 
         caseIdCounter++;
 
@@ -388,6 +420,48 @@ contract eVaultMain {
         return filedCases;
     }
 
+    // function to get the filed legal cases for a lawyer
+    function getFiledLegalCasesForALawyer(
+        uint256 _UID
+    ) external view returns (LegalCase[] memory) {
+        Lawyer memory lawyer = lawyers[_UID];
+        require(
+            bytes(lawyer.name).length > 0,
+            "Lawyer with this UID does not exist"
+        );
+
+        uint256[] memory caseIds = lawyer.associatedCaseIds;
+        // makingAnArrayOfStructObjects
+        LegalCase[] memory filedCases = new LegalCase[](caseIds.length);
+
+        for (uint256 i = 0; i < caseIds.length; i++) {
+            filedCases[i] = legalCases[caseIds[i]];
+        }
+
+        return filedCases;
+    }
+
+    // function to get the filed legal cases for a lawyer
+    function getFiledLegalCasesForAJudge(
+        uint256 _UID
+    ) external view returns (LegalCase[] memory) {
+        Judge memory judge = judges[_UID];
+        require(
+            bytes(judge.name).length > 0,
+            "Lawyer with this UID does not exist"
+        );
+
+        uint256[] memory caseIds = judge.associatedCaseIds;
+        // makingAnArrayOfStructObjects
+        LegalCase[] memory filedCases = new LegalCase[](caseIds.length);
+
+        for (uint256 i = 0; i < caseIds.length; i++) {
+            filedCases[i] = legalCases[caseIds[i]];
+        }
+
+        return filedCases;
+    }
+
     // function to view details of a legal case by caseId
     function getCaseDetailsByCaseId(
         uint256 _caseId
@@ -398,7 +472,7 @@ contract eVaultMain {
             uint256 UIDOfParty1,
             uint256 UIDOfParty2,
             uint256 filedOnDate,
-            address[] memory associatedLawyers,
+            uint256[] memory associatedLawyers,
             string memory associatedJudge,
             uint256 caseId,
             string memory caseSubject,

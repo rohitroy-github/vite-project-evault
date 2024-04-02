@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
+import {ethers} from "ethers";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);

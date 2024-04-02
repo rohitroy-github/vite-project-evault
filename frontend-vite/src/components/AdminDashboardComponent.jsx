@@ -3,8 +3,10 @@ import {Link} from "react-router-dom";
 
 import getClientDetailsByUID from "../blockchain-api/getClientDetailsByUID";
 import getCasesForClientByUID from "../blockchain-api/getCasesForClientByUID";
+import getLawyerDetailsByUID from "../blockchain-api/getLawyerDetailsByUID";
+import getCasesForLawyerByUID from "../blockchain-api/getCasesForLawyerByUID";
 
-const ClientAdminDashboardComponent = ({clientUID}) => {
+const AdminDashboardComponent = ({aadharUID, adminType}) => {
   const [clientDetails, setClientDetails] = useState(null);
 
   const [allCasesOnClient, setAllCasesOnClient] = useState([]);
@@ -12,16 +14,29 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
 
   const fetchData = async () => {
     try {
-      const result1 = await getClientDetailsByUID(clientUID);
-      setClientDetails(result1);
+      if (adminType == "client") {
+        const result1 = await getClientDetailsByUID(aadharUID);
+        setClientDetails(result1);
 
-      // FetchignAllTheCasesOnTheClient
-      const result2 = await getCasesForClientByUID(clientUID);
-      setAllCasesOnClient(result2);
+        // FetchignAllTheCasesOnTheClient
+        const result2 = await getCasesForClientByUID(aadharUID);
+        setAllCasesOnClient(result2);
 
-      // justTakingTheLast3Cases
-      const justLast3Cases = result2.slice(-3);
-      setLast3Cases(justLast3Cases);
+        // justTakingTheLast3Cases
+        const justLast3Cases = result2.slice(-3);
+        setLast3Cases(justLast3Cases);
+      } else if (adminType == "lawyer") {
+        const result1 = await getLawyerDetailsByUID(aadharUID);
+        setClientDetails(result1);
+
+        // FetchignAllTheCasesOnTheClient
+        const result2 = await getCasesForLawyerByUID(aadharUID);
+        setAllCasesOnClient(result2);
+
+        // justTakingTheLast3Cases
+        const justLast3Cases = result2.slice(-3);
+        setLast3Cases(justLast3Cases);
+      }
     } catch (error) {
       console.error("Error fetching client details:", error);
     }
@@ -35,7 +50,9 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
     <>
       <div className="flex items-center justify-center pt-5 md:flex-col">
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
-          Client Dashboard
+          {adminType === "client" && `Client Dashboard`}
+          {adminType === "lawyer" && `Lawyer Dashboard`}
+          {adminType === "judge" && `Judge Dashboard`}
         </button>
       </div>
       <div className="flex items-center justify-center min-h-[90vh] md:flex-row md:w-full">
@@ -196,4 +213,4 @@ const ClientAdminDashboardComponent = ({clientUID}) => {
   );
 };
 
-export default ClientAdminDashboardComponent;
+export default AdminDashboardComponent;

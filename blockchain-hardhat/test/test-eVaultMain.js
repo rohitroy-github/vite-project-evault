@@ -125,7 +125,7 @@ const judge3 = {
 const legalCase1 = {
   UIDOfParty1: 791619819984,
   UIDOfParty2: 791619819988,
-  associatedLawyers: [791619819989, 123456789012],
+  associatedLawyers: [791619819989, 791619819987],
   associatedJudge: "Justice Vinayak",
   caseSubject: "Hit and Run",
   caseId: 1,
@@ -454,6 +454,7 @@ describe("eVaultMain", () => {
       const updatedTypeLawyers = storedLegalCase.associatedLawyers.map(
         (lawyer) => BigNumber.from(lawyer).toNumber()
       );
+
       expect(updatedTypeLawyers).to.eql(legalCase1.associatedLawyers);
 
       // console.log("Case progress :", storedLegalCase.caseProgress);
