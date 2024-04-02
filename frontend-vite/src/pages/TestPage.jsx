@@ -1,16 +1,22 @@
 import React from "react";
+import {ethers} from "ethers";
+import config from "../backend-config.json";
+import eVaultMain from "../abis/eVaultMain.json";
 
-const TestPage = () => {
-  // You can set up a state variable to hold the fetched data
-  const [fetchedData, setFetchedData] = React.useState(null);
+const TestPage = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-  // Replace this function with your actual data fetching logic
-  const fetchData = async () => {
-    // Example fetching logic
-    const response = await fetch("your-api-endpoint");
-    const data = await response.json();
-    setFetchedData(data);
-  };
+  const connectedNetwork = await provider.getNetwork();
+
+  const eVaultContract = new ethers.Contract(
+    config[connectedNetwork.chainId].contract.address,
+    eVaultMain,
+    provider
+  );
+
+  const lawyerDetails = await eVaultContract.getLawyerDetailsByUID(UID);
+
+  console.log(lawyerDetails);
 
   return (
     <div className="flex h-screen justify-center items-center">

@@ -198,6 +198,8 @@ describe("eVaultMain", () => {
     it("should register a new client & verify it's details", async () => {
       const storedClient = await eVaultMain.getClientDetailsByUID(client1.UID);
 
+      console.log(storedClient);
+
       expect(storedClient.name).to.equal(client1.name);
       expect(storedClient.dateOfBirth).to.equal(client1.dateOfBirth);
       expect(storedClient.religion).to.equal(client1.religion);
@@ -262,6 +264,8 @@ describe("eVaultMain", () => {
     });
     it("should register a new lawyer & verify it's details", async () => {
       const storedLawyer = await eVaultMain.getLawyerDetailsByUID(lawyer1.UID);
+
+      console.log(storedLawyer);
 
       expect(storedLawyer.name).to.equal(lawyer1.name);
       expect(storedLawyer.dateOfBirth).to.equal(lawyer1.dateOfBirth);

@@ -7,34 +7,34 @@ import getLawyerDetailsByUID from "../blockchain-api/getLawyerDetailsByUID";
 import getCasesForLawyerByUID from "../blockchain-api/getCasesForLawyerByUID";
 
 const AdminDashboardComponent = ({aadharUID, adminType}) => {
-  const [clientDetails, setClientDetails] = useState(null);
+  const [adminDetails, setAdminDetails] = useState(null);
 
   const [allCasesOnClient, setAllCasesOnClient] = useState([]);
   const [last3Cases, setLast3Cases] = useState([]);
 
+  let result1, result2, justLast3Cases;
+
   const fetchData = async () => {
     try {
-      if (adminType == "client") {
-        const result1 = await getClientDetailsByUID(aadharUID);
-        setClientDetails(result1);
+      if (adminType === "client") {
+        result1 = await getClientDetailsByUID(aadharUID);
+        setAdminDetails(result1);
 
         // FetchignAllTheCasesOnTheClient
-        const result2 = await getCasesForClientByUID(aadharUID);
+        result2 = await getCasesForClientByUID(aadharUID);
         setAllCasesOnClient(result2);
 
         // justTakingTheLast3Cases
-        const justLast3Cases = result2.slice(-3);
+        justLast3Cases = result2.slice(-3);
         setLast3Cases(justLast3Cases);
-      } else if (adminType == "lawyer") {
-        const result1 = await getLawyerDetailsByUID(aadharUID);
-        setClientDetails(result1);
+      } else if (adminType === "lawyer") {
+        result1 = await getLawyerDetailsByUID(aadharUID);
+        setAdminDetails(result1);
 
-        // FetchignAllTheCasesOnTheClient
-        const result2 = await getCasesForLawyerByUID(aadharUID);
+        result2 = await getCasesForLawyerByUID(aadharUID);
         setAllCasesOnClient(result2);
 
-        // justTakingTheLast3Cases
-        const justLast3Cases = result2.slice(-3);
+        justLast3Cases = result2.slice(-3);
         setLast3Cases(justLast3Cases);
       }
     } catch (error) {
@@ -112,29 +112,29 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
             <h2 className="text-3xl font-montserrat mb-4 text-center">
               Profile Information
             </h2>
-            {clientDetails ? (
+            {adminDetails ? (
               <>
                 <div className="bg-white p-5 rounded-lg border border-gray-300 w-[full] text-left">
                   <p className="font-montserrat mb-2">
-                    Full Name: {clientDetails.name}
+                    Full Name: {adminDetails.name}
                   </p>
                   <p className="font-montserrat mb-2">
-                    Contact Number: {clientDetails.contactNumber}
+                    Contact Number: {adminDetails.contactNumber}
                   </p>
                   <p className="font-montserrat mb-2">
-                    Aadhar UID: {clientDetails.UID}
+                    Aadhar UID: {adminDetails.UID}
                   </p>
                   <p className="font-montserrat mb-2">
-                    Nationality: {clientDetails.nationality}
+                    Nationality: {adminDetails.nationality}
                   </p>
                   <p className="font-montserrat mb-2">
-                    Religion: {clientDetails.religion}
+                    Religion: {adminDetails.religion}
                   </p>
                   <p className="font-montserrat mb-2">
-                    Sex: {clientDetails.sex}
+                    Sex: {adminDetails.sex}
                   </p>
                   <p className="font-montserrat mb-2">
-                    Date of Birth: {clientDetails.dateOfBirth}
+                    Date of Birth: {adminDetails.dateOfBirth}
                   </p>
                 </div>
               </>

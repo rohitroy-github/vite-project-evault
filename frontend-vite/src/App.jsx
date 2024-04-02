@@ -27,7 +27,7 @@ function App() {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/test" element={<TestPage />}></Route>
           <Route path="/admin/:adminType/:aadharUID" element={<AdminPage />} />
-          <Route path="/admin" element={<AdminPage />}></Route>
+          {/* <Route path="/admin" element={<AdminPage />}></Route> */}
           <Route path="/logout" element={<HomePage />}></Route>
           <Route
             path="/get-case-details"

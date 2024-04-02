@@ -180,9 +180,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "address[]",
+        "internalType": "uint256[]",
         "name": "associatedLawyers",
-        "type": "address[]"
+        "type": "uint256[]"
       },
       {
         "internalType": "string",
@@ -259,9 +259,9 @@
         "type": "string"
       },
       {
-        "internalType": "address[]",
+        "internalType": "uint256[]",
         "name": "associatedLawyers",
-        "type": "address[]"
+        "type": "uint256[]"
       },
       {
         "internalType": "uint256[]",
@@ -305,9 +305,131 @@
             "type": "uint256"
           },
           {
-            "internalType": "address[]",
+            "internalType": "uint256[]",
             "name": "associatedLawyers",
-            "type": "address[]"
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "string",
+            "name": "associatedJudge",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "caseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "caseSubject",
+            "type": "string"
+          },
+          {
+            "internalType": "string[]",
+            "name": "caseProgress",
+            "type": "string[]"
+          }
+        ],
+        "internalType": "struct eVaultMain.LegalCase[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFiledLegalCasesForAJudge",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "UIDOfParty1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UIDOfParty2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "filedOnDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "associatedLawyers",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "string",
+            "name": "associatedJudge",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "caseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "caseSubject",
+            "type": "string"
+          },
+          {
+            "internalType": "string[]",
+            "name": "caseProgress",
+            "type": "string[]"
+          }
+        ],
+        "internalType": "struct eVaultMain.LegalCase[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_UID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFiledLegalCasesForALawyer",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "UIDOfParty1",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "UIDOfParty2",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "filedOnDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "associatedLawyers",
+            "type": "uint256[]"
           },
           {
             "internalType": "string",
@@ -420,61 +542,54 @@
     "name": "getLawyerDetailsByUID",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "walletAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "dateOfBirth",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "religion",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "nationality",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "sex",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "contactNumber",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "UID",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "PAN",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "associatedCaseIds",
-            "type": "uint256[]"
-          }
-        ],
-        "internalType": "struct eVaultMain.Lawyer",
-        "name": "",
-        "type": "tuple"
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "PAN",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "associatedCaseIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -555,11 +670,6 @@
         "type": "string"
       },
       {
-        "internalType": "address",
-        "name": "walletAddress",
-        "type": "address"
-      },
-      {
         "internalType": "string",
         "name": "dateOfBirth",
         "type": "string"
@@ -593,6 +703,11 @@
         "internalType": "string",
         "name": "PAN",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -740,6 +855,11 @@
         "internalType": "string",
         "name": "_PAN",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_walletAddress",
+        "type": "address"
       }
     ],
     "name": "registerClient",
@@ -788,6 +908,11 @@
         "internalType": "string",
         "name": "_PAN",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_walletAddress",
+        "type": "address"
       }
     ],
     "name": "registerJudge",
@@ -836,6 +961,11 @@
         "internalType": "string",
         "name": "_PAN",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_walletAddress",
+        "type": "address"
       }
     ],
     "name": "registerLawyer",
@@ -866,9 +996,9 @@
         "type": "string"
       },
       {
-        "internalType": "address[]",
+        "internalType": "uint256[]",
         "name": "_associatedLawyers",
-        "type": "address[]"
+        "type": "uint256[]"
       }
     ],
     "name": "registerLegalCase",
@@ -890,9 +1020,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "address[]",
+        "internalType": "uint256[]",
         "name": "_newLawyers",
-        "type": "address[]"
+        "type": "uint256[]"
       }
     ],
     "name": "updateAssociatedLawyers",

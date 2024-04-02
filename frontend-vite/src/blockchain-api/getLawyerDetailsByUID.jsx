@@ -25,7 +25,7 @@ const getLawyerDetailsByUID = async (UID) => {
       contactNumber: lawyerDetails[5],
       UID: lawyerDetails[6].toNumber(),
       PAN: lawyerDetails[7],
-      associatedCaseIds: lawyerDetails[8].map((id) => id.toNumber()),
+      // associatedCaseIds: lawyerDetails[8].map((id) => id.toNumber()),
       walletAddress: lawyerDetails[9],
     };
   } catch (error) {
