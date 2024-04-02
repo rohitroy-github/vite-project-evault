@@ -64,7 +64,7 @@ const lawyer2 = {
   nationality: "Indian",
   sex: "Female",
   contactNumber: "9876543210",
-  UID: 123456789012,
+  UID: 791619819987,
   PAN: "ABCDEF1234G",
   associatedCaseIds: [],
   walletAddress: "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
@@ -90,7 +90,7 @@ const judge1 = {
   nationality: "Indian",
   sex: "Male",
   contactNumber: "9051179305",
-  UID: 791619819989,
+  UID: 791619819970,
   PAN: "EQJPR7681F",
   associatedCaseIds: [],
   walletAddress: "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
@@ -113,10 +113,11 @@ const judge3 = {
   name: "Judge3",
   dateOfBirth: "1980-03-25",
   religion: "Islam",
+
   nationality: "Pakistani",
   sex: "Male",
   contactNumber: "+92 300 1234567",
-  UID: 987654321098,
+  UID: 987654321000,
   PAN: "PQRXY5678Z",
   associatedCaseIds: [],
   walletAddress: "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
@@ -126,7 +127,6 @@ const legalCase1 = {
   UIDOfParty1: 791619819984,
   UIDOfParty2: 791619819988,
   associatedLawyers: [791619819989, 791619819987],
-  associatedJudge: "Justice Vinayak",
   caseSubject: "Hit and Run",
   caseId: 1,
   progress2: "Clients, Lawyers & Judge Notified.",
@@ -140,7 +140,6 @@ const legalCase2 = {
   UIDOfParty1: 791619819988,
   UIDOfParty2: 791619819986,
   associatedLawyers: [791619819989, 987654321098],
-  associatedJudge: "Justice Gomes",
   caseSubject: "Car Accident",
   caseId: 2,
   progress2: "Clients, Lawyers & Judge Notified.",
@@ -149,8 +148,7 @@ const legalCase2 = {
 const legalCase3 = {
   UIDOfParty1: 791619819986,
   UIDOfParty2: 791619819984,
-  associatedLawyers: [791619819989, 123456789012],
-  associatedJudge: "Justice Smith",
+  associatedLawyers: [791619819989, 987654321098],
   caseSubject: "Property Dispute",
   caseId: 3,
   progress2: "Clients, Lawyers & Judge Notified.",
@@ -197,8 +195,6 @@ describe("eVaultMain", () => {
 
     it("should register a new client & verify it's details", async () => {
       const storedClient = await eVaultMain.getClientDetailsByUID(client1.UID);
-
-      console.log(storedClient);
 
       expect(storedClient.name).to.equal(client1.name);
       expect(storedClient.dateOfBirth).to.equal(client1.dateOfBirth);
@@ -264,8 +260,6 @@ describe("eVaultMain", () => {
     });
     it("should register a new lawyer & verify it's details", async () => {
       const storedLawyer = await eVaultMain.getLawyerDetailsByUID(lawyer1.UID);
-
-      console.log(storedLawyer);
 
       expect(storedLawyer.name).to.equal(lawyer1.name);
       expect(storedLawyer.dateOfBirth).to.equal(lawyer1.dateOfBirth);
@@ -343,6 +337,13 @@ describe("eVaultMain", () => {
 
       expect.fail("Expected an error for non-existing judge");
     });
+
+    // it("should retrieve the correct count of judges", async () => {
+    //   const actualCount = await eVaultMain.getJudgesCount();
+    //   const expectedCount = 1;
+
+    //   expect(actualCount).to.equal(expectedCount);
+    // });
   });
 
   describe("Legal Case Management", () => {
@@ -396,22 +397,37 @@ describe("eVaultMain", () => {
         judge1.PAN,
         judge1.walletAddress
       );
+      // judge2
+      await eVaultMain.registerJudge(
+        judge2.name,
+        judge2.dateOfBirth,
+        judge2.religion,
+        judge2.nationality,
+        judge2.sex,
+        judge2.contactNumber,
+        judge2.UID,
+        judge2.PAN,
+        judge2.walletAddress
+      );
+      // judge3
+      await eVaultMain.registerJudge(
+        judge3.name,
+        judge3.dateOfBirth,
+        judge3.religion,
+        judge3.nationality,
+        judge3.sex,
+        judge3.contactNumber,
+        judge3.UID,
+        judge3.PAN,
+        judge3.walletAddress
+      );
       // register2NewLegalCase
       // case1
       await eVaultMain.registerLegalCase(
         client1.UID,
         client2.UID,
-        legalCase1.associatedJudge,
         legalCase1.caseSubject,
         legalCase1.associatedLawyers
-      );
-      // case2
-      await eVaultMain.registerLegalCase(
-        client1.UID,
-        client2.UID,
-        legalCase2.associatedJudge,
-        legalCase2.caseSubject,
-        legalCase2.associatedLawyers
       );
 
       // updatingCaseProgess
@@ -445,9 +461,6 @@ describe("eVaultMain", () => {
 
       expect(storedLegalCase.UIDOfParty1).to.equal(client1.UID);
       expect(storedLegalCase.UIDOfParty2).to.equal(client2.UID);
-      expect(storedLegalCase.associatedJudge).to.equal(
-        legalCase1.associatedJudge
-      );
       expect(storedLegalCase.caseSubject).to.equal(legalCase1.caseSubject);
       expect(storedLegalCase.caseProgress).to.eql([
         "Case registered with E-Vault.",
@@ -462,6 +475,18 @@ describe("eVaultMain", () => {
       expect(updatedTypeLawyers).to.eql(legalCase1.associatedLawyers);
 
       // console.log("Case progress :", storedLegalCase.caseProgress);
+    });
+
+    it("should update judge's [associatedCaseIds] array on registering a case", async () => {
+      const storedLegalCase = await eVaultMain.getCaseDetailsByCaseId(
+        legalCase1.caseId
+      );
+
+      const storedJudge = await eVaultMain.getJudgeDetailsByUID(
+        storedLegalCase.associatedJudge
+      );
+
+      expect(storedJudge.associatedCaseIds.length).to.equal(1);
     });
 
     it("should retrieve filed legal cases for a client", async () => {
@@ -482,7 +507,7 @@ describe("eVaultMain", () => {
       // );
 
       // since2CasesAreRegisteredUnder[Client 1 : "client"]
-      expect(filedCases.length).to.equal(2);
+      expect(filedCases.length).to.equal(1);
 
       // // additionalChecks
       // expect(filedCases[0].UIDOfParty1).to.equal(client.UID);
@@ -496,7 +521,7 @@ describe("eVaultMain", () => {
         lawyer1.UID
       );
 
-      expect(filedCases.length).to.equal(2);
+      expect(filedCases.length).to.equal(1);
 
       // // additionalChecks
       // expect(filedCases[0].UIDOfParty1).to.equal(client1.UID);

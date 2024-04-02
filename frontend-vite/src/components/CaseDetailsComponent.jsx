@@ -126,8 +126,11 @@ const CaseDetailsComponent = ({caseID}) => {
         )}
       </div>
       <div className="w-[80%] mb-5 mt-10 flex flex-col">
-        <div className="w-full flex mb-8">
+        <div className="w-full flex items-center justify-between mb-8">
           <h2 className="text-2xl font-montserrat">Case Progress</h2>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-xs">
+            Update Progress
+          </button>
         </div>
         <div className="w-full">
           {caseDetails ? (

@@ -1,18 +1,11 @@
 async function registerLegalCase(deployer, contract, caseData) {
-  const {
-    UIDOfParty1,
-    UIDOfParty2,
-    associatedJudge,
-    caseSubject,
-    associatedLawyers,
-  } = caseData;
+  const {UIDOfParty1, UIDOfParty2, caseSubject, associatedLawyers} = caseData;
 
   console.log(`Registering Case : [ ${caseSubject} ] ... \u23F3`);
 
   const registerCaseTX = await contract.connect(deployer).registerLegalCase(
     UIDOfParty1,
     UIDOfParty2,
-    associatedJudge,
     caseSubject,
     associatedLawyers.map((lawyerAddress) => lawyerAddress)
   );

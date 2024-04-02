@@ -185,9 +185,9 @@
         "type": "uint256[]"
       },
       {
-        "internalType": "string",
+        "internalType": "uint256",
         "name": "associatedJudge",
-        "type": "string"
+        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -310,9 +310,9 @@
             "type": "uint256[]"
           },
           {
-            "internalType": "string",
+            "internalType": "uint256",
             "name": "associatedJudge",
-            "type": "string"
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -371,9 +371,9 @@
             "type": "uint256[]"
           },
           {
-            "internalType": "string",
+            "internalType": "uint256",
             "name": "associatedJudge",
-            "type": "string"
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -432,9 +432,9 @@
             "type": "uint256[]"
           },
           {
-            "internalType": "string",
+            "internalType": "uint256",
             "name": "associatedJudge",
-            "type": "string"
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -478,11 +478,6 @@
             "type": "string"
           },
           {
-            "internalType": "address",
-            "name": "walletAddress",
-            "type": "address"
-          },
-          {
             "internalType": "string",
             "name": "dateOfBirth",
             "type": "string"
@@ -521,6 +516,11 @@
             "internalType": "uint256[]",
             "name": "associatedCaseIds",
             "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           }
         ],
         "internalType": "struct eVaultMain.Judge",
@@ -611,11 +611,6 @@
         "type": "string"
       },
       {
-        "internalType": "address",
-        "name": "walletAddress",
-        "type": "address"
-      },
-      {
         "internalType": "string",
         "name": "dateOfBirth",
         "type": "string"
@@ -649,6 +644,24 @@
         "internalType": "string",
         "name": "PAN",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "judgesCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -739,9 +752,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "string",
+        "internalType": "uint256",
         "name": "associatedJudge",
-        "type": "string"
+        "type": "uint256"
       },
       {
         "internalType": "uint256",
@@ -987,11 +1000,6 @@
       },
       {
         "internalType": "string",
-        "name": "_associatedJudge",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
         "name": "_caseSubject",
         "type": "string"
       },
@@ -1002,13 +1010,7 @@
       }
     ],
     "name": "registerLegalCase",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },

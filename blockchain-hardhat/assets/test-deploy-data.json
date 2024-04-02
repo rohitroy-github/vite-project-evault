@@ -44,7 +44,7 @@
     "contactNumber": "9051179305",
     "UID": 791619819970,
     "PAN": "EQJPR7681F",
-    "associatedCaseIds": [1, 2],
+    "associatedCaseIds": [],
     "walletAddress": "0x90f79bf6eb2c4f870365e785982e1f101e93b906"
   },
   "judge2": {
@@ -66,7 +66,7 @@
     "nationality": "Pakistani",
     "sex": "Male",
     "contactNumber": "+92 300 1234567",
-    "UID": 987654321098,
+    "UID": 987654321000,
     "PAN": "PQRXY5678Z",
     "associatedCaseIds": [],
     "walletAddress": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc"
@@ -114,7 +114,6 @@
     "UIDOfParty1": 791619819984,
     "UIDOfParty2": 791619819988,
     "associatedLawyers": [791619819989, 791619819987],
-    "associatedJudge": "Justice Vinayak",
     "caseSubject": "Hit and Run",
     "caseId": 1,
     "progress2": "Clients, Lawyers & Judge Notified.",
@@ -127,7 +126,6 @@
     "UIDOfParty1": 791619819988,
     "UIDOfParty2": 791619819984,
     "associatedLawyers": [791619819989, 987654321098],
-    "associatedJudge": "Justice Gomes",
     "caseSubject": "Car Accident",
     "caseId": 2,
     "progress2": "Clients, Lawyers & Judge Notified."
@@ -136,7 +134,6 @@
     "UIDOfParty1": 791619819986,
     "UIDOfParty2": 791619819984,
     "associatedLawyers": [791619819989, 987654321098],
-    "associatedJudge": "Justice Smith",
     "caseSubject": "Property Dispute",
     "caseId": 3,
     "progress2": "Clients, Lawyers & Judge Notified."

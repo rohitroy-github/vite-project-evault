@@ -25,7 +25,7 @@ const getCaseDetailsByCaseID = async (caseID) => {
       UIDOfParty2: caseDetails[1].toString(),
       filedOnDate: new Date(caseDetails[2].toNumber() * 1000), // Assuming filedOnDate is in Unix timestamp format
       associatedLawyers: associatedLawyers,
-      associatedJudge: caseDetails[4],
+      associatedJudge: caseDetails[4].toString(),
       caseId: caseDetails[5].toNumber(),
       caseSubject: caseDetails[6],
       caseProgress: caseDetails[7],

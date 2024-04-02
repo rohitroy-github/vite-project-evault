@@ -5,6 +5,8 @@ import getClientDetailsByUID from "../blockchain-api/getClientDetailsByUID";
 import getCasesForClientByUID from "../blockchain-api/getCasesForClientByUID";
 import getLawyerDetailsByUID from "../blockchain-api/getLawyerDetailsByUID";
 import getCasesForLawyerByUID from "../blockchain-api/getCasesForLawyerByUID";
+import getJudgeDetailsByUID from "../blockchain-api/getJudgeDetailsByUID";
+import getCasesForJudgeByUID from "../blockchain-api/getCasesForJudgeByUID";
 
 const AdminDashboardComponent = ({aadharUID, adminType}) => {
   const [adminDetails, setAdminDetails] = useState(null);
@@ -32,6 +34,15 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         setAdminDetails(result1);
 
         result2 = await getCasesForLawyerByUID(aadharUID);
+        setAllCasesOnClient(result2);
+
+        justLast3Cases = result2.slice(-3);
+        setLast3Cases(justLast3Cases);
+      } else if (adminType === "judge") {
+        result1 = await getJudgeDetailsByUID(aadharUID);
+        setAdminDetails(result1);
+
+        result2 = await getCasesForJudgeByUID(aadharUID);
         setAllCasesOnClient(result2);
 
         justLast3Cases = result2.slice(-3);

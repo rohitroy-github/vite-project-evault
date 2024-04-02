@@ -7,13 +7,17 @@ contract eVaultMain {
 
     // forStoringNumberOfCasesFiled&Indexing
     uint256 public caseIdCounter = 1;
+    // forKeepingACountOfTheNumberOfJudges
+    uint256 public judgesCount = 0;
+    // index -> UID
+    mapping(uint256 => uint256) internal judgeIndexUIDMapping;
 
     struct LegalCase {
         uint256 UIDOfParty1;
         uint256 UIDOfParty2;
         uint256 filedOnDate;
         uint256[] associatedLawyers;
-        string associatedJudge;
+        uint256 associatedJudge;
         uint256 caseId;
         string caseSubject;
         string[] caseProgress;
@@ -48,7 +52,6 @@ contract eVaultMain {
 
     struct Judge {
         string name;
-        address walletAddress;
         string dateOfBirth;
         string religion;
         string nationality;
@@ -57,6 +60,7 @@ contract eVaultMain {
         uint256 UID;
         string PAN;
         uint256[] associatedCaseIds;
+        address walletAddress;
     }
 
     // storeAllTheClients
@@ -217,6 +221,9 @@ contract eVaultMain {
             walletAddress: _walletAddress
         });
 
+        judgeIndexUIDMapping[judgesCount] = _UID;
+        judgesCount++;
+
         emit JudgeRegistered(_UID);
     }
 
@@ -338,10 +345,9 @@ contract eVaultMain {
     function registerLegalCase(
         uint256 _UIDOfParty1,
         uint256 _UIDOfParty2,
-        string memory _associatedJudge,
         string memory _caseSubject,
         uint256[] memory _associatedLawyers
-    ) external onlyOwner returns (uint256) {
+    ) external onlyOwner {
         Client storage client1 = clients[_UIDOfParty1];
         Client storage client2 = clients[_UIDOfParty2];
 
@@ -353,12 +359,15 @@ contract eVaultMain {
         // Increment the caseIdCounter and use it as the caseId
         uint256 _caseId = caseIdCounter;
 
+        // Get a random judge UID
+        uint256 selectedJudgeUID = getRandomJudgeUID();
+
         legalCases[_caseId] = LegalCase({
             UIDOfParty1: _UIDOfParty1,
             UIDOfParty2: _UIDOfParty2,
             filedOnDate: block.timestamp,
             associatedLawyers: _associatedLawyers,
-            associatedJudge: _associatedJudge,
+            associatedJudge: selectedJudgeUID,
             caseId: _caseId,
             caseSubject: _caseSubject,
             caseProgress: new string[](0)
@@ -371,6 +380,10 @@ contract eVaultMain {
         client1.associatedCaseIds.push(_caseId);
         client2.associatedCaseIds.push(_caseId);
 
+        // Update the associatedCaseIds of the judge
+        Judge storage judge = judges[selectedJudgeUID];
+        judge.associatedCaseIds.push(_caseId);
+
         // Update associatedCaseIds of lawyers
         for (uint256 i = 0; i < _associatedLawyers.length; i++) {
             Lawyer storage lawyer = lawyers[_associatedLawyers[i]];
@@ -380,8 +393,6 @@ contract eVaultMain {
         caseIdCounter++;
 
         emit CaseRegistered(_caseId);
-
-        return _caseId;
     }
 
     // Function to update the case progress by caseId
@@ -391,7 +402,7 @@ contract eVaultMain {
     ) external onlyOwner {
         LegalCase storage legalCase = legalCases[_caseId];
         require(
-            bytes(legalCase.associatedJudge).length > 0,
+            bytes(legalCase.caseSubject).length > 0,
             "Legal case with this caseId does not exist"
         );
 
@@ -473,7 +484,7 @@ contract eVaultMain {
             uint256 UIDOfParty2,
             uint256 filedOnDate,
             uint256[] memory associatedLawyers,
-            string memory associatedJudge,
+            uint256 associatedJudge,
             uint256 caseId,
             string memory caseSubject,
             string[] memory caseProgress
@@ -481,7 +492,7 @@ contract eVaultMain {
     {
         LegalCase memory registeredLegalCase = legalCases[_caseId];
         require(
-            bytes(registeredLegalCase.associatedJudge).length > 0,
+            bytes(registeredLegalCase.caseSubject).length > 0,
             "Legal case with this caseId does not exist"
         );
 
@@ -495,6 +506,32 @@ contract eVaultMain {
             registeredLegalCase.caseSubject,
             registeredLegalCase.caseProgress
         );
+    }
+
+    // Function to get a random judge UID
+    function getRandomJudgeUID() internal view returns (uint256) {
+        // Get the count of judges
+        uint256 _judgesCount = getJudgesCount();
+
+        // Generate a random index within the range of judges
+        uint256 randomIndex = uint256(
+            keccak256(abi.encodePacked(block.timestamp))
+        ) % _judgesCount;
+
+        // Retrieve the judge's UID using the generated index
+        return getJudgeUIDAtIndex(randomIndex);
+    }
+
+    // Function to get the count of judges
+    function getJudgesCount() internal view returns (uint256) {
+        return judgesCount;
+    }
+
+    // Function to retrieve judge's UID at a specific index
+    function getJudgeUIDAtIndex(
+        uint256 _index
+    ) internal view returns (uint256) {
+        return judgeIndexUIDMapping[_index];
     }
 
     // LoginFunctionalities
