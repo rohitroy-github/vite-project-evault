@@ -10,9 +10,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
+  const [newProgress, setNewProgress] = useState("");
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -45,6 +47,26 @@ const CaseDetailsComponent = ({caseID}) => {
     }
 
     return rows;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!newProgress) {
+      alert("Add a new progress to continue !");
+      return;
+    }
+
+    const formData = {
+      newProgress,
+    };
+
+    const isProgressUpdatedStatus = await updateCaseProgressWithCaseId(
+      caseID,
+      formData.newProgress
+    );
+
+    alert(isProgressUpdatedStatus);
   };
 
   return (
@@ -140,51 +162,38 @@ const CaseDetailsComponent = ({caseID}) => {
 
           <Dialog>
             <DialogTrigger asChild>
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-xs">
+              <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm">
                 Update Progress
               </button>
             </DialogTrigger>
-
-            <DialogContent className="sm:max-w-[425px] font-montserrat">
+            <DialogContent className="sm:max-w-[450px] font-montserrat">
               <DialogHeader>
                 <DialogTitle>Update case progress</DialogTitle>
                 <DialogDescription>
-                  Make changes to your profile here. Click save when you're
-                  done.
+                  All updates will be added to the case progress timeline.
                 </DialogDescription>
               </DialogHeader>
-              {/* <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    value="Pedro Duarte"
-                    className="col-span-3"
+              <form onSubmit={handleSubmit}>
+                <div className="grid gap-3 py-2">
+                  <textarea
+                    type="text"
+                    className="border rounded-lg py-2 px-4 w-full text-sm"
+                    placeholder="Enter the case update here."
+                    value={newProgress}
+                    onChange={(e) => setNewProgress(e.target.value)}
                   />
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="username" className="text-right">
-                    Username
-                  </Label>
-                  <Input
-                    id="username"
-                    value="@peduarte"
-                    className="col-span-3"
-                  />
-                </div>
-              </div> */}
-              <DialogFooter
-                className={"text-center items-center justify-center"}
-              >
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-xs"
+                <DialogFooter
+                  className={"text-center items-center justify-center"}
                 >
-                  Update Progress
-                </button>{" "}
-              </DialogFooter>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm mt-4"
+                  >
+                    Update Progress
+                  </button>
+                </DialogFooter>
+              </form>
             </DialogContent>
           </Dialog>
         </div>

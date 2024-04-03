@@ -84,9 +84,9 @@ const LoginComponent = ({initialFormType}) => {
   return (
     <div className="flex items-center justify-center min-h-screen p-5">
       <div className="left-section w-[45%] bg-white p-8 pl-0 font-montserrat items-center justify-center flex flex-col">
-        <h1 className="text-2xl font-montserrat mb-5 text-center">
+        <p className="text-2xl font-montserrat mb-5 text-center">
           E-Vault Login
-        </h1>
+        </p>
         <div className="mb-5 text-center text-md">
           <Link to="/signup" className="text-blue-500">
             New user? Register with E-Vault here !

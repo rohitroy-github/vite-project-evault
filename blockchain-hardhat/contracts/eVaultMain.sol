@@ -399,7 +399,7 @@ contract eVaultMain {
     function updateCaseProgressWithCaseId(
         uint256 _caseId,
         string memory _progress
-    ) external onlyOwner {
+    ) external returns (bool) {
         LegalCase storage legalCase = legalCases[_caseId];
         require(
             bytes(legalCase.caseSubject).length > 0,
@@ -408,6 +408,8 @@ contract eVaultMain {
 
         // Append the new status to the caseProgress array
         legalCase.caseProgress.push(_progress);
+
+        return true;
     }
 
     // function to get the filed legal cases for a client
