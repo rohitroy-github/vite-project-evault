@@ -24,7 +24,7 @@ const getClientCases = async (clientUID) => {
       UIDOfParty2: details[1].toNumber(),
       filedOnDate: new Date(details[2].toNumber() * 1000),
       associatedLawyers: details[3],
-      associatedJudge: details[4],
+      associatedJudge: details[4].toNumber(),
       caseId: details[5].toNumber(),
       caseSubject: details[6],
       caseProgress: details[7],

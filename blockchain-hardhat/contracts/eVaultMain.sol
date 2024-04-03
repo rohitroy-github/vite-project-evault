@@ -139,47 +139,6 @@ contract eVaultMain {
         emit ClientRegistered(_UID);
     }
 
-    // functionToViewClientInformation
-    function getClientDetailsByUID(
-        uint256 _UID
-    )
-        external
-        view
-        returns (
-            string memory name,
-            string memory dateOfBirth,
-            string memory religion,
-            string memory nationality,
-            string memory sex,
-            string memory contactNumber,
-            uint256 UID,
-            string memory PAN,
-            uint256[] memory associatedLawyers,
-            uint256[] memory associatedCaseIds,
-            address walletAddress
-        )
-    {
-        Client memory client = clients[_UID];
-        require(
-            bytes(client.name).length > 0,
-            "Client with this UID does not exist"
-        );
-
-        return (
-            client.name,
-            client.dateOfBirth,
-            client.religion,
-            client.nationality,
-            client.sex,
-            client.contactNumber,
-            client.UID,
-            client.PAN,
-            client.associatedLawyers,
-            client.associatedCaseIds,
-            client.walletAddress
-        );
-    }
-
     // functionToRegisterANewJudge
     function registerJudge(
         string memory _name,
@@ -339,6 +298,47 @@ contract eVaultMain {
         );
 
         return judge;
+    }
+
+    // functionToViewClientInformation
+    function getClientDetailsByUID(
+        uint256 _UID
+    )
+        external
+        view
+        returns (
+            string memory name,
+            string memory dateOfBirth,
+            string memory religion,
+            string memory nationality,
+            string memory sex,
+            string memory contactNumber,
+            uint256 UID,
+            string memory PAN,
+            uint256[] memory associatedLawyers,
+            uint256[] memory associatedCaseIds,
+            address walletAddress
+        )
+    {
+        Client memory client = clients[_UID];
+        require(
+            bytes(client.name).length > 0,
+            "Client with this UID does not exist"
+        );
+
+        return (
+            client.name,
+            client.dateOfBirth,
+            client.religion,
+            client.nationality,
+            client.sex,
+            client.contactNumber,
+            client.UID,
+            client.PAN,
+            client.associatedLawyers,
+            client.associatedCaseIds,
+            client.walletAddress
+        );
     }
 
     // function to add a legal case for two clients

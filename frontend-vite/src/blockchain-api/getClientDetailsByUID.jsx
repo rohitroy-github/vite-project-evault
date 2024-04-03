@@ -23,7 +23,7 @@ const getClientDetailsByUID = async (UID) => {
       nationality: clientDetails[3],
       sex: clientDetails[4],
       contactNumber: clientDetails[5],
-      UID: clientDetails[6].toNumber(),
+      UID: clientDetails[6].toString(),
       PAN: clientDetails[7],
       associatedLawyers: clientDetails[8],
       // associatedCaseIds: clientDetails[9].map((id) => id.toNumber()),

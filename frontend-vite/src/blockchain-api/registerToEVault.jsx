@@ -38,7 +38,8 @@ const registerToEVault = async ({
         sex,
         contactNumber,
         parseInt(aadharUID, 10),
-        pan
+        pan,
+        walletAddress
       );
     } else if (signingUpAs == "judge") {
       // contractInteraction
@@ -50,7 +51,8 @@ const registerToEVault = async ({
         sex,
         contactNumber,
         parseInt(aadharUID, 10),
-        pan
+        pan,
+        walletAddress
       );
     } else if (signingUpAs == "lawyer") {
       // contractInteraction
@@ -62,7 +64,8 @@ const registerToEVault = async ({
         sex,
         contactNumber,
         parseInt(aadharUID, 10),
-        pan
+        pan,
+        walletAddress
       );
     }
 
