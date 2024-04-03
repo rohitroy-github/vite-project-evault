@@ -226,7 +226,7 @@ const CaseDetailsComponent = ({caseID}) => {
             <Dialog>
               <DialogTrigger asChild>
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm">
-                  Update Progress
+                  Update Case Progress
                 </button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[450px] font-montserrat">
@@ -268,7 +268,7 @@ const CaseDetailsComponent = ({caseID}) => {
                 (row, rowIndex) => (
                   <div
                     key={rowIndex}
-                    className="flex insideLoop1 justify-evenly items-center w-full"
+                    className="flex insideLoop1 items-center w-full"
                   >
                     {row.map((progress, index) => (
                       <div
