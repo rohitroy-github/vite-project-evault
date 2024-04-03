@@ -12,12 +12,14 @@ import {
 } from "@/components/ui/dialog";
 import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
+import Loader from "./Loader";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
   const [newProgress, setNewProgress] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [isUserJudge, setIsUserJudge] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -25,6 +27,10 @@ const CaseDetailsComponent = ({caseID}) => {
       try {
         const fetchedCaseDetails = await getCaseDetailsByCaseID(caseID);
         setCaseDetails(fetchedCaseDetails);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
 
         const judgeDetails = await getJudgeDetailsByUID(
           fetchedCaseDetails.associatedJudge
@@ -34,9 +40,9 @@ const CaseDetailsComponent = ({caseID}) => {
           judgeDetails.walletAddress.toLowerCase() === userAddress.toLowerCase()
         ) {
           setIsUserJudge(true);
+        } else {
+          setIsUserJudge(false);
         }
-
-        console.log(judgeDetails);
       } catch (error) {
         console.error("Error while fetching case details:", error);
       }
@@ -57,8 +63,30 @@ const CaseDetailsComponent = ({caseID}) => {
       }
     };
 
+    // Function to handle MetaMask account change
+    const handleAccountChange = (accounts) => {
+      setUserAddress(accounts[0]);
+      fetchCaseDetails(); // Call fetchCaseDetails after the account changes
+    };
+
+    // Listen for MetaMask account changes
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", handleAccountChange);
+    }
+
+    // Initial fetch of wallet address and case details
     fetchCurrentWalletAddress();
     fetchCaseDetails();
+
+    // Clean up event listener when component unmounts
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.off("accountsChanged", handleAccountChange);
+      }
+    };
+
+    // fetchCurrentWalletAddress();
+    // fetchCaseDetails();
   }, [caseID, userAddress]);
 
   // Function to create a snake-like pattern of progress cells
@@ -99,6 +127,10 @@ const CaseDetailsComponent = ({caseID}) => {
 
     alert(isProgressUpdatedStatus);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-5">
