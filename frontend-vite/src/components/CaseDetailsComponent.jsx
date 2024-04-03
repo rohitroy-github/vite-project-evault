@@ -11,24 +11,55 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
+import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
   const [newProgress, setNewProgress] = useState("");
+  const [userAddress, setUserAddress] = useState("");
+  const [isUserJudge, setIsUserJudge] = useState(false);
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
     const fetchCaseDetails = async () => {
       try {
-        const caseDetails = await getCaseDetailsByCaseID(caseID);
-        setCaseDetails(caseDetails);
+        const fetchedCaseDetails = await getCaseDetailsByCaseID(caseID);
+        setCaseDetails(fetchedCaseDetails);
+
+        const judgeDetails = await getJudgeDetailsByUID(
+          fetchedCaseDetails.associatedJudge
+        );
+
+        if (
+          judgeDetails.walletAddress.toLowerCase() === userAddress.toLowerCase()
+        ) {
+          setIsUserJudge(true);
+        }
+
+        console.log(judgeDetails);
       } catch (error) {
         console.error("Error while fetching case details:", error);
       }
     };
 
+    const fetchCurrentWalletAddress = async () => {
+      try {
+        if (window.ethereum) {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          setUserAddress(accounts[0]);
+        } else {
+          console.error("MetaMask not installed or user not logged in");
+        }
+      } catch (error) {
+        console.error("Error fetching user address:", error);
+      }
+    };
+
+    fetchCurrentWalletAddress();
     fetchCaseDetails();
-  }, [caseID]);
+  }, [caseID, userAddress]);
 
   // Function to create a snake-like pattern of progress cells
   const createSnakePattern = (progressArray) => {
@@ -159,43 +190,44 @@ const CaseDetailsComponent = ({caseID}) => {
       <div className="w-[80%] mb-5 mt-10 flex flex-col">
         <div className="w-full flex items-center justify-between mb-8">
           <h2 className="text-2xl font-montserrat">Case Progress</h2>
-
-          <Dialog>
-            <DialogTrigger asChild>
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm">
-                Update Progress
-              </button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[450px] font-montserrat">
-              <DialogHeader>
-                <DialogTitle>Update case progress</DialogTitle>
-                <DialogDescription>
-                  All updates will be added to the case progress timeline.
-                </DialogDescription>
-              </DialogHeader>
-              <form onSubmit={handleSubmit}>
-                <div className="grid gap-3 py-2">
-                  <textarea
-                    type="text"
-                    className="border rounded-lg py-2 px-4 w-full text-sm"
-                    placeholder="Enter the case update here."
-                    value={newProgress}
-                    onChange={(e) => setNewProgress(e.target.value)}
-                  />
-                </div>
-                <DialogFooter
-                  className={"text-center items-center justify-center"}
-                >
-                  <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm mt-4"
+          {isUserJudge && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm">
+                  Update Progress
+                </button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[450px] font-montserrat">
+                <DialogHeader>
+                  <DialogTitle>Update case progress</DialogTitle>
+                  <DialogDescription>
+                    All updates will be added to the case progress timeline.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleSubmit}>
+                  <div className="grid gap-3 py-2">
+                    <textarea
+                      type="text"
+                      className="border rounded-lg py-2 px-4 w-full text-sm"
+                      placeholder="Enter the case update here."
+                      value={newProgress}
+                      onChange={(e) => setNewProgress(e.target.value)}
+                    />
+                  </div>
+                  <DialogFooter
+                    className={"text-center items-center justify-center"}
                   >
-                    Update Progress
-                  </button>
-                </DialogFooter>
-              </form>
-            </DialogContent>
-          </Dialog>
+                    <button
+                      type="submit"
+                      className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm mt-4"
+                    >
+                      Update Progress
+                    </button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
         <div className="w-full">
           {caseDetails ? (
