@@ -13,6 +13,7 @@ import {
 import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
 import Loader from "./Loader";
+import getLawyerDetailsByUID from "@/blockchain-api/getLawyerDetailsByUID";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -20,6 +21,8 @@ const CaseDetailsComponent = ({caseID}) => {
   const [userAddress, setUserAddress] = useState("");
   const [isUserJudge, setIsUserJudge] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [lawyerNames, setLawyerNames] = useState([]);
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -69,6 +72,21 @@ const CaseDetailsComponent = ({caseID}) => {
       fetchCaseDetails(); // Call fetchCaseDetails after the account changes
     };
 
+    const fetchLawyerNames = async () => {
+      if (caseDetails) {
+        const names = await Promise.all(
+          caseDetails.associatedLawyers.map(async (lawyerUID) => {
+            const lawyerDetails = await getLawyerDetailsByUID(
+              lawyerUID,
+              "name"
+            );
+            return lawyerDetails.name;
+          })
+        );
+        setLawyerNames(names);
+      }
+    };
+
     // Listen for MetaMask account changes
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", handleAccountChange);
@@ -77,6 +95,7 @@ const CaseDetailsComponent = ({caseID}) => {
     // Initial fetch of wallet address and case details
     fetchCurrentWalletAddress();
     fetchCaseDetails();
+    fetchLawyerNames();
 
     // Clean up event listener when component unmounts
     return () => {
@@ -178,11 +197,9 @@ const CaseDetailsComponent = ({caseID}) => {
                   Associated Lawyers
                 </td>
                 <td className="font-montserrat p-2 w-2/3 border border-gray-200">
-                  <ul className="list-disc pl-6">
-                    {caseDetails.associatedLawyers.map((lawyer, index) => (
-                      <li key={index}>{lawyer}</li>
-                    ))}
-                  </ul>
+                  {lawyerNames.map((name, index) => (
+                    <li key={index}>{name}</li>
+                  ))}
                 </td>
               </tr>
               <tr>

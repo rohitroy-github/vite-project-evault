@@ -33,7 +33,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         justLast3Cases = result2.slice(-3);
         setLast3Cases(justLast3Cases);
       } else if (adminType === "lawyer") {
-        result1 = await getLawyerDetailsByUID(aadharUID);
+        result1 = await getLawyerDetailsByUID(aadharUID, "all");
         setAdminDetails(result1);
 
         result2 = await getCasesForLawyerByUID(aadharUID);
