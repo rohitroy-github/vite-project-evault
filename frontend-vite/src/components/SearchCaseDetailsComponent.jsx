@@ -7,47 +7,6 @@ const SearchCaseDetailsComponent = () => {
   const [caseID, setCaseID] = useState("");
   const [caseDetails, setCaseDetails] = useState(null);
 
-  const [provider, setProvider] = useState(null);
-  const [account, setAccount] = useState(null);
-
-  const navigate = useNavigate();
-
-  const connectToBlockchain = async () => {
-    try {
-      // Request Ethereum accounts
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-
-      if (accounts.length === 0) {
-        throw new Error("No Ethereum accounts available.");
-      }
-
-      // Convert and set the first account address
-      const account = ethers.utils.getAddress(accounts[0]);
-      setAccount(account);
-
-      // Set up an event listener for account changes
-      window.ethereum.on("accountsChanged", async () => {
-        const updatedAccounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-
-        if (updatedAccounts.length === 0) {
-          throw new Error("No Ethereum accounts available.");
-        }
-
-        const updatedAccount = ethers.utils.getAddress(updatedAccounts[0]);
-        setAccount(updatedAccount);
-      });
-    } catch (error) {
-      console.error("Error connecting to Ethereum:", error);
-      alert(
-        "Error connecting to Ethereum. Please check MetaMask or your wallet settings."
-      );
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,17 +27,13 @@ const SearchCaseDetailsComponent = () => {
     }
   };
 
-  useEffect(() => {
-    connectToBlockchain();
-  }, []);
-
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 font-montserrat w-full">
         <h1 className="text-3xl font-montserrat mb-2 text-center">
           Search for case details ?
         </h1>
-        <p className="text-gray-600 text-center mb-4">
+        <p className="text-gray-600 text-center mb-4 text-md">
           Only associated clients, lawyers, and judges of the case can access
           the relevant case details and information!
         </p>
@@ -95,9 +50,9 @@ const SearchCaseDetailsComponent = () => {
           <div className="mb-4 text-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/4"
+              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-1/4"
             >
-              Search
+              Search Case
             </button>
           </div>
         </form>

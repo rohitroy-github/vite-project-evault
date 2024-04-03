@@ -21,8 +21,8 @@ const CaseDetailsComponent = ({caseID}) => {
   const [userAddress, setUserAddress] = useState("");
   const [isUserJudge, setIsUserJudge] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const [lawyerNames, setLawyerNames] = useState([]);
+  const [lawyers, setLawyers] = useState([]);
+  const [judgeDetails, setJudgeDetails] = useState({name: "", UID: 0});
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -31,12 +31,9 @@ const CaseDetailsComponent = ({caseID}) => {
         const fetchedCaseDetails = await getCaseDetailsByCaseID(caseID);
         setCaseDetails(fetchedCaseDetails);
 
-        setTimeout(() => {
-          setLoading(false);
-        }, 1500);
-
         const judgeDetails = await getJudgeDetailsByUID(
-          fetchedCaseDetails.associatedJudge
+          fetchedCaseDetails.associatedJudge,
+          "name_UID_walletAddress"
         );
 
         if (
@@ -46,6 +43,27 @@ const CaseDetailsComponent = ({caseID}) => {
         } else {
           setIsUserJudge(false);
         }
+
+        setJudgeDetails({
+          name: judgeDetails.name,
+          UID: judgeDetails.UID,
+        });
+
+        // fetchingLawyerNames
+        const lawyerDetails = await Promise.all(
+          fetchedCaseDetails.associatedLawyers.map(async (lawyerUID) => {
+            const lawyerInfo = await getLawyerDetailsByUID(
+              lawyerUID,
+              "name_UID"
+            );
+            return {uid: lawyerUID, name: lawyerInfo.name};
+          })
+        );
+        setLawyers(lawyerDetails);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
       } catch (error) {
         console.error("Error while fetching case details:", error);
       }
@@ -72,30 +90,13 @@ const CaseDetailsComponent = ({caseID}) => {
       fetchCaseDetails(); // Call fetchCaseDetails after the account changes
     };
 
-    const fetchLawyerNames = async () => {
-      if (caseDetails) {
-        const names = await Promise.all(
-          caseDetails.associatedLawyers.map(async (lawyerUID) => {
-            const lawyerDetails = await getLawyerDetailsByUID(
-              lawyerUID,
-              "name"
-            );
-            return lawyerDetails.name;
-          })
-        );
-        setLawyerNames(names);
-      }
-    };
+    fetchCaseDetails();
+    fetchCurrentWalletAddress();
 
     // Listen for MetaMask account changes
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", handleAccountChange);
     }
-
-    // Initial fetch of wallet address and case details
-    fetchCurrentWalletAddress();
-    fetchCaseDetails();
-    fetchLawyerNames();
 
     // Clean up event listener when component unmounts
     return () => {
@@ -197,8 +198,13 @@ const CaseDetailsComponent = ({caseID}) => {
                   Associated Lawyers
                 </td>
                 <td className="font-montserrat p-2 w-2/3 border border-gray-200">
-                  {lawyerNames.map((name, index) => (
-                    <li key={index}>{name}</li>
+                  {lawyers.map((lawyer, index) => (
+                    <li key={index} className="marker:text-blue-500">
+                      <span>
+                        {lawyer.name}{" "}
+                        <span className="text-xs">( {lawyer.uid} )</span>
+                      </span>
+                    </li>
                   ))}
                 </td>
               </tr>
@@ -207,7 +213,10 @@ const CaseDetailsComponent = ({caseID}) => {
                   Associated Judge
                 </td>
                 <td className="font-montserrat p-2 w-2/3 border border-gray-200">
-                  {caseDetails.associatedJudge}
+                  <span>
+                    {judgeDetails.name}{" "}
+                    <span className="text-xs">( {judgeDetails.UID} )</span>
+                  </span>
                 </td>
               </tr>
               <tr>

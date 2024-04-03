@@ -2,7 +2,7 @@ import {ethers} from "ethers";
 import config from "../backend-config.json";
 import eVaultMain from "../abis/eVaultMain.json";
 
-const getLawyerDetailsByUID = async (UID, detailNeeded) => {
+const getLawyerDetailsByUID = async (UID, detailsNeeded) => {
   try {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -16,7 +16,7 @@ const getLawyerDetailsByUID = async (UID, detailNeeded) => {
 
     const lawyerDetails = await eVaultContract.getLawyerDetailsByUID(UID);
 
-    if (detailNeeded == "all") {
+    if (detailsNeeded == "all") {
       return {
         name: lawyerDetails[0],
         dateOfBirth: lawyerDetails[1],
@@ -29,8 +29,10 @@ const getLawyerDetailsByUID = async (UID, detailNeeded) => {
         // associatedCaseIds: clientDetails[9].map((id) => id.toNumber()),
         walletAddress: lawyerDetails[9],
       };
-    } else if (detailNeeded == "name") {
+    } else if (detailsNeeded == "name") {
       return {name: lawyerDetails[0]};
+    } else if (detailsNeeded == "name_UID") {
+      return {name: lawyerDetails[0], UID: lawyerDetails[6].toString()};
     }
   } catch (error) {
     console.error("Error while fetching client details:", error);

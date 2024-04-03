@@ -83,12 +83,12 @@ const Navbar = () => {
               {!isMetamaskConnected ? (
                 <button
                   onClick={connectMetamask}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded-sm"
                 >
                   Connect Metamask
                 </button>
               ) : (
-                <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
+                <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded-sm">
                   Metamask Connected
                 </button>
               )}
