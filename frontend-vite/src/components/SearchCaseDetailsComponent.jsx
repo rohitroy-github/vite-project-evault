@@ -40,7 +40,7 @@ const SearchCaseDetailsComponent = () => {
           <div className="mb-4 text-center">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 md:w-1/2 w-2/3"
+              className="border rounded-lg py-2 px-4 md:w-1/2 w-3/4"
               placeholder="Please enter the case ID"
               value={caseID}
               onChange={(e) => setCaseID(e.target.value)}

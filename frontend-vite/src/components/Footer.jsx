@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-300 p-5 bottom-0 w-full ">
-      <div className="container mx-auto text-center">
-        <p className="text-blue-500 font-montserrat text-sm">
+    <footer className="bg-white border-t border-gray-300 md:px-10 md:py-5 py-3 bottom-0 w-full">
+      <div className="text-center">
+        <p className="text-blue-500 font-montserrat md:text-sm text-xs">
           <a
             href="https://github.com/rohitroy-github/sih-evault-project"
             target="_blank"

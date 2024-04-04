@@ -93,9 +93,9 @@ const ProjectStatistics = () => {
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-white">
       <div className="text-center text-black mb-8">
-        <h2 className="text-4xl font-montserrat text-blue-500">
+        <p className="md:text-4xl text-3xl font-montserrat md:mb-8 mb-5 text-blue-500">
           Project Statistics
-        </h2>
+        </p>
       </div>
 
       <div className="flex w-full">
