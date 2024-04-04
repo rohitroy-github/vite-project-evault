@@ -8,6 +8,7 @@ import getCasesForLawyerByUID from "../blockchain-api/getCasesForLawyerByUID";
 import getJudgeDetailsByUID from "../blockchain-api/getJudgeDetailsByUID";
 import getCasesForJudgeByUID from "../blockchain-api/getCasesForJudgeByUID";
 import Loader from "./Loader";
+import {shortenWalletAddress} from "@/lib/utils";
 
 const AdminDashboardComponent = ({aadharUID, adminType}) => {
   const [adminDetails, setAdminDetails] = useState(null);
@@ -196,6 +197,14 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
                     </td>
                     <td className="font-montserrat py-2 px-4 border border-gray-200">
                       {adminDetails.dateOfBirth}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="font-montserrat py-2 px-4 border border-gray-200">
+                      Wallet Address
+                    </td>
+                    <td className="font-montserrat py-2 px-4 border border-gray-200">
+                      {shortenWalletAddress(adminDetails.walletAddress)}
                     </td>
                   </tr>
                 </tbody>

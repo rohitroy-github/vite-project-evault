@@ -1,6 +1,18 @@
-import { clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import {clsx} from "clsx";
+import {twMerge} from "tailwind-merge";
 
 export function cn(...inputs) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
+}
+
+export function shortenWalletAddress(walletAddress) {
+  if (!walletAddress || typeof walletAddress !== "string") {
+    return "Invalid wallet address";
+  }
+
+  const prefix = walletAddress.slice(0, 8);
+
+  const suffix = walletAddress.slice(-8);
+
+  return `${prefix}...${suffix}`;
 }
