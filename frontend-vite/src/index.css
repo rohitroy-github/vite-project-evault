@@ -10,6 +10,13 @@ body {
   margin: 0;
 }
 
+@media screen and (min-width: 350px) and (max-width: 640px) {
+  body {
+    padding-right: 35px;
+    padding-left: 35px;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

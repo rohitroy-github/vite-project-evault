@@ -61,7 +61,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 2000);
   }, []);
 
   if (loading) {
@@ -70,8 +70,8 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
   return (
     <>
-      <div className="flex items-center 3xl:h-[80vh] h-screen md:flex-col">
-        <div className="flex pt-10 pb-20">
+      <div className="flex items-center 3xl:h-[80vh] md:h-screen md:flex-col xs:flex-col">
+        <div className="flex md:pt-10 xs:pt-5 md:pb-20 xs:pb-5">
           <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
             {adminType === "client" && `Client Dashboard`}
             {adminType === "lawyer" && `Lawyer Dashboard`}
@@ -79,25 +79,25 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
           </button>
         </div>
 
-        <div className="flex flex-row w-full justify-center">
+        <div className="flex xl:flex-row w-full justify-center xs:flex-col xs:pb-10">
           {/* Left Section */}
-          <div className="md:w-[60%] flex flex-col px-5 items-center">
-            <h2 className="text-2xl font-montserrat mb-4 text-left">
+          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 xs:pb-10 md:pb-0">
+            <h2 className="md:text-2xl xs:text-xl font-montserrat mb-4 text-left">
               Your Recent Cases
             </h2>
 
             {last3Cases ? (
-              <div className="w-[90%]">
+              <div className="md:w-[90%] w-full md:text-base xs:text-xs">
                 {last3Cases.map((caseInfo, index) => (
                   <div
                     key={index}
-                    className="bg-white p-5 rounded-lg border border-gray-300 hover:bg-gray-100 mb-4"
+                    className="bg-white md:p-5 p-4 rounded-lg border border-gray-300 hover:bg-gray-100 mb-3 md:mb-4"
                     style={{position: "relative"}}
                   >
                     <Link to={`/case-details?caseid=${caseInfo.caseId}`}>
                       <div className="flex flex-row justify-between">
                         <div className="order-first">
-                          <p className="text-md font-montserrat">
+                          <p className="font-montserrat">
                             Case Subject: {caseInfo.caseSubject}
                           </p>
                         </div>
@@ -109,11 +109,11 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
                         </div>
                       </div>
 
-                      <p className="text-md font-montserrat">
+                      <p className="font-montserrat">
                         Filed On: {caseInfo.filedOnDate.toLocaleString()}
                       </p>
 
-                      <p className="text-md font-montserrat">
+                      <p className="font-montserrat">
                         Latest case update:{" "}
                         {
                           caseInfo.caseProgress[
@@ -135,15 +135,15 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
           </div>
 
           {/* Right Section */}
-          <div className="md:w-[40%] flex flex-col px-5 border-l border-blue-500 min-h-[50vh] items-center">
-            <h2 className="text-2xl font-montserrat mb-4 text-center">
+          <div className="md:w-[40%] w-full flex flex-col md:px-5 md:border-l md:border-blue-500 md:min-h-[50vh] items-center xs:flex-1">
+            <h2 className="md:text-2xl xs:text-xl font-montserrat mb-4 text-center">
               Profile Information
             </h2>
-            <div className="w-[85%]">
-              <table className="w-full border border-gray-200">
+            <div className="md:w-[85%] w-[90%]">
+              <table className="w-full border border-gray-200 md:text-base xs:text-sm">
                 <tbody>
                   <tr>
-                    <td className="font-montserrat py-2 px-4 border border-gray-200">
+                    <td className="font-montserrat py-2 px-4 border border-gray-200 w-[50%]">
                       Full Name:
                     </td>
                     <td className="font-montserrat py-2 px-4 border border-gray-200">
@@ -205,9 +205,11 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center min-h-[90vh] md:flex-col md:w-full">
+      <div className="flex items-center justify-center md:min-h-[90vh] flex-col w-full xs:pb-10 md:pb-0">
         <div className="text-black pb-5">
-          <h2 className="text-2xl font-montserrat p-0">Your Past Cases</h2>
+          <h2 className="md:text-2xl xs:text-xl font-montserrat p-0">
+            Your Past Cases
+          </h2>
         </div>
         <div className="pb-10">
           <Link
@@ -219,17 +221,17 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         </div>
 
         {allCasesOnClient ? (
-          <div className="space-y-4 md:space-y-3 w-[75%]">
+          <div className="space-y-3 md:w-[75%] w-full">
             {allCasesOnClient.map((caseInfo, index) => (
               <div
                 key={index}
-                className="bg-white p-5 rounded-lg border border-gray-300 hover:bg-gray-100"
+                className="bg-white md:p-5 p-4 rounded-md border border-gray-300 hover:bg-gray-100"
                 style={{position: "relative"}}
               >
                 <Link to={`/case-details?caseid=${caseInfo.caseId}`}>
                   <div className="flex flex-row justify-between">
                     <div className="order-first">
-                      <p className="text-md font-montserrat">
+                      <p className="md:text-base xs:text-xs font-montserrat">
                         Case Subject: {caseInfo.caseSubject}
                       </p>
                     </div>
@@ -241,20 +243,20 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
                     </div>
                   </div>
 
-                  <p className="text-sm font-montserrat">
+                  <p className="md:text-sm xs:text-xs font-montserrat">
                     Case judged by : {caseInfo.associatedJudge}
                   </p>
 
-                  <p className="text-sm font-montserrat">
+                  <p className="md:text-sm xs:text-xs font-montserrat">
                     Filed On: {caseInfo.filedOnDate.toLocaleString()}
                   </p>
 
-                  <p className="text-sm font-montserrat font-semibold">
+                  <p className="md:text-sm xs:text-xs font-montserrat font-semibold">
                     {/* Case status : {caseInfo.associatedJudge} */}
                     Case status : Pending
                   </p>
 
-                  <p className="text-sm font-montserrat font-semibold">
+                  <p className="md:text-sm xs:text-xs font-montserrat font-semibold">
                     Latest case progress :{" "}
                     {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
                   </p>
