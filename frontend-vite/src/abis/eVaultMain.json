@@ -471,61 +471,54 @@
     "name": "getJudgeDetailsByUID",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "name",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "dateOfBirth",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "religion",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "nationality",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "sex",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "contactNumber",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "UID",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "PAN",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "associatedCaseIds",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "address",
-            "name": "walletAddress",
-            "type": "address"
-          }
-        ],
-        "internalType": "struct eVaultMain.Judge",
-        "name": "",
-        "type": "tuple"
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "dateOfBirth",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "religion",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "sex",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactNumber",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "UID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "PAN",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "associatedCaseIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "view",

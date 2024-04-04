@@ -43,7 +43,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         justLast3Cases = result2.slice(-3);
         setLast3Cases(justLast3Cases);
       } else if (adminType === "judge") {
-        result1 = await getJudgeDetailsByUID(aadharUID);
+        result1 = await getJudgeDetailsByUID(aadharUID, "all");
         setAdminDetails(result1);
 
         result2 = await getCasesForJudgeByUID(aadharUID);
@@ -140,7 +140,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
             <h2 className="md:text-2xl xs:text-xl font-montserrat mb-4 text-center">
               Profile Information
             </h2>
-            <div className="md:w-[85%] w-[90%]">
+            <div className="md:w-[85%] w-full">
               <table className="w-full border border-gray-200 md:text-base xs:text-sm">
                 <tbody>
                   <tr>

@@ -290,14 +290,40 @@ contract eVaultMain {
     // Function to get Judge details by UID
     function getJudgeDetailsByUID(
         uint256 _UID
-    ) external view returns (Judge memory) {
+    )
+        external
+        view
+        returns (
+            string memory name,
+            string memory dateOfBirth,
+            string memory religion,
+            string memory nationality,
+            string memory sex,
+            string memory contactNumber,
+            uint256 UID,
+            string memory PAN,
+            uint256[] memory associatedCaseIds,
+            address walletAddress
+        )
+    {
         Judge memory judge = judges[_UID];
         require(
             bytes(judge.name).length > 0,
             "Judge with this UID does not exist"
         );
 
-        return judge;
+        return (
+            judge.name,
+            judge.dateOfBirth,
+            judge.religion,
+            judge.nationality,
+            judge.sex,
+            judge.contactNumber,
+            judge.UID,
+            judge.PAN,
+            judge.associatedCaseIds,
+            judge.walletAddress
+        );
     }
 
     // functionToViewClientInformation

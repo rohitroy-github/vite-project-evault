@@ -24,17 +24,17 @@ const getJudgeDetailsByUID = async (UID, detailsNeeded) => {
         nationality: judgeDetails[3],
         sex: judgeDetails[4],
         contactNumber: judgeDetails[5],
-        UID: judgeDetails[6].toNumber(),
+        UID: judgeDetails[6].toString(),
         PAN: judgeDetails[7],
         // associatedCaseIds: lawyerDetails[8].map((id) => id.toNumber()),
         walletAddress: judgeDetails[9],
       };
     } else if (detailsNeeded == "name_UID") {
-      return {name: judgeDetails[0], UID: judgeDetails[6].toNumber()};
+      return {name: judgeDetails[0], UID: judgeDetails[6].toString()};
     } else if (detailsNeeded == "name_UID_walletAddress") {
       return {
         name: judgeDetails[0],
-        UID: judgeDetails[6].toNumber(),
+        UID: judgeDetails[6].toString(),
         walletAddress: judgeDetails[9],
       };
     }
