@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white w-full border-b border-gray-300 md:px-10 md:py-5 py-3">
+    <nav className="bg-white w-full border-b border-gray-300 md:px-10 md:py-5 py-4">
       <div className="flex justify-between items-center">
         <div className="font-montserrat md:text-xl text-base text-blue-500">
           <Link to="/">Project E-Vault</Link>
@@ -141,8 +141,8 @@ const Navbar = () => {
       </div>
       {isOpen && (
         // <div className="md:hidden text-sm absolute top-16 left-0 w-full bg-white border-b border-gray-300 z-10">
-        <div className="md:hidden text-sm absolute top-16 right-0 h-screen w-2/3 bg-white bg-opacity-80 z-10">
-          <div className="flex flex-col h-full gap-8 p-5">
+        <div className="md:hidden text-sm absolute top-15 right-0 h-[90%] w-2/3 bg-white bg-opacity-75 z-10 p-5">
+          <div className="flex flex-col h-full gap-8">
             {!isAdminRoute && (
               <>
                 <Link
@@ -155,7 +155,7 @@ const Navbar = () => {
                   to="/signup"
                   className="text-black font-montserrat hover:text-blue-300"
                 >
-                  Sign Up
+                  Register
                 </Link>
                 <Link
                   to="/login"
@@ -177,7 +177,7 @@ const Navbar = () => {
                   to="/get-case-details"
                   className="text-black font-montserrat hover:text-blue-300"
                 >
-                  Case Search
+                  Search Case Details
                 </Link>
                 <Link
                   to="/logout"
@@ -192,15 +192,18 @@ const Navbar = () => {
             {!isMetamaskConnected ? (
               <button
                 onClick={connectMetamask}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded-sm"
               >
                 Connect Metamask
               </button>
             ) : (
-              <div className="mt-4">
-                <p className="text-black font-montserrat">Metamask Connected</p>
-              </div>
+              <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded-sm">
+                Metamask Connected
+              </button>
             )}
+          </div>
+          <div className="font-montserrat text-base text-blue-500 text-center">
+            <Link to="/">Project E-Vault</Link>
           </div>
         </div>
       )}
