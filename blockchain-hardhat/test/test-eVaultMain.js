@@ -162,7 +162,7 @@ describe("eVaultMain", () => {
     // settingUpAccounts
     [deployer, buyer] = await ethers.getSigners();
     // contractDeployment
-    const EVAULTMAIN = await ethers.getContractFactory("eVaultMain");
+    const EVAULTMAIN = await ethers.getContractFactory("EVault_Main");
     eVaultMain = await EVAULTMAIN.deploy();
   });
 
@@ -174,7 +174,7 @@ describe("eVaultMain", () => {
 
     // setsName
     it("contract has an name", async () => {
-      expect(await eVaultMain.contractName()).to.equal("eVaultMain");
+      expect(await eVaultMain.contractName()).to.equal("EVault_Main");
     });
   });
 

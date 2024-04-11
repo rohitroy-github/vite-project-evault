@@ -81,7 +81,7 @@ contract EVault_Main {
     event JudgeRegistered(uint256 UID);
 
     constructor() {
-        contractName = "eVaultMain";
+        contractName = "EVault_Main";
         contractOwner = msg.sender;
     }
 
