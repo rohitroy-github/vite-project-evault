@@ -10,6 +10,9 @@ const {
   judge1,
   judge2,
   judge3,
+  judge4,
+  judge5,
+  judge6,
   lawyer1,
   lawyer2,
   lawyer3,
@@ -91,6 +94,9 @@ async function main() {
   await registerJudge(deployer, eVaultMain, judge1);
   await registerJudge(deployer, eVaultMain, judge2);
   await registerJudge(deployer, eVaultMain, judge3);
+  await registerJudge(deployer, eVaultMain, judge4);
+  await registerJudge(deployer, eVaultMain, judge5);
+  await registerJudge(deployer, eVaultMain, judge6);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 

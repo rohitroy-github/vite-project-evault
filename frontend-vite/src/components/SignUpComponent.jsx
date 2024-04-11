@@ -118,19 +118,19 @@ const SignUpComponent = () => {
       case "lawyer":
         return (
           <>
-            <div className="mb-5">
+            <div className="md:pb-5 pb-3 flex gap-5">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Enter your full name ?"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
             </div>
-            <div className="mb-5 flex gap-5">
-              <div className="w-1/3">
+            <div className="md:pb-5 pb-3 flex md:flex-row md:gap-5 gap-3 flex-col items-center">
+              <div className="md:w-1/3 w-full">
                 <select
-                  className="border rounded-lg py-2 px-4 w-full"
+                  className="border rounded-sm py-2 px-4 w-full"
                   value={religion}
                   onChange={(e) => setReligion(e.target.value)}
                 >
@@ -140,9 +140,9 @@ const SignUpComponent = () => {
                   <option value="Christianity">Christianity</option>
                 </select>
               </div>
-              <div className="w-1/3">
+              <div className="md:w-1/3 w-full">
                 <select
-                  className="border rounded-lg py-2 px-4 w-full"
+                  className="border rounded-sm py-2 px-4 w-full"
                   value={nationality}
                   onChange={(e) => setNationality(e.target.value)}
                 >
@@ -150,9 +150,9 @@ const SignUpComponent = () => {
                   <option value="Indian">Indian</option>
                 </select>
               </div>
-              <div className="w-1/3">
+              <div className="md:w-1/3 w-full">
                 <select
-                  className="border rounded-lg py-2 px-4 w-full"
+                  className="border rounded-sm py-2 px-4 w-full"
                   value={sex}
                   onChange={(e) => setSex(e.target.value)}
                 >
@@ -164,19 +164,19 @@ const SignUpComponent = () => {
                 </select>
               </div>
             </div>
-            <div className="mb-5">
+            <div className="md:pb-5 pb-3 flex">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Enter your DOB (Date Of Birth) ?"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
               />
             </div>
-            <div className="mb-5">
+            <div className="md:pb-5 pb-3 flex">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Enter your contact number ?"
                 value={contactNumber}
                 onChange={(e) => setContactNumber(e.target.value)}
@@ -333,84 +333,94 @@ const SignUpComponent = () => {
   // }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-5">
-      <div className="left-section w-[45%] bg-white p-8 pl-0 font-montserrat items-center justify-center flex flex-col">
-        <h1 className="text-2xl font-montserrat mb-5 text-center">
+    <div className="flex md:flex-row flex-col items-center justify-center min-h-screen md:p-5 pt-10">
+      <div className="left-section md:w-[45%] w-full bg-white md:p-8 md:pl-0 pb-10 font-montserrat items-center justify-center flex flex-col">
+        <p className="md:text-2xl text-xl font-montserrat pb-5 text-center">
           E-Vault Registration
           {/* {formType === "lawyer"
             ? "Lawyer"
             : formType === "client"
             ? "Client"
             : "Judge"} */}
-        </h1>
-        <div className="mb-5 text-center text-md">
+        </p>
+        <div className="pb-5 text-center md:text-base text-sm">
           <Link to="/login" className="text-blue-500">
             Already registered ? Login with your credentials !
           </Link>
         </div>
-        {/* <h3 className="text-lg font-montserrat mb-4 text-center">{account}</h3> */}
-        <div className="flex justify-center space-x-4 text-sm">
-          <button
-            className={`py-2 px-4 rounded-md ${
-              formType === "lawyer"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={() => {
-              setFormType("lawyer");
-              setSigningUpAs("lawyer");
-            }}
-          >
-            Sign up as a lawyer
-          </button>
-          <button
-            className={`py-2 px-4 rounded-md ${
-              formType === "client"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={() => {
-              setFormType("client");
-              setSigningUpAs("client");
-            }}
-          >
-            Sign up as a client
-          </button>
-          <button
-            className={`py-2 px-4 rounded-md ${
-              formType === "judge"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={() => {
-              setFormType("judge");
-              setSigningUpAs("judge");
-            }}
-          >
-            Sign up as a judge
-          </button>
+        <div className="flex flex-col md:justify-evenly xs:w-2/5 gap-3 text-sm">
+          <div className="flex">
+            <button
+              className={`py-2 px-4 rounded-sm w-full ${
+                formType === "lawyer"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
+              onClick={() => {
+                setFormType("lawyer");
+                setSigningUpAs("lawyer");
+              }}
+            >
+              Lawyer Registration
+            </button>
+          </div>
+
+          <div className="flex">
+            <button
+              className={`py-2 px-4 rounded-sm w-full ${
+                formType === "client"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
+              onClick={() => {
+                setFormType("client");
+                setSigningUpAs("client");
+              }}
+            >
+              Client Registration
+            </button>
+          </div>
+
+          <div className="flex">
+            <button
+              className={`py-2 px-4 rounded-sm w-full ${
+                formType === "judge"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
+              onClick={() => {
+                setFormType("judge");
+                setSigningUpAs("judge");
+              }}
+            >
+              Judge Registration
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="right-section w-[55%] bg-white p-8 pr-0 pl-5 font-montserrat border-l border-gray-300 items-center justify-center flex">
-        <form onSubmit={handleSubmit} className="w-[90%]">
+      <div className="right-section md:w-[55%] w-full bg-white md:p-8 md:pr-0 pb-10 font-montserrat md:border-l md:border-gray-300 items-center justify-center flex">
+        <form
+          onSubmit={handleSubmit}
+          className="md:w-[90%] w-[85%] md:text-base text-sm"
+        >
           {renderFormFields()}
 
-          <div className="mb-5 flex gap-5">
-            <div className="w-1/2">
+          <div className="md:pb-5 pb-3 flex md:flex-row flex-col md:gap-5 gap-3">
+            <div className="md:w-1/2 w-full">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Enter your Aadhar UID ?"
                 value={aadharUID}
                 onChange={(e) => setAadharUID(e.target.value)}
               />
             </div>
 
-            <div className="w-1/2">
+            <div className="md:w-1/2 w-full">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Enter your PAN ?"
                 value={pan}
                 onChange={(e) => setPan(e.target.value)}
@@ -418,20 +428,20 @@ const SignUpComponent = () => {
             </div>
           </div>
 
-          <div className="mb-10 flex gap-5">
-            <div className="w-2/3">
+          <div className="md:pb-10 pb-5 flex md:flex-row md:gap-5 gap-3 flex-col items-center">
+            <div className="md:w-2/3 w-full">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Click on 'Connect Wallet' here !"
                 value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
               />
             </div>
-            <div className="w-1/3">
+            <div className="md:w-1/3 w-1-3 md:text-base text-xs">
               <button
                 type="button"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md w-full"
+                className="bg-blue-500 text-white py-2 px-4 rounded-sm w-full"
                 onClick={connectMetamaskWallet}
               >
                 {isConnected ? "Wallet Connected" : "Connect Wallet"}
@@ -439,10 +449,10 @@ const SignUpComponent = () => {
             </div>
           </div>
 
-          <div className="text-center mt-5 w-full">
+          <div className="text-center w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-md w-1/3"
+              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-3/5"
             >
               Sign Up
             </button>

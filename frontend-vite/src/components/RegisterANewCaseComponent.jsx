@@ -5,10 +5,8 @@ import registerNewCase from "../blockchain-api/registerNewCase";
 const initialState = {
   UIDOfParty1: "",
   UIDOfParty2: "",
-  associatedJudge: "",
   caseSubject: "",
   associatedLawyers: [],
-  callerAccount: "",
 };
 
 const RegisterANewCaseComponent = () => {
@@ -21,51 +19,23 @@ const RegisterANewCaseComponent = () => {
     if (
       !formData.UIDOfParty1 ||
       !formData.UIDOfParty2 ||
-      !formData.associatedJudge ||
       !formData.caseSubject ||
-      !formData.associatedLawyers.length ||
-      !formData.callerAccount
+      !formData.associatedLawyers.length
     ) {
       alert("Please fill in all the required fields.");
       return;
     }
 
-    console.log("Submitted data:", formData);
-
     try {
       const register = await registerNewCase(formData);
       alert(register);
 
-      // Reset the form data to the initial state after a successful submission
+      // resettingFormSubmission
       setFormData({...initialState});
     } catch (error) {
-      console.error("Error during registration >>>", error);
+      console.error("Error during case registration: ", error);
     }
   };
-
-  useEffect(() => {
-    const fetchCallerAccount = async () => {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({
-            method: "eth_accounts",
-          });
-
-          if (accounts.length > 0) {
-            // Set the first account as the callerAccount
-            setFormData((prevData) => ({
-              ...prevData,
-              callerAccount: accounts[0],
-            }));
-          }
-        } catch (error) {
-          console.error("Error fetching caller account:", error);
-        }
-      }
-    };
-
-    fetchCallerAccount();
-  }, []);
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -76,57 +46,57 @@ const RegisterANewCaseComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-5">
-      <div className="bg-white p-8 font-montserrat w-[50%]">
-        <h1 className="text-3xl font-montserrat mb-5 text-center">
+    <div className="flex items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
+      <div className="bg-white md:p-8 font-montserrat md:w-[50%] w-full">
+        <p className="md:text-2xl text-xl font-montserrat pb-5 text-center">
           Register A New Legal Case
-        </h1>
+        </p>
 
         <form onSubmit={handleSubmit}>
-          <div className="mb-5">
+          <div className="md:pb-5 pb-3 flex">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 w-full"
+              className="border rounded-sm py-2 px-4 w-full"
               placeholder="Enter UID for Party 1 ?"
               name="UIDOfParty1"
               value={formData.UIDOfParty1}
               onChange={handleChange}
             />
           </div>
-          <div className="mb-5">
+          <div className="md:pb-5 pb-3 flex">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 w-full"
+              className="border rounded-sm py-2 px-4 w-full"
               placeholder="Enter UID for Party 2 ?"
               name="UIDOfParty2"
               value={formData.UIDOfParty2}
               onChange={handleChange}
             />
           </div>
-          <div className="mb-5">
+          <div className="md:pb-5 pb-3 flex">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 w-full"
+              className="border rounded-sm py-2 px-4 w-full"
               placeholder="Case Subject ?"
               name="caseSubject"
               value={formData.caseSubject}
               onChange={handleChange}
             />
           </div>
-          <div className="mb-5">
+          {/* <div className="md:pb-5 pb-3 flex">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 w-full"
-              placeholder="Case Judge ?"
+              className="border rounded-sm py-2 px-4 w-full"
+              placeholder="Judge UID ?"
               name="associatedJudge"
               value={formData.associatedJudge}
               onChange={handleChange}
             />
-          </div>
-          <div className="mb-5">
+          </div> */}
+          <div className="md:pb-5 pb-5 flex">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 w-full"
+              className="border rounded-sm py-2 px-4 w-full"
               placeholder="Associated Lawyers (comma-separated) ?"
               name="associatedLawyers"
               value={formData.associatedLawyers.join(", ")}
@@ -140,10 +110,10 @@ const RegisterANewCaseComponent = () => {
               }
             />
           </div>
-          <div className="text-center mt-5 w-full">
+          <div className="text-center w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg w-1/2"
+              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-3/5"
             >
               Register
             </button>

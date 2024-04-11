@@ -71,6 +71,42 @@
     "associatedCaseIds": [],
     "walletAddress": "0x976ea74026e726554db657fa54763abd0c3a0aa9"
   },
+  "judge4": {
+    "name": "Judge4",
+    "dateOfBirth": "1990-08-20",
+    "religion": "Buddhism",
+    "nationality": "Japanese",
+    "sex": "Male",
+    "contactNumber": "+81 90-1234-5678",
+    "UID": 456789012345,
+    "PAN": "JKLQT6789W",
+    "associatedCaseIds": [],
+    "walletAddress": "0x33c46b91b4ecbbb8a692bd55bb85af79c4edaf39"
+  },
+  "judge5": {
+    "name": "Judge5",
+    "dateOfBirth": "1988-04-10",
+    "religion": "Judaism",
+    "nationality": "Israeli",
+    "sex": "Female",
+    "contactNumber": "+972 50-123-4567",
+    "UID": 654321098765,
+    "PAN": "MNOPQ5678T",
+    "associatedCaseIds": [],
+    "walletAddress": "0x6f46cf5569aefa1acc1009290c8e043747172d89"
+  },
+  "judge6": {
+    "name": "Judge6",
+    "dateOfBirth": "1973-11-05",
+    "religion": "Sikhism",
+    "nationality": "Canadian",
+    "sex": "Male",
+    "contactNumber": "+1 416-555-6789",
+    "UID": 234567890123,
+    "PAN": "STUVR1234U",
+    "associatedCaseIds": [],
+    "walletAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+  },
   "client1": {
     "name": "Client1",
     "dateOfBirth": "2001-12-30",

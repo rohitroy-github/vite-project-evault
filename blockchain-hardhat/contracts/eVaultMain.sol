@@ -373,7 +373,7 @@ contract eVaultMain {
         uint256 _UIDOfParty2,
         string memory _caseSubject,
         uint256[] memory _associatedLawyers
-    ) external onlyOwner {
+    ) external {
         Client storage client1 = clients[_UIDOfParty1];
         Client storage client2 = clients[_UIDOfParty2];
 

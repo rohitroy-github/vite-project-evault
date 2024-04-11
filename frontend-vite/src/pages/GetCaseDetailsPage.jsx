@@ -3,7 +3,7 @@ import SearchCaseDetailsComponent from "../components/SearchCaseDetailsComponent
 
 const GetCaseDetailsPage = () => {
   return (
-    <div className="flex items-center justify-center h-screen w-full">
+    <div className="flex items-center justify-center w-full">
       <SearchCaseDetailsComponent />
     </div>
   );

@@ -82,95 +82,106 @@ const LoginComponent = ({initialFormType}) => {
   // }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-5">
-      <div className="left-section w-[45%] bg-white p-8 pl-0 font-montserrat items-center justify-center flex flex-col">
-        <p className="text-2xl font-montserrat mb-5 text-center">
+    <div className="flex md:flex-row flex-col items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
+      <div className="left-section md:w-[45%] w-full bg-white md:p-8 md:pl-0 pb-10 font-montserrat items-center justify-center flex flex-col">
+        <p className="md:text-2xl text-xl font-montserrat pb-5 text-center">
           E-Vault Login
         </p>
-        <div className="mb-5 text-center text-md">
+        <div className="pb-5 text-center md:text-base text-sm">
           <Link to="/signup" className="text-blue-500">
             New user? Register with E-Vault here !
           </Link>
         </div>
-        <div className="flex justify-center space-x-4 text-sm">
-          <button
-            className={`py-2 px-4 rounded-md ${
-              formType === "lawyer"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={() => {
-              setFormType("lawyer");
-              setSigningUpAs("lawyer");
-            }}
-          >
-            Login as a lawyer
-          </button>
-          <button
-            className={`py-2 px-4 rounded-md ${
-              formType === "client"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={() => {
-              setFormType("client");
-              setSigningUpAs("client");
-            }}
-          >
-            Login as a client
-          </button>
-          <button
-            className={`py-2 px-4 rounded-md ${
-              formType === "judge"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-300 text-gray-600"
-            }`}
-            onClick={() => {
-              setFormType("judge");
-              setSigningUpAs("judge");
-            }}
-          >
-            Login as a judge
-          </button>
+        <div className="flex flex-col md:justify-evenly xs:w-2/5 gap-3 text-sm">
+          <div className="flex">
+            <button
+              className={`py-2 px-4 rounded-sm w-full ${
+                formType === "lawyer"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
+              onClick={() => {
+                setFormType("lawyer");
+                setSigningUpAs("lawyer");
+              }}
+            >
+              Login as a lawyer
+            </button>
+          </div>
+
+          <div className="flex">
+            <button
+              className={`py-2 px-4 rounded-sm w-full ${
+                formType === "client"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
+              onClick={() => {
+                setFormType("client");
+                setSigningUpAs("client");
+              }}
+            >
+              Login as a client
+            </button>
+          </div>
+
+          <div className="flex">
+            <button
+              className={`py-2 px-4 rounded-sm w-full ${
+                formType === "judge"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-300 text-gray-600"
+              }`}
+              onClick={() => {
+                setFormType("judge");
+                setSigningUpAs("judge");
+              }}
+            >
+              Login as a judge
+            </button>
+          </div>
         </div>
       </div>
-      <div className="right-section w-[55%] bg-white p-8 pr-0 font-montserrat border-l border-gray-300 items-center justify-center flex">
-        <form onSubmit={handleSubmit} className="w-[90%]">
-          <div className="mb-5 flex gap-5">
+      <div className="right-section md:w-[55%] w-full bg-white md:p-8 md:pr-0 pb-10 font-montserrat md:border-l md:border-gray-300 items-center justify-center flex">
+        <form
+          onSubmit={handleSubmit}
+          className="md:w-[90%] w-[80%] md:text-base text-sm"
+        >
+          <div className="md:pb-5 pb-3 flex">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 w-full"
+              className="border rounded-sm py-2 px-4 w-full"
               placeholder="Enter your Aadhar number ? "
               value={aadharUID}
               onChange={(e) => setAadharUID(e.target.value)}
             />
           </div>
 
-          <div className="mb-10 flex gap-5">
-            <div className="w-2/3">
+          <div className="md:pb-10 pb-5 flex md:flex-row md:gap-5 gap-3 flex-col items-center">
+            <div className="md:w-2/3 w-full">
               <input
                 type="text"
-                className="border rounded-lg py-2 px-4 w-full"
+                className="border rounded-sm py-2 px-4 w-full"
                 placeholder="Click on 'Connect Wallet' here !"
                 value={walletAddress}
                 onChange={(e) => setWalletAddress(e.target.value)}
               />
             </div>
-            <div className="w-1/3">
+            <div className="md:w-1/3 w-1-3 md:text-base text-xs">
               <button
                 type="button"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md w-full"
+                className="bg-blue-500 text-white py-2 px-4 rounded-sm w-full"
                 onClick={connectMetamaskWallet}
               >
-                {isConnected ? "Wallet Connected" : "Connect Wallet"}
+                {isConnected ? "Connected" : "Connect Wallet"}
               </button>
             </div>
           </div>
 
-          <div className="text-center mt-5 w-full">
+          <div className="text-center w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-md w-1/3"
+              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-3/5"
             >
               Login
             </button>

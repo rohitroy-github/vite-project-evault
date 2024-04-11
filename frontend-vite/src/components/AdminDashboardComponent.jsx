@@ -71,18 +71,18 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
   return (
     <>
-      <div className="flex items-center 3xl:h-[80vh] md:h-screen md:flex-col xs:flex-col">
-        <div className="flex md:pt-10 xs:pt-5 md:pb-20 xs:pb-5">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded">
+      <div className="flex flex-col items-center justify-center md:py-10 xs:py-5">
+        <div className="md:pb-10 xs:pb-5">
+          <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-sm md:text-base">
             {adminType === "client" && `Client Dashboard`}
             {adminType === "lawyer" && `Lawyer Dashboard`}
             {adminType === "judge" && `Judge Dashboard`}
           </button>
         </div>
 
-        <div className="flex xl:flex-row w-full justify-center xs:flex-col xs:pb-10">
+        <div className="flex xl:flex-row w-full justify-center xs:flex-col">
           {/* Left Section */}
-          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 xs:pb-10 md:pb-0">
+          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 xs:pb-5 md:pb-0">
             <h2 className="md:text-2xl xs:text-xl font-montserrat mb-4 text-left">
               Your Recent Cases
             </h2>
@@ -214,18 +214,17 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center md:min-h-[90vh] flex-col w-full xs:pb-10 md:pb-0">
+      <div className="flex items-center justify-center flex-col w-full md:py-10 xs:py-5">
         <div className="text-black pb-5">
           <h2 className="md:text-2xl xs:text-xl font-montserrat p-0">
             Your Past Cases
           </h2>
         </div>
         <div className="pb-10">
-          <Link
-            to={`/admin/register-new-case`}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-3 px-5 rounded"
-          >
-            Register New Case
+          <Link to={`/admin/register-new-case`} className="">
+            <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-sm md:text-base">
+              Register New Case
+            </button>
           </Link>
         </div>
 

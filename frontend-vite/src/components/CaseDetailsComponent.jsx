@@ -167,11 +167,17 @@ const CaseDetailsComponent = ({caseID}) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center md:min-h-screen md:p-5 xs:py-10">
+    <div className="flex flex-col items-center justify-center md:py-10 xs:py-5">
+      <div className="md:pb-10 xs:pb-5">
+        <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm md:text-base">
+          Case Details
+        </button>
+      </div>
+
       <div className="md:w-[80%] w-full text-center md:text-left md:text-2xl xs:text-xl font-montserrat pb-5">
         <h2 className="">Case Information</h2>
       </div>
-      <div className="md:w-[80%] w-full flex items-center justify-center">
+      <div className="md:w-[80%] w-full flex items-center justify-center xs:pb-5">
         <table className="w-full border border-gray-200 md:text-base xs:text-sm">
           <tbody>
             <tr>
@@ -251,10 +257,9 @@ const CaseDetailsComponent = ({caseID}) => {
           </tbody>
         </table>
       </div>
-      <div className="md:w-[80%] w-full md:mb-5 mt-10 flex flex-col">
-        {/* <div className="w-full flex items-center justify-between pb-5"> */}
-        <div className="w-full text-center justify-between flex md:flex-row flex-col md:text-left md:text-2xl xs:text-xl font-montserrat pb-5">
-          <div className="items-center justify-center text-center xs:pb-3 md:pb-0">
+      <div className="md:w-[80%] w-full flex flex-col md:py-10 xs:pt-5">
+        <div className="w-full text-center justify-between flex md:flex-row flex-col md:text-left md:text-2xl xs:text-xl font-montserrat">
+          <div className="items-center justify-center text-center pb-5">
             <h2>Case Progress</h2>
           </div>
           <div>

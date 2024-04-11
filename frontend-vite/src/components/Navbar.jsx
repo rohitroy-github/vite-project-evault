@@ -31,8 +31,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white w-full border-b border-gray-300 md:px-10 md:py-5 py-4">
-      <div className="flex justify-between items-center">
+    <nav className="bg-white w-full border-b border-gray-300 md:px-10 md:py-5">
+      <div className="flex justify-between items-center xs:h-[7vh] md:h-auto">
         <div className="font-montserrat md:text-xl text-base text-blue-500">
           <Link to="/">Project E-Vault</Link>
         </div>

@@ -27,7 +27,7 @@ const SearchCaseDetailsComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center md:min-h-screen h-screen">
+    <div className="flex items-center justify-center md:min-h-screen min-h-[87vh]">
       <div className="bg-white md:p-8 font-montserrat w-full">
         <h1 className="md:text-3xl xs:text-xl font-montserrat mb-2 text-center">
           Search for case details ?

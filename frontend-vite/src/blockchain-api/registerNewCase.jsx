@@ -5,10 +5,8 @@ import config from "../backend-config.json";
 const registerNewCase = async ({
   UIDOfParty1,
   UIDOfParty2,
-  associatedJudge,
   caseSubject,
   associatedLawyers,
-  account,
 }) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const connectedNetwork = await provider.getNetwork();
@@ -23,14 +21,16 @@ const registerNewCase = async ({
   //   .split(",")
   //   .map((address) => address.trim());
 
+  const parsedLawyers = associatedLawyers.map((lawyer) => parseInt(lawyer, 10));
+
+  console.log(UIDOfParty1, UIDOfParty2, caseSubject, parsedLawyers);
+
   try {
     const tx = await eVaultContract.registerLegalCase(
       parseInt(UIDOfParty1, 10),
       parseInt(UIDOfParty2, 10),
-      associatedJudge,
       caseSubject,
-      associatedLawyers,
-      {from: account}
+      parsedLawyers
     );
 
     const receipt = await tx.wait();

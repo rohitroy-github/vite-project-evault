@@ -7,7 +7,7 @@ async function registerLegalCase(deployer, contract, caseData) {
     UIDOfParty1,
     UIDOfParty2,
     caseSubject,
-    associatedLawyers.map((lawyerAddress) => lawyerAddress)
+    associatedLawyers.map((lawyerUID) => lawyerUID)
   );
 
   await registerCaseTX.wait();
