@@ -1,5 +1,6 @@
 import {ethers} from "ethers";
-import eVaultMain from "../abis/eVaultMain.json";
+import {abi as eVaultMain} from "../../../blockchain-hardhat/artifacts/contracts/EVault_Main.sol/EVault_Main.json";
+
 import config from "../backend-config.json";
 
 const registerNewCase = async ({

@@ -71,7 +71,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center md:py-10 xs:py-5 md:min-h-screen min-h-[87vh]">
+      <div className="flex flex-col items-center justify-center md:py-10 xs:py-5 md:min-h-auto min-h-[87vh]">
         <div className="md:pb-10 xs:pb-3">
           <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-xs md:text-base">
             {adminType === "client" && `Client Dashboard`}

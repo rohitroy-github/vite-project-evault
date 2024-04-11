@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-contract eVaultMain {
+contract EVault_Main {
     address public contractOwner;
     string public contractName;
 

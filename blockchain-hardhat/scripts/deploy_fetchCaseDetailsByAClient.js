@@ -1,12 +1,6 @@
-// Test >>>
-// > Registering 2 new client
-// > Registering a new case between these 2 clients.
-// > Fetching all the cases a client is associated with.
-
 const {ethers, run, network} = require("hardhat");
 
 const {
-  //   lawyer,
   judge1,
   judge2,
   judge3,
@@ -41,19 +35,35 @@ const {
 } = require("./script-functions/function_legalcase");
 
 async function main() {
-  const EVAULTMAIN = await ethers.getContractFactory("eVaultMain");
-  const eVaultMain = await EVAULTMAIN.deploy();
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
 
+  const EvaultMainContract = await ethers.getContractFactory("EVault_Main");
+  const eVaultMain = await EvaultMainContract.deploy();
   await eVaultMain.deployed();
 
   console.log("Contract deployed successfully \u2705");
+
+  console.log(`Contract name: ${await eVaultMain.contractName()}`);
   console.log(`Contract address : ${eVaultMain.address}`);
   console.log(`Contract owner: ${await eVaultMain.contractOwner()}`);
-  console.log(`Contract name: ${await eVaultMain.contractName()}`);
+  console.log(`Deployment chainID: [ ${network.config.chainId} ]`);
 
-  const [deployer] = await ethers.getSigners();
+  if (network.config.chainId === 11155111) {
+    console.log(
+      "Waiting for block confirmations on Sepolia testnet ... \u23F3"
+    );
+    // wait6BlockConfirmations
+    await ipfsDriveContract.deployTransaction.wait(6);
+    await verify(ipfsDriveContract.address, []);
+  } else if (network.config.chainId === 31337) {
+    console.log(`Deployment network: Localhost [ Hardhat ]`);
+  }
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
+
+  const [deployer] = await ethers.getSigners();
 
   console.log("Registering 3 new clients now ... \u23F3");
 
@@ -197,6 +207,6 @@ main().catch((error) => {
   process.exitCode = 1;
 });
 
-// ToExecute -> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network <network-name>
-
-// ToExecute -> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network localhost
+// run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network <network-name>
+// run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network localhost
+// run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network sepolia

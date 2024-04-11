@@ -1,6 +1,6 @@
 import {ethers} from "ethers";
 import config from "../backend-config.json";
-import eVaultMain from "../abis/eVaultMain.json";
+import {abi as eVaultMain} from "../../../blockchain-hardhat/artifacts/contracts/EVault_Main.sol/EVault_Main.json";
 
 const getLawyerDetailsByUID = async (UID, detailsNeeded) => {
   try {
