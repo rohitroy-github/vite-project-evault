@@ -167,18 +167,19 @@ const CaseDetailsComponent = ({caseID}) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center md:py-10 xs:py-5">
-      <div className="md:pb-10 xs:pb-5">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm md:text-base">
+    <div className="flex flex-col items-center justify-center md:py-10 xs:py-5 md:min-h-screen min-h-[87vh]">
+      <div className="md:pb-10 xs:pb-3">
+        <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-xs md:text-base">
           Case Details
         </button>
       </div>
 
-      <div className="md:w-[80%] w-full text-center md:text-left md:text-2xl xs:text-xl font-montserrat pb-5">
-        <h2 className="">Case Information</h2>
-      </div>
-      <div className="md:w-[80%] w-full flex items-center justify-center xs:pb-5">
-        <table className="w-full border border-gray-200 md:text-base xs:text-sm">
+      <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-center md:text-left md:w-[80%] w-full">
+        Your Recent Cases
+      </p>
+
+      <div className="md:w-[80%] w-full flex items-center justify-center pb-5 md:pb-0">
+        <table className="w-full border border-gray-200 md:text-base xs:text-xs">
           <tbody>
             <tr>
               <td className="font-montserrat p-2 w-1/3 border border-gray-200">
@@ -257,11 +258,11 @@ const CaseDetailsComponent = ({caseID}) => {
           </tbody>
         </table>
       </div>
-      <div className="md:w-[80%] w-full flex flex-col md:py-10 xs:pt-5">
+      <div className="md:w-[80%] w-full flex flex-col md:pt-10 xs:pt-0">
         <div className="w-full text-center justify-between flex md:flex-row flex-col md:text-left md:text-2xl xs:text-xl font-montserrat">
-          <div className="items-center justify-center text-center pb-5">
-            <h2>Case Progress</h2>
-          </div>
+          <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-center md:text-left md:w-[80%] w-full">
+            Case Progress
+          </p>
           <div>
             {isUserJudge && (
               <Dialog>
@@ -314,13 +315,13 @@ const CaseDetailsComponent = ({caseID}) => {
                   {row.map((progress, index) => (
                     <div
                       key={index}
-                      className={`insideLoop2 md:w-1/3 w-1/2 md:h-[75px] h-[60px] p-3 mb-3 border rounded-lg ${
+                      className={`insideLoop2 md:w-1/3 w-1/2 md:h-[75px] h-[60px] p-3 md:mb-3 mb-2 border rounded-sm ${
                         caseDetails.caseProgress.indexOf(progress) + 1 ===
                         caseDetails.caseProgress.length
                           ? "bg-blue-300 animate-blink"
                           : "bg-blue-100"
                       } hover:border-2 hover:border-blue-500 border-white-500 border-2 cursor-pointer ${
-                        index == 0 || index % 5 == 0 ? "ml-0" : "ml-3"
+                        index == 0 || index % 5 == 0 ? "ml-0" : "md:ml-3 ml-2"
                       }`}
                     >
                       {/* {index < row.length - 1 && (

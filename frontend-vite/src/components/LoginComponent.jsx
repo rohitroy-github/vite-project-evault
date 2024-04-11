@@ -84,15 +84,20 @@ const LoginComponent = ({initialFormType}) => {
   return (
     <div className="flex md:flex-row flex-col items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
       <div className="left-section md:w-[45%] w-full bg-white md:p-8 md:pl-0 pb-10 font-montserrat items-center justify-center flex flex-col">
-        <p className="md:text-2xl text-xl font-montserrat pb-5 text-center">
+        <p className="md:text-3xl text-xl font-montserrat pb-3 text-center">
           E-Vault Login
         </p>
-        <div className="pb-5 text-center md:text-base text-sm">
-          <Link to="/signup" className="text-blue-500">
-            New user? Register with E-Vault here !
+        <div>
+          <Link to="/signup">
+            <p className="text-center pb-0 md:text-base text-xs text-blue-500">
+              New user ?
+            </p>
+            <p className="text-center pb-3 md:text-base text-xs text-blue-500">
+              New user? Register with E-Vault here
+            </p>
           </Link>
         </div>
-        <div className="flex flex-col md:justify-evenly xs:w-2/5 gap-3 text-sm">
+        <div className="flex flex-col md:justify-evenly xs:w-3/5 gap-3 md:text-base text-sm">
           <div className="flex">
             <button
               className={`py-2 px-4 rounded-sm w-full ${
@@ -142,10 +147,10 @@ const LoginComponent = ({initialFormType}) => {
           </div>
         </div>
       </div>
-      <div className="right-section md:w-[55%] w-full bg-white md:p-8 md:pr-0 pb-10 font-montserrat md:border-l md:border-gray-300 items-center justify-center flex">
+      <div className="right-section md:w-[55%] w-full bg-white md:p-8 md:pr-0 pb-10 font-montserrat md:border-l md:border-blue-500 items-center justify-center flex">
         <form
           onSubmit={handleSubmit}
-          className="md:w-[90%] w-[80%] md:text-base text-sm"
+          className="md:w-[90%] w-full md:text-base text-sm"
         >
           <div className="md:pb-5 pb-3 flex">
             <input
@@ -157,7 +162,7 @@ const LoginComponent = ({initialFormType}) => {
             />
           </div>
 
-          <div className="md:pb-10 pb-5 flex md:flex-row md:gap-5 gap-3 flex-col items-center">
+          <div className="md:pb-10 pb-3 flex md:flex-row md:gap-3 gap-3 flex-col items-center">
             <div className="md:w-2/3 w-full">
               <input
                 type="text"
@@ -181,7 +186,7 @@ const LoginComponent = ({initialFormType}) => {
           <div className="text-center w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-3/5"
+              className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:w-2/5 w-3/5 md:text-base text-sm"
             >
               Login
             </button>

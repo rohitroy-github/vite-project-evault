@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {useNavigate, Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
 
 const SearchCaseDetailsComponent = () => {
@@ -27,29 +27,29 @@ const SearchCaseDetailsComponent = () => {
   };
 
   return (
-    <div className="flex items-center justify-center md:min-h-screen min-h-[87vh]">
-      <div className="bg-white md:p-8 font-montserrat w-full">
-        <h1 className="md:text-3xl xs:text-xl font-montserrat mb-2 text-center">
+    <div className="flex items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
+      <div className="font-montserrat w-full">
+        <p className="md:text-3xl text-xl font-montserrat pb-3 text-center">
           Search for case details ?
-        </h1>
-        <p className="text-gray-600 text-center mb-4 md:text-base text-sm">
-          Only associated clients, lawyers, and judges of the case can access
-          the relevant case details and information!
         </p>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4 text-center">
+        <p className="text-gray-600 text-center pb-3 md:text-base text-sm">
+          Only associated clients, lawyers, and judges of the case can access
+          the relevant case details and information
+        </p>
+        <form onSubmit={handleSubmit} className="md:text-base text-sm">
+          <div className="text-center">
             <input
               type="text"
-              className="border rounded-lg py-2 px-4 md:w-1/2 w-3/4"
-              placeholder="Please enter the case ID"
+              className="border rounded-sm py-2 px-4 md:w-1/2 w-full"
+              placeholder="Please enter your caseID ?"
               value={caseID}
               onChange={(e) => setCaseID(e.target.value)}
             />
           </div>
-          <div className="mb-4 text-center">
+          <div className="pt-5 text-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-sm md:w-1/4 text-sm"
+              className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:w-1/5 w-3/5 md:text-base text-sm"
             >
               Search Case
             </button>
@@ -58,9 +58,9 @@ const SearchCaseDetailsComponent = () => {
 
         {/* Display case details table if available */}
         {caseDetails && (
-          <div className="mt-10 text-center">
+          <div className="pt-10 text-center">
             {/* <h2 className="text-2xl font-semibold">Case Details</h2> */}
-            <table className="w-full mt-2 border-collapse border md:text-base md:block xs:hidden">
+            <table className="w-full border-collapse border md:text-base md:block xs:hidden">
               <thead>
                 <tr>
                   <th className="border  p-2">Case ID</th>
@@ -90,7 +90,7 @@ const SearchCaseDetailsComponent = () => {
             </table>
 
             {/* forMobileScreens */}
-            <table className="w-full mt-2border-collapse border border-gray-200 text-xs md:hidden">
+            <table className="w-full border-collapse border border-gray-200 text-xs md:hidden">
               <tbody>
                 <tr>
                   <td className="border p-2">Case ID:</td>
@@ -128,8 +128,8 @@ const SearchCaseDetailsComponent = () => {
             </table>
             <div className="pt-5">
               <Link to={`/case-details?caseid=${caseDetails.caseId}`}>
-                <button className="bg-blue-500 text-white py-2 px-4 rounded-sm md:w-1/4 text-sm">
-                  More Details
+                <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:w-1/6 w-2/5 md:text-sm text-xs">
+                  See More Details
                 </button>
               </Link>
             </div>

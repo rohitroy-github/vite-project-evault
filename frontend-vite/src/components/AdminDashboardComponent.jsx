@@ -71,21 +71,21 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center md:py-10 xs:py-5">
-        <div className="md:pb-10 xs:pb-5">
-          <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-sm md:text-base">
+      <div className="flex flex-col items-center justify-center md:py-10 xs:py-5 md:min-h-screen min-h-[87vh]">
+        <div className="md:pb-10 xs:pb-3">
+          <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-xs md:text-base">
             {adminType === "client" && `Client Dashboard`}
             {adminType === "lawyer" && `Lawyer Dashboard`}
             {adminType === "judge" && `Judge Dashboard`}
           </button>
         </div>
 
-        <div className="flex xl:flex-row w-full justify-center xs:flex-col">
+        <div className="flex md:flex-row w-full justify-center xs:flex-col-reverse">
           {/* Left Section */}
-          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 xs:pb-5 md:pb-0">
-            <h2 className="md:text-2xl xs:text-xl font-montserrat mb-4 text-left">
+          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 md:pb-0">
+            <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-left">
               Your Recent Cases
-            </h2>
+            </p>
 
             {last3Cases ? (
               <div className="md:w-[90%] w-full md:text-base xs:text-xs">
@@ -136,12 +136,12 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
           </div>
 
           {/* Right Section */}
-          <div className="md:w-[40%] w-full flex flex-col md:px-5 md:border-l md:border-blue-500 md:min-h-[50vh] items-center xs:flex-1">
-            <h2 className="md:text-2xl xs:text-xl font-montserrat mb-4 text-center">
+          <div className="md:w-[40%] w-full flex flex-col md:px-5 md:border-l md:border-blue-500 md:min-h-[50vh] items-center xs:pb-5 pb-0">
+            <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-left">
               Profile Information
-            </h2>
+            </p>
             <div className="md:w-[85%] w-full">
-              <table className="w-full border border-gray-200 md:text-base xs:text-sm">
+              <table className="w-full border border-gray-200 md:text-base xs:text-xs">
                 <tbody>
                   <tr>
                     <td className="font-montserrat py-2 px-4 border border-gray-200 w-[50%]">
@@ -214,15 +214,13 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center flex-col w-full md:py-10 xs:py-5">
-        <div className="text-black pb-5">
-          <h2 className="md:text-2xl xs:text-xl font-montserrat p-0">
-            Your Past Cases
-          </h2>
-        </div>
-        <div className="pb-10">
+      <div className="flex items-center justify-center flex-col w-full md:pb-10 xs:pt-0 xs:pb-5 font-montserrat">
+        <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-left">
+          Your Past Cases
+        </p>
+        <div className="md:pb-10 xs:pb-3">
           <Link to={`/admin/register-new-case`} className="">
-            <button className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 rounded text-sm md:text-base">
+            <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm w-full md:text-base text-sm">
               Register New Case
             </button>
           </Link>
@@ -252,21 +250,23 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
                   </div>
 
                   <p className="md:text-sm xs:text-xs font-montserrat">
-                    Case judged by : {caseInfo.associatedJudge}
+                    Case judged by: {caseInfo.associatedJudge}
                   </p>
 
                   <p className="md:text-sm xs:text-xs font-montserrat">
                     Filed On: {caseInfo.filedOnDate.toLocaleString()}
                   </p>
 
-                  <p className="md:text-sm xs:text-xs font-montserrat font-semibold">
+                  <p className="md:text-sm xs:text-xs font-montserrat">
                     {/* Case status : {caseInfo.associatedJudge} */}
-                    Case status : Pending
+                    Case status: <span className="text-blue-500">Pending</span>
                   </p>
 
-                  <p className="md:text-sm xs:text-xs font-montserrat font-semibold">
-                    Latest case progress :{" "}
-                    {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
+                  <p className="md:text-sm xs:text-xs font-montserrat">
+                    Latest case progress:{" "}
+                    <span className="text-blue-500">
+                      {caseInfo.caseProgress[caseInfo.caseProgress.length - 1]}
+                    </span>
                   </p>
                 </Link>
               </div>

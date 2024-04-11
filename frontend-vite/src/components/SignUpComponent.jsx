@@ -1,9 +1,5 @@
 import {useState} from "react";
 import {ethers} from "ethers";
-
-import eVaultMain from "../abis/eVaultMain.json";
-import config from "../backend-config.json";
-
 import {Link} from "react-router-dom";
 
 import registerToEVault from "../blockchain-api/registerToEVault";
@@ -20,10 +16,6 @@ const SignUpComponent = () => {
   const [pan, setPan] = useState("");
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
 
-  const [provider, setProvider] = useState(null);
-  const [eVaultContract, setEVaultContract] = useState({});
-  const [account, setAccount] = useState(null);
-
   const [isConnected, setIsConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
 
@@ -39,38 +31,6 @@ const SignUpComponent = () => {
       console.error("Error connecting to Ethereum:", error);
       setIsConnected(false);
     }
-  };
-
-  const connectToBlockchain = async () => {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-
-    const account = ethers.utils.getAddress(accounts[0]);
-    setAccount(account);
-
-    // updateAccountOfRefreshing/AlteringAccounts
-    window.ethereum.on("accountsChanged", async () => {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-
-      const account = ethers.utils.getAddress(accounts[0]);
-      setAccount(account);
-    });
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    setProvider(provider);
-
-    const connectedNetwork = await provider.getNetwork();
-
-    const eVaultContract = new ethers.Contract(
-      config[connectedNetwork.chainId].contract.address,
-      eVaultMain,
-      provider.getSigner()
-    );
-
-    setEVaultContract(eVaultContract);
   };
 
   const handleSubmit = async (e) => {
@@ -327,28 +287,23 @@ const SignUpComponent = () => {
     }
   };
 
-  // useEffect(() => {
-  //   // connectsWalletButtonInsideTheSignUpFormOnPageLoad
-  //   connectToBlockchain();
-  // }, []);
-
   return (
-    <div className="flex md:flex-row flex-col items-center justify-center min-h-screen md:p-5 pt-10">
-      <div className="left-section md:w-[45%] w-full bg-white md:p-8 md:pl-0 pb-10 font-montserrat items-center justify-center flex flex-col">
-        <p className="md:text-2xl text-xl font-montserrat pb-5 text-center">
+    <div className="flex md:flex-row flex-col items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
+      <div className="left-section md:w-[45%] w-full bg-white md:p-8 md:pl-0 pb-10 pt-10 font-montserrat items-center justify-center flex flex-col">
+        <p className="md:text-3xl text-xl font-montserrat pb-3 text-center">
           E-Vault Registration
-          {/* {formType === "lawyer"
-            ? "Lawyer"
-            : formType === "client"
-            ? "Client"
-            : "Judge"} */}
         </p>
-        <div className="pb-5 text-center md:text-base text-sm">
-          <Link to="/login" className="text-blue-500">
-            Already registered ? Login with your credentials !
+        <div>
+          <Link to="/login">
+            <p className="text-center pb-0 md:text-base text-xs text-blue-500">
+              New user ?
+            </p>
+            <p className="text-center pb-3 md:text-base text-xs text-blue-500">
+              Register with E-Vault here
+            </p>
           </Link>
         </div>
-        <div className="flex flex-col md:justify-evenly xs:w-2/5 gap-3 text-sm">
+        <div className="flex flex-col md:justify-evenly xs:w-3/5 gap-3 md:text-base text-sm">
           <div className="flex">
             <button
               className={`py-2 px-4 rounded-sm w-full ${
@@ -399,10 +354,10 @@ const SignUpComponent = () => {
         </div>
       </div>
 
-      <div className="right-section md:w-[55%] w-full bg-white md:p-8 md:pr-0 pb-10 font-montserrat md:border-l md:border-gray-300 items-center justify-center flex">
+      <div className="right-section md:w-[55%] w-full bg-white md:p-8 md:pr-0 pb-10 font-montserrat md:border-l md:border-blue-500 items-center justify-center flex">
         <form
           onSubmit={handleSubmit}
-          className="md:w-[90%] w-[85%] md:text-base text-sm"
+          className="md:w-[90%] w-full md:text-base text-sm"
         >
           {renderFormFields()}
 
@@ -428,7 +383,7 @@ const SignUpComponent = () => {
             </div>
           </div>
 
-          <div className="md:pb-10 pb-5 flex md:flex-row md:gap-5 gap-3 flex-col items-center">
+          <div className="md:pb-10 pb-3 flex md:flex-row md:gap-3 gap-3 flex-col items-center">
             <div className="md:w-2/3 w-full">
               <input
                 type="text"
@@ -444,7 +399,7 @@ const SignUpComponent = () => {
                 className="bg-blue-500 text-white py-2 px-4 rounded-sm w-full"
                 onClick={connectMetamaskWallet}
               >
-                {isConnected ? "Wallet Connected" : "Connect Wallet"}
+                {isConnected ? "Connected" : "Connect Wallet"}
               </button>
             </div>
           </div>
@@ -452,7 +407,7 @@ const SignUpComponent = () => {
           <div className="text-center w-full">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-3/5"
+              className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:w-2/5 w-3/5 md:text-base text-sm"
             >
               Sign Up
             </button>

@@ -52,7 +52,7 @@ const RegisterANewCaseComponent = () => {
           Register A New Legal Case
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="md:text-base text-sm">
           <div className="md:pb-5 pb-3 flex">
             <input
               type="text"
@@ -83,17 +83,7 @@ const RegisterANewCaseComponent = () => {
               onChange={handleChange}
             />
           </div>
-          {/* <div className="md:pb-5 pb-3 flex">
-            <input
-              type="text"
-              className="border rounded-sm py-2 px-4 w-full"
-              placeholder="Judge UID ?"
-              name="associatedJudge"
-              value={formData.associatedJudge}
-              onChange={handleChange}
-            />
-          </div> */}
-          <div className="md:pb-5 pb-5 flex">
+          <div className="flex">
             <input
               type="text"
               className="border rounded-sm py-2 px-4 w-full"
@@ -110,12 +100,12 @@ const RegisterANewCaseComponent = () => {
               }
             />
           </div>
-          <div className="text-center w-full">
+          <div className="text-center w-full pt-5">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-sm w-3/5"
+              className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm w-3/5 md:text-base text-sm"
             >
-              Register
+              Register Case
             </button>
           </div>
         </form>

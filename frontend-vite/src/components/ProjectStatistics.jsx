@@ -91,26 +91,26 @@ const ProjectStatistics = () => {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-white">
-      <div className="text-center text-black mb-8">
-        <p className="md:text-4xl text-3xl font-montserrat md:mb-8 mb-5 text-blue-500">
+    <div className="md:h-screen h-[87vh] flex flex-col justify-center items-center">
+      <div className="text-center text-black">
+        <p className="md:text-4xl text-3xl font-montserrat md:mb-6 mb-5 text-blue-500">
           Project Statistics
         </p>
       </div>
 
-      <div className="flex w-full">
+      <div className="flex flex-col md:flex-row w-full">
         {/* LeftSection >>> Data*/}
-        <div className="left-section w-[40%] p-5 justify-center items-center h-full">
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-6 justify-center">
+        <div className="left-section md:w-[40%] w-full md:p-5 justify-center items-center h-full pb-10">
+          <div className="grid grid-cols-2 md:grid-cols-2 md:gap-6 gap-4 justify-center">
             {Object.entries(counters).map(([counter, value]) => (
               <div
                 key={counter}
-                className="md:p-12 p-16 bg-white rounded-lg border border-blue-500 text-center"
+                className="md:p-12 px-5 py-8 bg-white rounded-lg border border-blue-500 text-center"
               >
-                <p className="text-xl font-montserrat mb-2">
+                <p className="md:text-xl text-base font-montserrat mb-2">
                   {counterHeadings[counter]}
                 </p>
-                <p className="text-2xl font-montserrat font-bold text-blue-500">
+                <p className="md:text-2xl text-lg font-montserrat font-bold text-blue-500">
                   {value}
                 </p>
               </div>
@@ -120,7 +120,7 @@ const ProjectStatistics = () => {
 
         {/* RightSection >>> StaticticalChart*/}
 
-        <div className="right-section w-[60%] flex justify-center items-center font-montserrat p-5 h-full">
+        <div className="right-section md:w-[60%] w-full flex justify-center items-center font-montserrat md:p-5 h-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <CartesianGrid horizontal={false} vertical={false} />
