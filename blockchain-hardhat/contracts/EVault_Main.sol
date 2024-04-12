@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.10;
 
 contract EVault_Main {
     address public contractOwner;
@@ -21,6 +21,7 @@ contract EVault_Main {
         uint256 caseId;
         string caseSubject;
         string[] caseProgress;
+        address[] caseProgressIssuer;
     }
 
     struct Client {
@@ -32,7 +33,6 @@ contract EVault_Main {
         string contactNumber;
         uint256 UID;
         string PAN;
-        uint256[] associatedLawyers;
         uint256[] associatedCaseIds;
         address walletAddress;
     }
@@ -119,8 +119,7 @@ contract EVault_Main {
         );
         require(_UID > 0 && _UID <= 999999999999, "Invalid UID");
 
-        uint256[] memory lawyers = new uint256[](0);
-        uint256[] memory caseIds = new uint256[](0); // Initialize the associatedCaseIds array
+        uint256[] memory caseIds = new uint256[](0);
 
         clients[_UID] = Client({
             name: _name,
@@ -131,7 +130,6 @@ contract EVault_Main {
             contactNumber: _contactNumber,
             UID: _UID,
             PAN: _PAN,
-            associatedLawyers: lawyers,
             associatedCaseIds: caseIds,
             walletAddress: _walletAddress
         });
@@ -184,24 +182,6 @@ contract EVault_Main {
         judgesCount++;
 
         emit JudgeRegistered(_UID);
-    }
-
-    // Add a function to update the associated lawyers
-    function updateAssociatedLawyers(
-        uint256 _UID,
-        uint256[] memory _newLawyers
-    ) external {
-        require(
-            _newLawyers.length > 0,
-            "The array of associated lawyers cannot be empty"
-        );
-        Client storage client = clients[_UID];
-        require(
-            bytes(client.name).length > 0,
-            "Client with this UID does not exist"
-        );
-
-        client.associatedLawyers = _newLawyers;
     }
 
     // Function to register a new lawyer
@@ -341,7 +321,6 @@ contract EVault_Main {
             string memory contactNumber,
             uint256 UID,
             string memory PAN,
-            uint256[] memory associatedLawyers,
             uint256[] memory associatedCaseIds,
             address walletAddress
         )
@@ -361,7 +340,6 @@ contract EVault_Main {
             client.contactNumber,
             client.UID,
             client.PAN,
-            client.associatedLawyers,
             client.associatedCaseIds,
             client.walletAddress
         );
@@ -396,11 +374,13 @@ contract EVault_Main {
             associatedJudge: selectedJudgeUID,
             caseId: _caseId,
             caseSubject: _caseSubject,
-            caseProgress: new string[](0)
+            caseProgress: new string[](0),
+            caseProgressIssuer: new address[](0)
         });
 
         // AddingInitialStatusToTheCaseProgressList
         legalCases[_caseId].caseProgress.push("Case registered with E-Vault.");
+        legalCases[_caseId].caseProgressIssuer.push(address(this));
 
         // Add the legal case to the clients' associatedCaseIds
         client1.associatedCaseIds.push(_caseId);
@@ -434,6 +414,7 @@ contract EVault_Main {
 
         // Append the new status to the caseProgress array
         legalCase.caseProgress.push(_progress);
+        legalCase.caseProgressIssuer.push(msg.sender);
 
         return true;
     }
@@ -515,7 +496,8 @@ contract EVault_Main {
             uint256 associatedJudge,
             uint256 caseId,
             string memory caseSubject,
-            string[] memory caseProgress
+            string[] memory caseProgress,
+            address[] memory caseProgressIssuer
         )
     {
         LegalCase memory registeredLegalCase = legalCases[_caseId];
@@ -532,7 +514,8 @@ contract EVault_Main {
             registeredLegalCase.associatedJudge,
             registeredLegalCase.caseId,
             registeredLegalCase.caseSubject,
-            registeredLegalCase.caseProgress
+            registeredLegalCase.caseProgress,
+            registeredLegalCase.caseProgressIssuer
         );
     }
 

@@ -11,7 +11,6 @@ const client1 = {
   contactNumber: "9051179307",
   UID: 791619819984,
   PAN: "EQJPR7681M",
-  associatedLawyers: [],
   associatedCaseIds: [],
   walletAddress: "0x976ea74026e726554db657fa54763abd0c3a0aa9",
 };
@@ -25,7 +24,6 @@ const client2 = {
   contactNumber: "9051179308",
   UID: 791619819988,
   PAN: "EQJPR7681N",
-  associatedLawyers: [],
   associatedCaseIds: [],
   walletAddress: "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
 };
@@ -39,7 +37,6 @@ const client3 = {
   contactNumber: "9051179308",
   UID: 791619819986,
   PAN: "EQJPR7681N",
-  associatedLawyers: [],
   associatedCaseIds: [],
   walletAddress: "0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f",
 };
@@ -160,7 +157,7 @@ describe("eVaultMain", () => {
 
   beforeEach(async () => {
     // settingUpAccounts
-    [deployer, buyer] = await ethers.getSigners();
+    [deployer, user1, user2] = await ethers.getSigners();
     // contractDeployment
     const EVAULTMAIN = await ethers.getContractFactory("EVault_Main");
     eVaultMain = await EVAULTMAIN.deploy();
@@ -204,7 +201,6 @@ describe("eVaultMain", () => {
       expect(storedClient.contactNumber).to.equal(client1.contactNumber);
       expect(storedClient.UID).to.equal(client1.UID);
       expect(storedClient.PAN).to.equal(client1.PAN);
-      expect(storedClient.associatedLawyers).to.eql(client1.associatedLawyers);
       expect(storedClient.associatedCaseIds).to.eql(client1.associatedCaseIds);
       expect(storedClient.walletAddress.toLowerCase()).to.equal(
         client1.walletAddress.toLowerCase()
@@ -224,23 +220,6 @@ describe("eVaultMain", () => {
       }
 
       expect.fail("Expected an error for non-existing client");
-    });
-
-    it("should add associated lawyers for an existing client and verify", async () => {
-      const newLawyers = [791619819989, 791619819987];
-
-      await eVaultMain.updateAssociatedLawyers(client1.UID, newLawyers);
-
-      const updatedClientInformation = await eVaultMain.getClientDetailsByUID(
-        client1.UID
-      );
-
-      // BigNumber ---> Number
-      const updatedTypeLawyers = updatedClientInformation.associatedLawyers.map(
-        (lawyer) => BigNumber.from(lawyer).toNumber()
-      );
-
-      expect(updatedTypeLawyers).to.eql(newLawyers);
     });
   });
 
@@ -431,13 +410,15 @@ describe("eVaultMain", () => {
       );
 
       // updatingCaseProgess
-      await eVaultMain.updateCaseProgressWithCaseId(
-        legalCase1.caseId,
-        "Clients, Lawyers & Judge notified."
-      );
+      await eVaultMain
+        .connect(user1)
+        .updateCaseProgressWithCaseId(
+          legalCase1.caseId,
+          "Clients, Lawyers & Judge notified."
+        );
     });
 
-    it("should add a legal case between two clients", async () => {
+    it("should add a legal case between two clients & verify details", async () => {
       // register2Clients
       // codeIn[beforeEach]block
 
@@ -466,6 +447,9 @@ describe("eVaultMain", () => {
         "Case registered with E-Vault.",
         "Clients, Lawyers & Judge notified.",
       ]);
+      expect(storedLegalCase.caseProgressIssuer[1]).to.eql(user1.address);
+
+      console.log(storedLegalCase.caseProgressIssuer);
 
       // BigNumber ---> Number
       const updatedTypeLawyers = storedLegalCase.associatedLawyers.map(

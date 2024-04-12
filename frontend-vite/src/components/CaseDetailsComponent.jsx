@@ -14,6 +14,7 @@ import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWit
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
 import Loader from "./Loader";
 import getLawyerDetailsByUID from "@/blockchain-api/getLawyerDetailsByUID";
+import {shortenWalletAddress, superShortenWalletAddress} from "@/lib/utils";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -315,7 +316,7 @@ const CaseDetailsComponent = ({caseID}) => {
                   {row.map((progress, index) => (
                     <div
                       key={index}
-                      className={`insideLoop2 md:w-1/3 w-1/2 md:h-[75px] h-[60px] p-3 md:mb-3 mb-2 border rounded-sm ${
+                      className={`insideLoop2 md:w-full w-1/2 md:min-h-[70px] min-h-[80px] p-3 md:mb-3 mb-2 border rounded-sm items-start flex ${
                         caseDetails.caseProgress.indexOf(progress) + 1 ===
                         caseDetails.caseProgress.length
                           ? "bg-blue-300 animate-blink"
@@ -327,12 +328,23 @@ const CaseDetailsComponent = ({caseID}) => {
                       {/* {index < row.length - 1 && (
                         <div className="absolute top-1/2 right-0 -mr-2 w-4 h-4 bg-gray-300 rounded-full" />
                       )} */}
-                      <div className="font-montserrat flex justify-between">
-                        <div className="text-xs md:text-sm order-first">
-                          {progress}
+                      <div className="font-montserrat flex flex-col w-full">
+                        <div className="flex justify-between">
+                          <div className="text-xs md:text-sm order-first">
+                            {progress}
+                          </div>
+                          <div className="text-xs order-last ml-5">
+                            {caseDetails.caseProgress.indexOf(progress)}
+                          </div>
                         </div>
-                        <div className="text-xs order-last ml-5">
-                          {caseDetails.caseProgress.indexOf(progress)}
+
+                        <div className="flex">
+                          <div className="text-xs md:text-sm order-first">
+                            Issued by:{" "}
+                            {superShortenWalletAddress(
+                              caseDetails.caseProgressIssuer[index]
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
