@@ -338,7 +338,7 @@ const CaseDetailsComponent = ({caseID}) => {
                           </div>
                         </div>
 
-                        <div className="flex">
+                        <div className="flex pt-1">
                           <div className="text-xs md:text-sm order-first">
                             Issued by:{" "}
                             {superShortenWalletAddress(
