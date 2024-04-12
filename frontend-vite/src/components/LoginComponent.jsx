@@ -1,7 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {ethers} from "ethers";
-import {Link} from "react-router-dom"; // Import Redirect from React Router
+import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import loginAsAClient from "../blockchain-api/loginAsAClient";
 import loginAsALawyer from "../blockchain-api/loginAsALawyer";
@@ -9,9 +12,11 @@ import loginAsAJudge from "../blockchain-api/loginAsAJudge";
 
 const LoginComponent = ({initialFormType}) => {
   const [formType, setFormType] = useState(initialFormType);
+
   const [aadharUID, setAadharUID] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
+
   const [isConnected, setIsConnected] = useState(false);
 
   const navigate = useNavigate();
@@ -44,42 +49,74 @@ const LoginComponent = ({initialFormType}) => {
       signingUpAs,
     };
 
-    console.log("Submitted data :", formData);
-
     if (signingUpAs === "lawyer") {
       const isLawyerLoggedIn = await loginAsALawyer(aadharUID);
       if (isLawyerLoggedIn) {
-        // Lawyer login logic
-        alert("Login as a lawyer successful!");
-        navigate(`/admin/lawyer/${aadharUID}`);
+        // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
+        toast("Evault login successfull ✅", {
+          position: "top-right",
+          autoClose: 1500,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: false,
+          hideProgressBar: true,
+          closeButton: false,
+        });
+
+        setTimeout(() => {
+          navigate(`/admin/lawyer/${aadharUID}`);
+        }, 2500);
       } else {
         alert("Login as a lawyer failed.");
       }
     } else if (signingUpAs === "judge") {
       const isJudgeLoggedIn = await loginAsAJudge(aadharUID);
       if (isJudgeLoggedIn) {
-        // Judge login logic
-        alert("Login as a judge successful!");
-        navigate(`/admin/judge/${aadharUID}`);
+        // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
+        toast("Evault login successfull ✅", {
+          position: "top-right",
+          autoClose: 1500,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: false,
+          hideProgressBar: true,
+          closeButton: false,
+        });
+
+        setTimeout(() => {
+          navigate(`/admin/judge/${aadharUID}`);
+        }, 2500);
       } else {
         alert("Login as a judge failed.");
       }
     } else if (signingUpAs === "client") {
       const isClientLoggedIn = await loginAsAClient(aadharUID);
       if (isClientLoggedIn) {
-        // Client login logic
-        alert("Login as a client successful!");
-        navigate(`/admin/client/${aadharUID}`);
+        // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
+        toast("Evault login successfull ✅", {
+          position: "top-right",
+          autoClose: 1500,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          icon: false,
+          hideProgressBar: true,
+          closeButton: false,
+        });
+
+        setTimeout(() => {
+          navigate(`/admin/client/${aadharUID}`);
+        }, 2500);
       } else {
         alert("Login as a client failed.");
       }
     }
   };
-
-  // useEffect(() => {
-  //   // connectsWalletButtonInsideTheLoginFormOnPageLoad
-  //   connectMetamaskWallet();
-  // }, []);
 
   return (
     <div className="flex md:flex-row flex-col items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
@@ -193,6 +230,11 @@ const LoginComponent = ({initialFormType}) => {
           </div>
         </form>
       </div>
+
+      <ToastContainer
+        toastClassName={"font-montserrat bg-blue-500 text-white text-center"}
+        bodyClassName={"text-base p-3 rounded-sm"}
+      />
     </div>
   );
 };

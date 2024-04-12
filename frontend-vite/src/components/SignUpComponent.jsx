@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const SignUpComponent = () => {
   const [formType, setFormType] = useState("lawyer");
+
   const [fullName, setFullName] = useState("");
   const [religion, setReligion] = useState("");
   const [nationality, setNationality] = useState("");
@@ -17,10 +18,10 @@ const SignUpComponent = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [aadharUID, setAadharUID] = useState("");
   const [pan, setPan] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
 
   const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState("");
 
   const connectMetamaskWallet = async () => {
     try {
@@ -51,7 +52,7 @@ const SignUpComponent = () => {
       !pan
     ) {
       alert("Please fill in all the required fields.");
-      return; // Prevent form submission
+      return;
     }
 
     const formData = {
@@ -67,14 +68,13 @@ const SignUpComponent = () => {
       signingUpAs,
     };
 
-    // console.log("Submitted data :", formData);
     try {
       const register = await registerToEVault(formData);
 
       // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
       toast(`${register}`, {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1500,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -84,7 +84,16 @@ const SignUpComponent = () => {
         closeButton: false,
       });
 
-      // alert(register);
+      // resettingToDefaultValues
+      setFullName("");
+      setReligion("");
+      setNationality("");
+      setSex("");
+      setDob("");
+      setContactNumber("");
+      setAadharUID("");
+      setPan("");
+      setWalletAddress("");
     } catch (error) {
       console.error("Error during registration >>> ", error);
     }

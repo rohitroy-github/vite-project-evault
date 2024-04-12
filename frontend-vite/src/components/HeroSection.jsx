@@ -1,6 +1,6 @@
-import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import indianJudiciaryLogo from "../assets/indianJudiciaryLogo.png"; // Import your image here
+
+import indianJudiciaryLogo from "../assets/indianJudiciaryLogo.png";
 
 const HeroSection = () => {
   return (
@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div className="text-center flex items-center justify-center pb-6">
         <img
           src={indianJudiciaryLogo}
-          alt="Hero Image"
+          alt="Indian Judiciary Logo"
           className="w-[30%] md:w-[10%]"
         />
       </div>

@@ -41,7 +41,7 @@ const registerNewCase = async ({
 
     if (caseRegisteredEvent) {
       const caseId = caseRegisteredEvent.args.caseId.toNumber();
-      return `Successfully registered a new legal case with ID: ${caseId}`;
+      return `Case registered with ID: ${caseId} ✅`;
     } else {
       throw new Error(
         "Case registration event not found in the transaction receipt"
