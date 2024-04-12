@@ -14,7 +14,7 @@ import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWit
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
 import Loader from "./Loader";
 import getLawyerDetailsByUID from "@/blockchain-api/getLawyerDetailsByUID";
-import {shortenWalletAddress, superShortenWalletAddress} from "@/lib/utils";
+import {superShortenWalletAddress} from "@/lib/utils";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -316,7 +316,7 @@ const CaseDetailsComponent = ({caseID}) => {
                   {row.map((progress, index) => (
                     <div
                       key={index}
-                      className={`insideLoop2 md:w-full w-1/2 md:min-h-[70px] min-h-[80px] p-3 md:mb-3 mb-2 border rounded-sm items-start flex ${
+                      className={`insideLoop2 md:w-1/3 w-1/2 md:min-h-[70px] min-h-[80px] p-3 md:mb-3 mb-2 border rounded-sm items-start flex ${
                         caseDetails.caseProgress.indexOf(progress) + 1 ===
                         caseDetails.caseProgress.length
                           ? "bg-blue-300 animate-blink"
@@ -339,7 +339,7 @@ const CaseDetailsComponent = ({caseID}) => {
                         </div>
 
                         <div className="flex pt-1">
-                          <div className="text-xs md:text-sm order-first">
+                          <div className="text-xs order-first">
                             Issued by:{" "}
                             {superShortenWalletAddress(
                               caseDetails.caseProgressIssuer[index]

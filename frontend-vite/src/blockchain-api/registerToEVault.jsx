@@ -73,7 +73,8 @@ const registerToEVault = async ({
     await registrationTransaction.wait();
 
     // console.log("Transaction hash:", registrationTransaction.hash);
-    return `Successfully registred as a ${signingUpAs}`;
+    // return `Successfully registred as a ${signingUpAs}`;
+    return "Registration successfull ✅";
   } catch (error) {
     console.error(`Can't register as a ${signingUpAs} : `, error);
     throw error;

@@ -4,6 +4,9 @@ import {Link} from "react-router-dom";
 
 import registerToEVault from "../blockchain-api/registerToEVault";
 
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const SignUpComponent = () => {
   const [formType, setFormType] = useState("lawyer");
   const [fullName, setFullName] = useState("");
@@ -67,7 +70,21 @@ const SignUpComponent = () => {
     // console.log("Submitted data :", formData);
     try {
       const register = await registerToEVault(formData);
-      alert(register);
+
+      // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
+      toast(`${register}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: false,
+        hideProgressBar: true,
+        closeButton: false,
+      });
+
+      // alert(register);
     } catch (error) {
       console.error("Error during registration >>> ", error);
     }
@@ -414,6 +431,11 @@ const SignUpComponent = () => {
           </div>
         </form>
       </div>
+
+      <ToastContainer
+        toastClassName={"font-montserrat bg-blue-500 text-white text-center"}
+        bodyClassName={"text-base p-3 rounded-sm"}
+      />
     </div>
   );
 };

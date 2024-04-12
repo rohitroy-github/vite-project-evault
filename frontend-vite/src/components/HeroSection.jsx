@@ -1,9 +1,17 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
+import indianJudiciaryLogo from "../assets/indianJudiciaryLogo.png"; // Import your image here
 
 const HeroSection = () => {
   return (
     <div className="md:h-screen h-[87vh] flex flex-col justify-center items-center bg-white">
+      <div className="text-center flex items-center justify-center pb-6">
+        <img
+          src={indianJudiciaryLogo}
+          alt="Hero Image"
+          className="w-[30%] md:w-[10%]"
+        />
+      </div>
       <div className="text-center text-black">
         <p className="md:text-4xl text-3xl font-montserrat md:mb-6 mb-5 text-blue-500">
           Project E-Vault
