@@ -23,6 +23,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/signup" element={<SignUpPage />}></Route>
+          <Route
+            path="/signup/:initialFormType"
+            element={<SignUpPage />}
+          ></Route>
+
           <Route path="/login/:initialFormType" element={<LoginPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/test" element={<TestPage />}></Route>

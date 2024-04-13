@@ -259,20 +259,22 @@ const CaseDetailsComponent = ({caseID}) => {
           </tbody>
         </table>
       </div>
-      <div className="md:w-[80%] w-full flex flex-col md:pt-10 xs:pt-0">
+      <div className="md:w-[80%] w-full flex flex-col md:pt-10 xs:pt-0 pb-5 md:pb-0">
         <div className="w-full text-center justify-between flex md:flex-row flex-col md:text-left md:text-2xl xs:text-xl font-montserrat">
-          <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-center md:text-left md:w-[80%] w-full">
+          <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-2 text-center md:text-left md:w-[80%] w-full">
             Case Progress
           </p>
           <div>
             {isUserJudge && (
               <Dialog>
                 <DialogTrigger asChild>
-                  <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
-                    Update Case Progress
-                  </button>
+                  <div className="md:pb-5 pb-3">
+                    <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
+                      Update Case Progress
+                    </button>
+                  </div>
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[500px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-8">
+                <DialogContent className="md:max-w-[500px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-8 p-5 rounded-sm">
                   <DialogHeader>
                     <DialogTitle>Update case progress</DialogTitle>
                     <DialogDescription>
@@ -280,7 +282,7 @@ const CaseDetailsComponent = ({caseID}) => {
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSubmit}>
-                    <div className="grid py-2">
+                    <div className="grid pb-3 md:pb-5">
                       <textarea
                         type="text"
                         className="border rounded-lg py-2 px-4 w-full md:text-sm text-xs"
@@ -294,7 +296,7 @@ const CaseDetailsComponent = ({caseID}) => {
                     >
                       <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm mt-4"
+                        className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs"
                       >
                         Update Progress
                       </button>
@@ -353,6 +355,27 @@ const CaseDetailsComponent = ({caseID}) => {
               )
             )}
           </div>
+        </div>
+      </div>
+      <div className="md:w-[80%] w-full flex flex-col md:pt-9 xs:pt-0 font-montserrat">
+        <div className="justify-between flex md:flex-row flex-col">
+          <p className="md:text-2xl xs:text-xl md:pb-5 pb-2 text-center md:text-left md:w-[80%] w-full">
+            Case Documents
+          </p>
+
+          <div className="md:pb-5 pb-3">
+            {isUserJudge && (
+              <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
+                Upload Case Files
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex md:flex-row flex-col">
+          <p className="md:text-base xs:text-xl text-center w-full text-blue-500">
+            Feature coming soon
+          </p>
         </div>
       </div>
     </div>

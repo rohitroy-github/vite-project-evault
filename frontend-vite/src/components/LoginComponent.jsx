@@ -11,15 +11,14 @@ import loginAsALawyer from "../blockchain-api/loginAsALawyer";
 import loginAsAJudge from "../blockchain-api/loginAsAJudge";
 
 const LoginComponent = ({initialFormType}) => {
-  const [formType, setFormType] = useState(initialFormType);
+  const navigate = useNavigate();
+
+  const [formType, setFormType] = useState(initialFormType || "");
+  const [isConnected, setIsConnected] = useState(false);
 
   const [aadharUID, setAadharUID] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
-
-  const [isConnected, setIsConnected] = useState(false);
-
-  const navigate = useNavigate();
 
   const connectMetamaskWallet = async () => {
     try {
@@ -55,7 +54,7 @@ const LoginComponent = ({initialFormType}) => {
         // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
         toast("Evault login successfull ✅", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1000,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
@@ -67,7 +66,7 @@ const LoginComponent = ({initialFormType}) => {
 
         setTimeout(() => {
           navigate(`/admin/lawyer/${aadharUID}`);
-        }, 2500);
+        }, 2000);
       } else {
         alert("Login as a lawyer failed.");
       }
@@ -77,7 +76,7 @@ const LoginComponent = ({initialFormType}) => {
         // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
         toast("Evault login successfull ✅", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1000,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
@@ -88,8 +87,8 @@ const LoginComponent = ({initialFormType}) => {
         });
 
         setTimeout(() => {
-          navigate(`/admin/judge/${aadharUID}`);
-        }, 2500);
+          navigate(`/admin/lawyer/${aadharUID}`);
+        }, 2000);
       } else {
         alert("Login as a judge failed.");
       }
@@ -99,7 +98,7 @@ const LoginComponent = ({initialFormType}) => {
         // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
         toast("Evault login successfull ✅", {
           position: "top-right",
-          autoClose: 1500,
+          autoClose: 1000,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
@@ -110,8 +109,8 @@ const LoginComponent = ({initialFormType}) => {
         });
 
         setTimeout(() => {
-          navigate(`/admin/client/${aadharUID}`);
-        }, 2500);
+          navigate(`/admin/lawyer/${aadharUID}`);
+        }, 2000);
       } else {
         alert("Login as a client failed.");
       }
@@ -125,12 +124,12 @@ const LoginComponent = ({initialFormType}) => {
           E-Vault Login
         </p>
         <div>
-          <Link to="/signup">
+          <Link to={`/signup/${formType}`}>
             <p className="text-center pb-0 md:text-base text-xs text-blue-500">
               New user ?
             </p>
             <p className="text-center pb-3 md:text-base text-xs text-blue-500">
-              New user? Register with E-Vault here
+              Register with E-Vault here
             </p>
           </Link>
         </div>

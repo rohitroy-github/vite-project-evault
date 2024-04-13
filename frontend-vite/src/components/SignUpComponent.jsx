@@ -1,14 +1,18 @@
 import {useState} from "react";
 import {ethers} from "ethers";
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import registerToEVault from "../blockchain-api/registerToEVault";
 
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignUpComponent = () => {
-  const [formType, setFormType] = useState("lawyer");
+const SignUpComponent = ({initialFormType}) => {
+  const navigate = useNavigate();
+
+  const [formType, setFormType] = useState(initialFormType || "");
+  const [isConnected, setIsConnected] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [religion, setReligion] = useState("");
@@ -20,8 +24,6 @@ const SignUpComponent = () => {
   const [pan, setPan] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [signingUpAs, setSigningUpAs] = useState("lawyer");
-
-  const [isConnected, setIsConnected] = useState(false);
 
   const connectMetamaskWallet = async () => {
     try {
@@ -72,9 +74,10 @@ const SignUpComponent = () => {
       const register = await registerToEVault(formData);
 
       // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
-      toast(`${register}`, {
+      // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
+      toast("Evault login successfull ✅", {
         position: "top-right",
-        autoClose: 1500,
+        autoClose: 1000,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -94,8 +97,12 @@ const SignUpComponent = () => {
       setAadharUID("");
       setPan("");
       setWalletAddress("");
+
+      setTimeout(() => {
+        navigate(`/admin/lawyer/${aadharUID}`);
+      }, 2000);
     } catch (error) {
-      console.error("Error during registration >>> ", error);
+      console.error("Error during registration: ", error);
     }
   };
 
@@ -320,12 +327,12 @@ const SignUpComponent = () => {
           E-Vault Registration
         </p>
         <div>
-          <Link to="/login">
+          <Link to={`/login/${formType}`}>
             <p className="text-center pb-0 md:text-base text-xs text-blue-500">
-              New user ?
+              Already have an acccount ?
             </p>
             <p className="text-center pb-3 md:text-base text-xs text-blue-500">
-              Register with E-Vault here
+              Login to E-Vault here
             </p>
           </Link>
         </div>

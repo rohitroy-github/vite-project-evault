@@ -66,7 +66,11 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
   }, []);
 
   if (loading) {
-    return <Loader />;
+    return (
+      <>
+        <Loader />;
+      </>
+    );
   }
 
   return (
@@ -82,12 +86,12 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
         <div className="flex md:flex-row w-full justify-center xs:flex-col-reverse">
           {/* Left Section */}
-          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 md:pb-0">
-            <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-left">
+          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 md:pb-0 font-montserrat">
+            <p className="md:text-2xl xs:text-xl md:pb-5 pb-3 text-left">
               Your Recent Cases
             </p>
 
-            {last3Cases ? (
+            {last3Cases.length > 0 ? (
               <div className="md:w-[90%] w-full md:text-base xs:text-xs">
                 {last3Cases.map((caseInfo, index) => (
                   <div
@@ -127,11 +131,11 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
                 ))}
               </div>
             ) : (
-              <div className="space-y-4 md:space-y-3">
-                <p className="text-lg font-montserrat">
-                  Fetching recent case updates ...
-                </p>
-              </div>
+              <>
+                <div>
+                  <p className="text-sm">You don't have any cases yet.</p>
+                </div>
+              </>
             )}
           </div>
 
