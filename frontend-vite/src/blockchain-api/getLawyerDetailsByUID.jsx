@@ -33,6 +33,12 @@ const getLawyerDetailsByUID = async (UID, detailsNeeded) => {
       return {name: lawyerDetails[0]};
     } else if (detailsNeeded == "name_UID") {
       return {name: lawyerDetails[0], UID: lawyerDetails[6].toString()};
+    } else if (detailsNeeded == "name_UID_walletAddress") {
+      return {
+        name: lawyerDetails[0],
+        UID: lawyerDetails[6].toString(),
+        walletAddress: lawyerDetails[9],
+      };
     }
   } catch (error) {
     console.error("Error while fetching client details:", error);

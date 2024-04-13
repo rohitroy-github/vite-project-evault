@@ -21,6 +21,7 @@ const CaseDetailsComponent = ({caseID}) => {
   const [newProgress, setNewProgress] = useState("");
   const [userAddress, setUserAddress] = useState("");
   const [isUserJudge, setIsUserJudge] = useState(false);
+  const [isUserLawyer, setIsUserLawyer] = useState(false);
   const [loading, setLoading] = useState(true);
   const [lawyers, setLawyers] = useState([]);
   const [judgeDetails, setJudgeDetails] = useState({name: "", UID: 0});
@@ -37,6 +38,33 @@ const CaseDetailsComponent = ({caseID}) => {
           "name_UID_walletAddress"
         );
 
+        // fetchingLawyerNames
+        const lawyerDetails = await Promise.all(
+          fetchedCaseDetails.associatedLawyers.map(async (lawyerUID) => {
+            const lawyerInfo = await getLawyerDetailsByUID(
+              lawyerUID,
+              "name_UID_walletAddress"
+            );
+            return {
+              uid: lawyerUID,
+              name: lawyerInfo.name,
+              walletAddress: lawyerInfo.walletAddress,
+            };
+          })
+        );
+        setLawyers(lawyerDetails);
+
+        if (
+          lawyerDetails[0].walletAddress.toLowerCase() ===
+            userAddress.toLowerCase() ||
+          lawyerDetails[1].walletAddress.toLowerCase() ===
+            userAddress.toLowerCase()
+        ) {
+          setIsUserLawyer(true);
+        } else {
+          setIsUserLawyer(false);
+        }
+
         if (
           judgeDetails.walletAddress.toLowerCase() === userAddress.toLowerCase()
         ) {
@@ -49,18 +77,6 @@ const CaseDetailsComponent = ({caseID}) => {
           name: judgeDetails.name,
           UID: judgeDetails.UID,
         });
-
-        // fetchingLawyerNames
-        const lawyerDetails = await Promise.all(
-          fetchedCaseDetails.associatedLawyers.map(async (lawyerUID) => {
-            const lawyerInfo = await getLawyerDetailsByUID(
-              lawyerUID,
-              "name_UID"
-            );
-            return {uid: lawyerUID, name: lawyerInfo.name};
-          })
-        );
-        setLawyers(lawyerDetails);
 
         setTimeout(() => {
           setLoading(false);
@@ -88,7 +104,7 @@ const CaseDetailsComponent = ({caseID}) => {
     // Function to handle MetaMask account change
     const handleAccountChange = (accounts) => {
       setUserAddress(accounts[0]);
-      fetchCaseDetails(); // Call fetchCaseDetails after the account changes
+      fetchCaseDetails();
     };
 
     const handleResize = () => {
@@ -261,14 +277,15 @@ const CaseDetailsComponent = ({caseID}) => {
       </div>
       <div className="md:w-[80%] w-full flex flex-col md:pt-10 xs:pt-0 pb-5 md:pb-0">
         <div className="w-full text-center justify-between flex md:flex-row flex-col md:text-left md:text-2xl xs:text-xl font-montserrat">
-          <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-2 text-center md:text-left md:w-[80%] w-full">
+          <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-2 text-center md:text-left 2xl:w-[65%] 3xl:w-[70%] w-full">
             Case Progress
           </p>
-          <div>
-            {isUserJudge && (
+          <div className="2xl:w-[35%] 3xl:w-[30%]">
+            {/* onlyJudgeIsAllowedToUpdateTheProgress */}
+            {isUserJudge ? (
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="md:pb-5 pb-3">
+                  <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
                     <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
                       Update Case Progress
                     </button>
@@ -304,6 +321,12 @@ const CaseDetailsComponent = ({caseID}) => {
                   </form>
                 </DialogContent>
               </Dialog>
+            ) : (
+              <div className="md:pb-5 pb-3 md:w-full">
+                <button className="bg-blue-300 text-white py-2 px-4 rounded-sm text-xs md:w-full">
+                  Only judge is authorized to update case progress
+                </button>
+              </div>
             )}
           </div>
         </div>
@@ -359,15 +382,24 @@ const CaseDetailsComponent = ({caseID}) => {
       </div>
       <div className="md:w-[80%] w-full flex flex-col md:pt-9 xs:pt-0 font-montserrat">
         <div className="justify-between flex md:flex-row flex-col">
-          <p className="md:text-2xl xs:text-xl md:pb-5 pb-2 text-center md:text-left md:w-[80%] w-full">
+          <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-2 text-center md:text-left 2xl:w-[65%] 3xl:w-[70%] w-full">
             Case Documents
           </p>
 
-          <div className="md:pb-5 pb-3">
-            {isUserJudge && (
-              <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
-                Upload Case Files
-              </button>
+          <div className="2xl:w-[35%] 3xl:w-[30%]">
+            {/* lawyers&JudgesAreAllowedtoUploadTheDocuments */}
+            {isUserJudge | isUserLawyer ? (
+              <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
+                <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
+                  Upload Case Files
+                </button>
+              </div>
+            ) : (
+              <div className="md:pb-5 pb-3 md:w-full">
+                <button className="bg-blue-300 text-white py-2 px-4 rounded-sm text-xs md:w-full ">
+                  Only lawyers are authorized to upload case documents
+                </button>
+              </div>
             )}
           </div>
         </div>

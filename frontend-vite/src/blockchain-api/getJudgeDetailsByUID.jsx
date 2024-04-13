@@ -37,6 +37,10 @@ const getJudgeDetailsByUID = async (UID, detailsNeeded) => {
         UID: judgeDetails[6].toString(),
         walletAddress: judgeDetails[9],
       };
+    } else if (detailsNeeded == "walletAddress") {
+      return {
+        walletAddress: judgeDetails[9],
+      };
     }
   } catch (error) {
     console.error("Error while fetching client details:", error);
