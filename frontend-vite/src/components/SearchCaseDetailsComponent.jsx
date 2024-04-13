@@ -1,10 +1,20 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
+import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
+import getLawyerDetailsByUID from "@/blockchain-api/getLawyerDetailsByUID";
+import getClientDetailsByUID from "@/blockchain-api/getClientDetailsByUID";
 
 const SearchCaseDetailsComponent = () => {
   const [caseID, setCaseID] = useState("");
   const [caseDetails, setCaseDetails] = useState(null);
+
+  const [isUserJudge, setIsUserJudge] = useState(false);
+  const [isUserLawyer, setIsUserLawyer] = useState(false);
+  const [isUserClient, setIsUserClient] = useState(false);
+
+  const [userAddress, setUserAddress] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +27,9 @@ const SearchCaseDetailsComponent = () => {
     try {
       const caseDetails = await getCaseDetailsByCaseID(caseID);
       setCaseDetails(caseDetails);
-      console.log("Fetched case details:", caseDetails);
+      // console.log("Fetched case details:", caseDetails);
+
+      checkForCaseAdmins(caseDetails);
     } catch (error) {
       console.error("Error fetching case details:", error);
       alert(
@@ -25,6 +37,105 @@ const SearchCaseDetailsComponent = () => {
       );
     }
   };
+
+  // checkingIfCaseAdminsAreTryingToViewFurtherCaseDetails?
+  const checkForCaseAdmins = async (caseDetails) => {
+    const judgeDetails = await getJudgeDetailsByUID(
+      caseDetails.associatedJudge,
+      "walletAddress"
+    );
+
+    const lawyerDetails = await Promise.all(
+      caseDetails.associatedLawyers.map(async (lawyerUID) => {
+        const lawyerInfo = await getLawyerDetailsByUID(
+          lawyerUID,
+          "walletAddress"
+        );
+        return {
+          walletAddress: lawyerInfo.walletAddress,
+        };
+      })
+    );
+
+    const party1Details = await getClientDetailsByUID(
+      caseDetails.UIDOfParty1,
+      "walletAddress"
+    );
+    const party2Details = await getClientDetailsByUID(
+      caseDetails.UIDOfParty2,
+      "walletAddress"
+    );
+
+    console.log(party1Details, party2Details);
+    console.log(judgeDetails, lawyerDetails);
+
+    if (
+      party1Details.walletAddress.toLowerCase() === userAddress.toLowerCase() ||
+      party2Details.walletAddress.toLowerCase() === userAddress.toLowerCase()
+    ) {
+      setIsUserClient(true);
+    } else {
+      setIsUserClient(false);
+    }
+
+    if (
+      lawyerDetails[0].walletAddress.toLowerCase() ===
+        userAddress.toLowerCase() ||
+      lawyerDetails[1].walletAddress.toLowerCase() === userAddress.toLowerCase()
+    ) {
+      setIsUserLawyer(true);
+    } else {
+      setIsUserLawyer(false);
+    }
+
+    if (
+      judgeDetails.walletAddress.toLowerCase() === userAddress.toLowerCase()
+    ) {
+      setIsUserJudge(true);
+    } else {
+      setIsUserJudge(false);
+    }
+  };
+
+  useEffect(() => {
+    // Function to handle MetaMask account change
+    const handleAccountChange = (accounts) => {
+      setUserAddress(accounts[0]);
+    };
+
+    // Listen for MetaMask account changes
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", handleAccountChange);
+    }
+
+    const fetchCurrentWalletAddress = async () => {
+      try {
+        if (window.ethereum) {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          setUserAddress(accounts[0]);
+        } else {
+          console.error("MetaMask not installed or user not logged in");
+        }
+      } catch (error) {
+        console.error("Error fetching user address:", error);
+      }
+    };
+
+    fetchCurrentWalletAddress();
+
+    if (caseDetails) {
+      checkForCaseAdmins(caseDetails);
+    }
+
+    // Clean up event listener when component unmounts
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.off("accountsChanged", handleAccountChange);
+      }
+    };
+  }, [userAddress, isUserJudge, isUserLawyer, isUserClient]);
 
   return (
     <div className="flex items-center justify-center md:min-h-screen min-h-[87vh] md:p-5">
@@ -127,11 +238,17 @@ const SearchCaseDetailsComponent = () => {
               </tbody>
             </table>
             <div className="pt-5">
-              <Link to={`/case-details?caseid=${caseDetails.caseId}`}>
-                <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:w-1/6 w-2/5 md:text-sm text-xs">
-                  See More Details
+              {isUserJudge | isUserLawyer | isUserClient ? (
+                <Link to={`/case-details?caseid=${caseDetails.caseId}`}>
+                  <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:w-1/6 w-2/5 md:text-sm text-xs">
+                    See More Details
+                  </button>
+                </Link>
+              ) : (
+                <button className="bg-blue-300 text-white py-2 px-4 rounded-sm text-xs w-full md:w-2/6">
+                  Only case admins are allowed to view further details
                 </button>
-              </Link>
+              )}
             </div>
           </div>
         )}

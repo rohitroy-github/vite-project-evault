@@ -23,7 +23,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
   const fetchData = async () => {
     try {
       if (adminType === "client") {
-        result1 = await getClientDetailsByUID(aadharUID);
+        result1 = await getClientDetailsByUID(aadharUID, "all");
         setAdminDetails(result1);
 
         // FetchignAllTheCasesOnTheClient

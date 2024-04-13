@@ -87,7 +87,7 @@ const LoginComponent = ({initialFormType}) => {
         });
 
         setTimeout(() => {
-          navigate(`/admin/lawyer/${aadharUID}`);
+          navigate(`/admin/judge/${aadharUID}`);
         }, 2000);
       } else {
         alert("Login as a judge failed.");
@@ -109,7 +109,7 @@ const LoginComponent = ({initialFormType}) => {
         });
 
         setTimeout(() => {
-          navigate(`/admin/lawyer/${aadharUID}`);
+          navigate(`/admin/client/${aadharUID}`);
         }, 2000);
       } else {
         alert("Login as a client failed.");
