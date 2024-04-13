@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {ethers} from "ethers";
 
+import indianJudiciaryLogo from "../assets/indianJudiciaryLogo.png";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -33,10 +35,18 @@ const Navbar = () => {
   return (
     <nav className="bg-white w-full border-b border-gray-300 md:px-10 md:py-5">
       <div className="flex justify-between items-center xs:h-[7vh] md:h-auto">
-        <div className="font-montserrat md:text-xl text-base text-blue-500">
-          <Link to="/">Project E-Vault</Link>
+        <div className="flex items-center md:w-1/2">
+          <img
+            src={indianJudiciaryLogo}
+            alt="Indian Judiciary Logo"
+            className="w-[8%] 3xl:w-[5%] 2xl:w-[6%] hidden md:block md:pr-3"
+          />
+          <div className="font-montserrat md:text-xl text-base text-blue-500">
+            <Link to="/">Project E-Vault</Link>
+          </div>
         </div>
-        <div className="hidden md:flex space-x-10 items-center">
+
+        <div className="hidden md:flex space-x-10 items-center md:w-1/2 md:justify-end">
           {!isAdminRoute && (
             <>
               <Link
