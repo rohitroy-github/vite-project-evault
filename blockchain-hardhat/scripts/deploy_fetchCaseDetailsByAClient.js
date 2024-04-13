@@ -105,8 +105,8 @@ async function main() {
   await registerJudge(deployer, eVaultMain, judge2);
   await registerJudge(deployer, eVaultMain, judge3);
   await registerJudge(deployer, eVaultMain, judge4);
-  await registerJudge(deployer, eVaultMain, judge5);
-  await registerJudge(deployer, eVaultMain, judge6);
+  // await registerJudge(deployer, eVaultMain, judge5);
+  // await registerJudge(deployer, eVaultMain, judge6);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
 

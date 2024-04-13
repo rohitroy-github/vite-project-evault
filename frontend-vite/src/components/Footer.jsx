@@ -10,7 +10,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Copyright Project E-Vault 2024 | Rohit Roy | Github
+            © Project E-Vault 2024 | Rohit Roy | Github
           </a>
         </p>
       </div>

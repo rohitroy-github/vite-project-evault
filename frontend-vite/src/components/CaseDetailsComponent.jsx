@@ -176,7 +176,7 @@ const CaseDetailsComponent = ({caseID}) => {
       </div>
 
       <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-center md:text-left md:w-[80%] w-full">
-        Your Recent Cases
+        Case Information
       </p>
 
       <div className="md:w-[80%] w-full flex items-center justify-center pb-5 md:pb-0">
@@ -268,11 +268,11 @@ const CaseDetailsComponent = ({caseID}) => {
             {isUserJudge && (
               <Dialog>
                 <DialogTrigger asChild>
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat py-2 px-4 rounded text-sm">
+                  <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
                     Update Case Progress
                   </button>
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[450px] xs:max-w-[350px] font-montserrat">
+                <DialogContent className="md:max-w-[500px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-8">
                   <DialogHeader>
                     <DialogTitle>Update case progress</DialogTitle>
                     <DialogDescription>
