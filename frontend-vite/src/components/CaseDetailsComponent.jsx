@@ -9,7 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog";
 import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
@@ -315,7 +314,7 @@ const CaseDetailsComponent = ({caseID}) => {
                     </button>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[500px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-8 p-5 rounded-sm">
+                <DialogContent className="md:max-w-[500px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-5 p-5 rounded-sm">
                   <DialogHeader>
                     <DialogTitle>Update case progress</DialogTitle>
                     <DialogDescription>
@@ -323,13 +322,14 @@ const CaseDetailsComponent = ({caseID}) => {
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSubmit}>
-                    <div className="grid pb-3 md:pb-5">
+                    <div className="flex pb-3 md:pb-5 justify-center">
                       <textarea
                         type="text"
-                        className="border rounded-lg py-2 px-4 w-full md:text-sm text-xs"
+                        className="border rounded-sm py-2 px-4 w-[95%] md:text-sm text-xs"
                         placeholder="Enter the case update here."
                         value={newProgress}
                         onChange={(e) => setNewProgress(e.target.value)}
+                        rows={3}
                       />
                     </div>
                     <DialogFooter
