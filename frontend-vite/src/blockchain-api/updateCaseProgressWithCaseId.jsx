@@ -36,7 +36,7 @@ const updateCaseProgressWithCaseId = async (caseID, progress) => {
     if (
       caseDetails.caseProgress[caseDetails.caseProgress.length - 1] === progress
     ) {
-      return `Progress successfully updated for caseID : ${caseID}`;
+      return `Progress updated for caseID : ${caseID} ✅ `;
     } else {
       return `Couldn't update case progress.`;
     }

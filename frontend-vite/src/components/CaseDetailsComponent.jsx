@@ -9,12 +9,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
 import Loader from "./Loader";
 import getLawyerDetailsByUID from "@/blockchain-api/getLawyerDetailsByUID";
 import {superShortenWalletAddress} from "@/lib/utils";
+
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -25,6 +29,8 @@ const CaseDetailsComponent = ({caseID}) => {
   const [loading, setLoading] = useState(true);
   const [lawyers, setLawyers] = useState([]);
   const [judgeDetails, setJudgeDetails] = useState({name: "", UID: 0});
+
+  const [progressIsUpdating, setProgressIsUpdating] = useState(false);
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -176,7 +182,22 @@ const CaseDetailsComponent = ({caseID}) => {
       formData.newProgress
     );
 
-    alert(isProgressUpdatedStatus);
+    // closingDialogBox
+    setProgressIsUpdating(false);
+    // resettingFormValue
+    setNewProgress("");
+
+    toast(`${isProgressUpdatedStatus}`, {
+      position: "top-right",
+      autoClose: 1500,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      icon: false,
+      hideProgressBar: true,
+      closeButton: false,
+    });
   };
 
   if (loading) {
@@ -283,7 +304,10 @@ const CaseDetailsComponent = ({caseID}) => {
           <div className="2xl:w-[35%] 3xl:w-[30%]">
             {/* onlyJudgeIsAllowedToUpdateTheProgress */}
             {isUserJudge ? (
-              <Dialog>
+              <Dialog
+                open={progressIsUpdating}
+                onOpenChange={setProgressIsUpdating}
+              >
                 <DialogTrigger asChild>
                   <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
                     <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
@@ -410,6 +434,11 @@ const CaseDetailsComponent = ({caseID}) => {
           </p>
         </div>
       </div>
+
+      <ToastContainer
+        toastClassName={"font-montserrat bg-blue-500 text-white text-center"}
+        bodyClassName={"text-base p-3 rounded-sm"}
+      />
     </div>
   );
 };
