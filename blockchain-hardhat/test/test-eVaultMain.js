@@ -449,8 +449,6 @@ describe("eVaultMain", () => {
       ]);
       expect(storedLegalCase.caseProgressIssuer[1]).to.eql(user1.address);
 
-      console.log(storedLegalCase.caseProgressIssuer);
-
       // BigNumber ---> Number
       const updatedTypeLawyers = storedLegalCase.associatedLawyers.map(
         (lawyer) => BigNumber.from(lawyer).toNumber()

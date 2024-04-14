@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import updateCaseProgressWithCaseId from "@/blockchain-api/updateCaseProgressWithCaseId";
 import getJudgeDetailsByUID from "@/blockchain-api/getJudgeDetailsByUID";
@@ -137,7 +138,7 @@ const CaseDetailsComponent = ({caseID}) => {
 
     // fetchCurrentWalletAddress();
     // fetchCaseDetails();
-  }, [caseID, userAddress]);
+  }, [caseID, userAddress, caseDetails]);
 
   // Function to create a snake-like pattern of progress cells
   const createSnakePattern = (progressArray) => {
@@ -164,7 +165,7 @@ const CaseDetailsComponent = ({caseID}) => {
     return rows;
   };
 
-  const handleSubmit = async (e) => {
+  const handleCaseProgressUpdate = async (e) => {
     e.preventDefault();
 
     if (!newProgress) {
@@ -185,6 +186,61 @@ const CaseDetailsComponent = ({caseID}) => {
     setProgressIsUpdating(false);
     // resettingFormValue
     setNewProgress("");
+
+    toast(`${isProgressUpdatedStatus}`, {
+      position: "top-right",
+      autoClose: 1500,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      icon: false,
+      hideProgressBar: true,
+      closeButton: false,
+    });
+  };
+
+  const hanleCaseTermination = async (e) => {
+    e.preventDefault();
+
+    let isProgressUpdatedStatus;
+
+    if (
+      caseDetails.caseProgress[caseDetails.caseProgress.length - 1].includes(
+        "Case terminated"
+      )
+    ) {
+      toast(`Case already terminated ❌`, {
+        position: "top-right",
+        autoClose: 1500,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: false,
+        hideProgressBar: true,
+        closeButton: false,
+      });
+      // closingDialogBox
+      setProgressIsUpdating(false);
+
+      return;
+    }
+
+    if (lawyers[0].walletAddress.toLowerCase() === userAddress.toLowerCase()) {
+      isProgressUpdatedStatus = await updateCaseProgressWithCaseId(
+        caseID,
+        `Case terminated by ${lawyers[0].name}`
+      );
+    } else {
+      isProgressUpdatedStatus = await updateCaseProgressWithCaseId(
+        caseID,
+        `Case terminated by ${lawyers[1].name}`
+      );
+    }
+
+    // closingDialogBox
+    setProgressIsUpdating(false);
 
     toast(`${isProgressUpdatedStatus}`, {
       position: "top-right",
@@ -321,7 +377,7 @@ const CaseDetailsComponent = ({caseID}) => {
                       All updates will be added to the case progress timeline.
                     </DialogDescription>
                   </DialogHeader>
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleCaseProgressUpdate}>
                     <div className="flex pb-3 md:pb-5 justify-center">
                       <textarea
                         type="text"
@@ -341,6 +397,51 @@ const CaseDetailsComponent = ({caseID}) => {
                       >
                         Update Progress
                       </button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            ) : isUserLawyer ? (
+              <Dialog
+                open={progressIsUpdating}
+                onOpenChange={setProgressIsUpdating}
+              >
+                <DialogTrigger asChild>
+                  <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
+                    <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
+                      Withdraw Case
+                    </button>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="md:max-w-[480px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-6 p-6 rounded-sm">
+                  <DialogHeader>
+                    {/* <DialogTitle>Update case progress</DialogTitle> */}
+                    <DialogDescription>
+                      <div className="md:text-base xs:text-xs">
+                        Are you sure that you want to withdraw this case ?
+                      </div>
+                      <div className="text-xs">
+                        Case termination requires your client's full approval
+                      </div>
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={hanleCaseTermination}>
+                    <DialogFooter
+                      className={
+                        "text-center items-center justify-center flex-row"
+                      }
+                    >
+                      <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs md:w-1/4 w-1/3 mr-2"
+                      >
+                        Yes
+                      </button>
+                      <DialogClose asChild>
+                        <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs md:w-1/4 w-1/3">
+                          No
+                        </button>
+                      </DialogClose>
                     </DialogFooter>
                   </form>
                 </DialogContent>
