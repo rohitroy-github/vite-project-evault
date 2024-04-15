@@ -66,9 +66,6 @@ const SearchCaseDetailsComponent = () => {
       "walletAddress"
     );
 
-    console.log(party1Details, party2Details);
-    console.log(judgeDetails, lawyerDetails);
-
     if (
       party1Details.walletAddress.toLowerCase() === userAddress.toLowerCase() ||
       party2Details.walletAddress.toLowerCase() === userAddress.toLowerCase()

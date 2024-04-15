@@ -21,7 +21,8 @@
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.3",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "form-data": "^4.0.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",

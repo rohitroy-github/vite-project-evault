@@ -86,13 +86,13 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
         <div className="flex md:flex-row w-full justify-center xs:flex-col-reverse">
           {/* Left Section */}
-          <div className="md:w-[60%] w-full flex flex-col md:px-5 items-center xs:flex-2 md:pb-0 font-montserrat">
+          <div className="md:w-[55%] w-full flex flex-col md:px-10 items-center xs:flex-2 md:pb-0 font-montserrat">
             <p className="md:text-2xl xs:text-xl md:pb-5 pb-3 text-left">
               Your Recent Cases
             </p>
 
             {last3Cases.length > 0 ? (
-              <div className="md:w-[90%] w-full md:text-base xs:text-xs">
+              <div className="w-full md:text-base xs:text-xs">
                 {last3Cases.map((caseInfo, index) => (
                   <div
                     key={index}
@@ -140,11 +140,11 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
           </div>
 
           {/* Right Section */}
-          <div className="md:w-[40%] w-full flex flex-col md:px-5 md:border-l md:border-blue-500 md:min-h-[50vh] items-center xs:pb-5 pb-0">
+          <div className="md:w-[45%] w-full flex flex-col md:px-10 md:border-l md:border-blue-500 md:min-h-[50vh] items-center xs:pb-5 pb-0">
             <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-left">
               Profile Information
             </p>
-            <div className="md:w-[85%] w-full">
+            <div className="md:w-full w-full">
               <table className="w-full border border-gray-200 md:text-base xs:text-xs">
                 <tbody>
                   <tr>
@@ -263,7 +263,14 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
 
                   <p className="md:text-sm xs:text-xs font-montserrat">
                     {/* Case status : {caseInfo.associatedJudge} */}
-                    Case status: <span className="text-blue-500">Pending</span>
+                    Case status:{" "}
+                    <span className="text-blue-500">
+                      {caseInfo.caseProgress[
+                        caseInfo.caseProgress.length - 1
+                      ].includes("Case terminated")
+                        ? "Closed"
+                        : "Pending"}
+                    </span>
                   </p>
 
                   <p className="md:text-sm xs:text-xs font-montserrat">

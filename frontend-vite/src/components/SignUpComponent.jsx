@@ -7,6 +7,7 @@ import registerToEVault from "../blockchain-api/registerToEVault";
 
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {shortenWalletAddress} from "@/lib/utils";
 
 const SignUpComponent = ({initialFormType}) => {
   const navigate = useNavigate();
@@ -421,8 +422,12 @@ const SignUpComponent = ({initialFormType}) => {
               <input
                 type="text"
                 className="border rounded-sm py-2 px-4 w-full"
-                placeholder="Click on 'Connect Wallet' here !"
-                value={walletAddress}
+                placeholder="Connect your metamask wallet 🔒"
+                value={
+                  walletAddress
+                    ? shortenWalletAddress(walletAddress)
+                    : walletAddress
+                }
                 onChange={(e) => setWalletAddress(e.target.value)}
               />
             </div>

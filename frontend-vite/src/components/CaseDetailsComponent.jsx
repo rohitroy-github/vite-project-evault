@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import getCaseDetailsByCaseID from "../blockchain-api/getCaseDetailsByCaseID";
+import FormData from "form-data";
 
 import {
   Dialog,
@@ -19,18 +20,26 @@ import {superShortenWalletAddress} from "@/lib/utils";
 
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import getClientDetailsByUID from "@/blockchain-api/getClientDetailsByUID";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
   const [newProgress, setNewProgress] = useState("");
-  const [userAddress, setUserAddress] = useState("");
-  const [isUserJudge, setIsUserJudge] = useState(false);
-  const [isUserLawyer, setIsUserLawyer] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [lawyers, setLawyers] = useState([]);
   const [judgeDetails, setJudgeDetails] = useState({name: "", UID: 0});
 
   const [progressIsUpdating, setProgressIsUpdating] = useState(false);
+
+  const [userAddress, setUserAddress] = useState("");
+  const [isUserJudge, setIsUserJudge] = useState(false);
+  const [isUserLawyer, setIsUserLawyer] = useState(false);
+  const [isUserClient, setIsUserClient] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -42,6 +51,15 @@ const CaseDetailsComponent = ({caseID}) => {
         const judgeDetails = await getJudgeDetailsByUID(
           fetchedCaseDetails.associatedJudge,
           "name_UID_walletAddress"
+        );
+
+        const party1Details = await getClientDetailsByUID(
+          fetchedCaseDetails.UIDOfParty1,
+          "walletAddress"
+        );
+        const party2Details = await getClientDetailsByUID(
+          fetchedCaseDetails.UIDOfParty2,
+          "walletAddress"
         );
 
         // fetchingLawyerNames
@@ -77,6 +95,17 @@ const CaseDetailsComponent = ({caseID}) => {
           setIsUserJudge(true);
         } else {
           setIsUserJudge(false);
+        }
+
+        if (
+          party1Details.walletAddress.toLowerCase() ===
+            userAddress.toLowerCase() ||
+          party2Details.walletAddress.toLowerCase() ===
+            userAddress.toLowerCase()
+        ) {
+          setIsUserClient(true);
+        } else {
+          setIsUserClient(false);
         }
 
         setJudgeDetails({
@@ -154,10 +183,10 @@ const CaseDetailsComponent = ({caseID}) => {
     for (let i = 0; i < progressArray.length; i += numColumns) {
       const row = progressArray.slice(i, i + numColumns);
 
-      if ((i / numColumns) % 2 === 1) {
-        // Reverse order for odd rows to create a snake pattern
-        row.reverse();
-      }
+      // if ((i / numColumns) % 2 === 1) {
+      //   // Reverse order for odd rows to create a snake pattern
+      //   row.reverse();
+      // }
 
       rows.push(row);
     }
@@ -253,6 +282,60 @@ const CaseDetailsComponent = ({caseID}) => {
       hideProgressBar: true,
       closeButton: false,
     });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    setFileName(file ? file.name : "");
+
+    // Show image preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+
+    if (selectedFile) {
+      // console.log("Uploading file:", selectedFile);
+      // console.log("File name:", fileName);
+
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      console.log(caseID, formData);
+
+      // const isFileAdded = await uploadCaseDocument(caseID, formData);
+
+      // await isFileAdded.wait();
+
+      // resettingToInitialValues
+      setFileName("");
+      setSelectedFile(null);
+      setImagePreview(null);
+      setProgressIsUpdating(false);
+
+      // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
+      // toast(`${isFileAdded}`, {
+      //   position: "top-right",
+      //   autoClose: 1500,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   icon: false,
+      //   hideProgressBar: true,
+      //   closeButton: false,
+      // });
+    } else {
+      console.warn("No file selected for upload.");
+    }
   };
 
   if (loading) {
@@ -401,7 +484,7 @@ const CaseDetailsComponent = ({caseID}) => {
                   </form>
                 </DialogContent>
               </Dialog>
-            ) : isUserLawyer ? (
+            ) : isUserLawyer || isUserClient ? (
               <Dialog
                 open={progressIsUpdating}
                 onOpenChange={setProgressIsUpdating}
@@ -421,14 +504,14 @@ const CaseDetailsComponent = ({caseID}) => {
                         Are you sure that you want to withdraw this case ?
                       </div>
                       <div className="text-xs">
-                        Case termination requires your client's full approval
+                        Case termination requires client's full approval
                       </div>
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={hanleCaseTermination}>
                     <DialogFooter
                       className={
-                        "text-center items-center justify-center flex-row"
+                        "text-center items-center justify-center flex-row md:pt-2 pt-1"
                       }
                     >
                       <button
@@ -461,7 +544,7 @@ const CaseDetailsComponent = ({caseID}) => {
               (row, rowIndex) => (
                 <div
                   key={rowIndex}
-                  className="flex insideLoop1 items-center w-full"
+                  className="flex insideLoop1 items-center w-full gap-2 md:gap-3"
                 >
                   {row.map((progress, index) => (
                     <div
@@ -471,9 +554,7 @@ const CaseDetailsComponent = ({caseID}) => {
                         caseDetails.caseProgress.length
                           ? "bg-blue-300 animate-blink"
                           : "bg-blue-100"
-                      } hover:border-2 hover:border-blue-500 border-white-500 border-2 cursor-pointer ${
-                        index == 0 || index % 5 == 0 ? "ml-0" : "md:ml-3 ml-2"
-                      }`}
+                      } hover:border-2 hover:border-blue-500 border-white-500 border-2 cursor-pointer`}
                     >
                       {/* {index < row.length - 1 && (
                         <div className="absolute top-1/2 right-0 -mr-2 w-4 h-4 bg-gray-300 rounded-full" />
@@ -514,11 +595,73 @@ const CaseDetailsComponent = ({caseID}) => {
           <div className="2xl:w-[35%] 3xl:w-[30%]">
             {/* lawyers&JudgesAreAllowedtoUploadTheDocuments */}
             {isUserJudge | isUserLawyer ? (
-              <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
-                <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
-                  Upload Case Files
-                </button>
-              </div>
+              <Dialog
+                open={progressIsUpdating}
+                onOpenChange={setProgressIsUpdating}
+              >
+                <DialogTrigger asChild>
+                  <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
+                    <button className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs">
+                      Upload Case Files
+                    </button>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="md:max-w-[450px] xs:max-w-[350px] font-montserrat bg-blue-100 md:p-5 p-5 rounded-sm">
+                  <DialogHeader>
+                    <DialogTitle>Upload Case Document</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={handleFileUpload} className="w-full">
+                    <div className="flex flex-col pb-3 md:pb-5 justify-center items-center w-full">
+                      <div className="flex rounded-sm items-center justify-center pb-2 md:w-[95%]">
+                        {imagePreview ? (
+                          <img
+                            src={imagePreview}
+                            alt="Image Preview"
+                            className="w-full md:h-[200px] h-[150px] object-cover md:p-2 p-1 bg-white rounded-sm"
+                          />
+                        ) : (
+                          <img
+                            src={"/dummy-image.jpg"}
+                            alt="Image Preview"
+                            className="w-full md:h-[200px] h-[150px] object-cover md:p-2 p-1 bg-white rounded-sm"
+                          />
+                        )}
+                      </div>
+
+                      <div className="flex md:w-[95%] w-full justify-center items-center">
+                        <input
+                          type="file"
+                          id="fileInput"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                        <label htmlFor="fileInput" className="flex w-full">
+                          <span
+                            id="file-name"
+                            className="flex bg-white w-2/3 rounded-l-sm text-center items-center justify-center md:text-sm text-xs"
+                          >
+                            {fileName}
+                          </span>
+                          <span className="bg-blue-500 hover:bg-blue-300 text-white font-montserrat py-2 px-4 w-1/3 rounded-r-sm text-center md:text-sm text-xs">
+                            Select File
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <DialogFooter
+                      className={"text-center items-center justify-center"}
+                    >
+                      <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs"
+                      >
+                        Upload Document
+                      </button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </Dialog>
             ) : (
               <div className="md:pb-5 pb-3 md:w-full">
                 <button className="bg-blue-300 text-white py-2 px-4 rounded-sm text-xs md:w-full ">

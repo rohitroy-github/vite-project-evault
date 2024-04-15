@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import loginAsAClient from "../blockchain-api/loginAsAClient";
 import loginAsALawyer from "../blockchain-api/loginAsALawyer";
 import loginAsAJudge from "../blockchain-api/loginAsAJudge";
+import {shortenWalletAddress} from "@/lib/utils";
 
 const LoginComponent = ({initialFormType}) => {
   const navigate = useNavigate();
@@ -203,8 +204,12 @@ const LoginComponent = ({initialFormType}) => {
               <input
                 type="text"
                 className="border rounded-sm py-2 px-4 w-full"
-                placeholder="Click on 'Connect Wallet' here !"
-                value={walletAddress}
+                placeholder="Connect your metamask wallet 🔒"
+                value={
+                  walletAddress
+                    ? shortenWalletAddress(walletAddress)
+                    : walletAddress
+                }
                 onChange={(e) => setWalletAddress(e.target.value)}
               />
             </div>

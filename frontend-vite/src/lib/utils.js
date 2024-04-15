@@ -10,9 +10,9 @@ export function shortenWalletAddress(walletAddress) {
     return "Invalid wallet address";
   }
 
-  const prefix = walletAddress.slice(0, 8);
+  const prefix = walletAddress.slice(0, 15);
 
-  const suffix = walletAddress.slice(-8);
+  const suffix = walletAddress.slice(-15);
 
   return `${prefix}...${suffix}`;
 }

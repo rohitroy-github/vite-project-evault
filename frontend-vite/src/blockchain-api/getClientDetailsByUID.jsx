@@ -34,6 +34,12 @@ const getClientDetailsByUID = async (UID, detailsNeeded) => {
       return {
         walletAddress: clientDetails[9],
       };
+    } else if (detailsNeeded == "name_UID_walletAddress") {
+      return {
+        name: clientDetails[0],
+        UID: clientDetails[6].toString(),
+        walletAddress: clientDetails[9],
+      };
     }
   } catch (error) {
     console.error("Error while fetching client details:", error);
