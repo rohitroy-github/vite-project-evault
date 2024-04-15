@@ -24,8 +24,6 @@ const registerNewCase = async ({
 
   const parsedLawyers = associatedLawyers.map((lawyer) => parseInt(lawyer, 10));
 
-  console.log(UIDOfParty1, UIDOfParty2, caseSubject, parsedLawyers);
-
   try {
     const tx = await eVaultContract.registerLegalCase(
       parseInt(UIDOfParty1, 10),

@@ -527,6 +527,36 @@ describe("eVaultMain", () => {
     //   // expect(filedCases[0].associatedJudge).to.equal(legalCase.associatedJudge);
     //   // expect(filedCases[0].caseSubject).to.equal(legalCase.caseSubject);
     // });
+
+    it("should update case documents with case ID", async () => {
+      await eVaultMain
+        .connect(user1)
+        .updateCaseDocumentsWithCaseId(
+          legalCase1.caseId,
+          "111222333444555666777888999"
+        );
+
+      const storedLegalCase = await eVaultMain.getCaseDetailsByCaseId(
+        legalCase1.caseId
+      );
+
+      expect(storedLegalCase.caseDocumentHash).to.eql([
+        "111222333444555666777888999",
+      ]);
+
+      expect(storedLegalCase.caseDocumentUploader[0]).to.eql(user1.address);
+    });
+
+    it("should not update case documents for a non-existing case ID", async () => {
+      const nonExistentCaseId = 999;
+
+      await expect(
+        eVaultMain.updateCaseDocumentsWithCaseId(
+          nonExistentCaseId,
+          "111222333444555666777888999"
+        )
+      ).to.be.revertedWith("Legal case with this caseId does not exist");
+    });
   });
 
   // LoginFunctionalitiesTest

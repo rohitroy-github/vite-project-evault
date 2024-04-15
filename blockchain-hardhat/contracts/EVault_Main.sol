@@ -22,6 +22,8 @@ contract EVault_Main {
         string caseSubject;
         string[] caseProgress;
         address[] caseProgressIssuer;
+        string[] caseDocumentHash;
+        address[] caseDocumentUploader;
     }
 
     struct Client {
@@ -375,7 +377,9 @@ contract EVault_Main {
             caseId: _caseId,
             caseSubject: _caseSubject,
             caseProgress: new string[](0),
-            caseProgressIssuer: new address[](0)
+            caseProgressIssuer: new address[](0),
+            caseDocumentHash: new string[](0),
+            caseDocumentUploader: new address[](0)
         });
 
         // AddingInitialStatusToTheCaseProgressList
@@ -415,6 +419,24 @@ contract EVault_Main {
         // Append the new status to the caseProgress array
         legalCase.caseProgress.push(_progress);
         legalCase.caseProgressIssuer.push(msg.sender);
+
+        return true;
+    }
+
+    // Function to update case documents with caseId
+    function updateCaseDocumentsWithCaseId(
+        uint256 _caseId,
+        string memory _ipfsHash
+    ) external returns (bool) {
+        LegalCase storage legalCase = legalCases[_caseId];
+        require(
+            bytes(legalCase.caseSubject).length > 0,
+            "Legal case with this caseId does not exist"
+        );
+
+        // Append the IPFS hash and uploader address to the respective arrays
+        legalCase.caseDocumentHash.push(_ipfsHash);
+        legalCase.caseDocumentUploader.push(msg.sender);
 
         return true;
     }
@@ -497,7 +519,9 @@ contract EVault_Main {
             uint256 caseId,
             string memory caseSubject,
             string[] memory caseProgress,
-            address[] memory caseProgressIssuer
+            address[] memory caseProgressIssuer,
+            string[] memory caseDocumentHash,
+            address[] memory caseDocumentUploader
         )
     {
         LegalCase memory registeredLegalCase = legalCases[_caseId];
@@ -515,7 +539,9 @@ contract EVault_Main {
             registeredLegalCase.caseId,
             registeredLegalCase.caseSubject,
             registeredLegalCase.caseProgress,
-            registeredLegalCase.caseProgressIssuer
+            registeredLegalCase.caseProgressIssuer,
+            registeredLegalCase.caseDocumentHash,
+            registeredLegalCase.caseDocumentUploader
         );
     }
 

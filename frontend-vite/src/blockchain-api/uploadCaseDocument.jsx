@@ -1,4 +1,5 @@
 import {ethers} from "ethers";
+import axios from "axios";
 
 import {abi as eVaultMain} from "../../../blockchain-hardhat/artifacts/contracts/EVault_Main.sol/EVault_Main.json";
 
@@ -31,19 +32,26 @@ const uploadCaseDocument = async (caseID, formData) => {
       },
     });
 
-    //   const IMG_IPFS_URL = `https://gateway.pinata.cloud/ipfs/${pinataIPFSResponse.data.IpfsHash}`;
+    const IMG_IPFS_URL = `https://gateway.pinata.cloud/ipfs/${pinataIPFSResponse.data.IpfsHash}`;
+    console.log("Check", pinataIPFSResponse.data.IpfsHash);
 
-    const tx = await eVaultContract.updateCaseDocument(
+    const tx = await eVaultContract.updateCaseDocumentsWithCaseId(
       caseID,
-      pinataIPFSResponse.data.IpfsHash
+      `${pinataIPFSResponse.data.IpfsHash}`
     );
     const txReceipt = await tx.wait();
 
     // checkingIfLatestUpdateSavedOrNot?
-    const caseDetails = await getCaseDetailsByCaseID(caseID);
+    const caseDetails = await eVaultContract.getCaseDetailsByCaseId(caseID);
+
+    console.log("Check", caseDetails);
+
+    // console.log(
+    //   caseDetails.caseDocuments[caseDetails.caseDocuments.length - 1]
+    // );
 
     if (
-      caseDetails.caseDocuments[caseDetails.caseDocuments.length - 1] ===
+      caseDetails.caseDocumentHash[caseDetails.caseDocumentHash.length - 1] ===
       pinataIPFSResponse.data.IpfsHash
     ) {
       return `File added successfully ✅ `;
@@ -51,7 +59,7 @@ const uploadCaseDocument = async (caseID, formData) => {
       return `Couldn't add case file.`;
     }
   } catch (error) {
-    console.error("Error adding case file:", error);
+    console.error("Error adding case file: ", error);
     throw error;
   }
 };

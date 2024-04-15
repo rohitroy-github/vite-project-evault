@@ -30,6 +30,8 @@ const getCaseDetailsByCaseID = async (caseID) => {
       caseSubject: caseDetails[6],
       caseProgress: caseDetails[7],
       caseProgressIssuer: caseDetails[8],
+      caseDocumentHash: caseDetails[9],
+      caseDocumentUploader: caseDetails[10],
     };
   } catch (error) {
     console.error("Error while fetching case details:", error);

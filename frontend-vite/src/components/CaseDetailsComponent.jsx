@@ -21,6 +21,7 @@ import {superShortenWalletAddress} from "@/lib/utils";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import getClientDetailsByUID from "@/blockchain-api/getClientDetailsByUID";
+import uploadCaseDocument from "@/blockchain-api/uploadCaseDocument";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -167,7 +168,7 @@ const CaseDetailsComponent = ({caseID}) => {
 
     // fetchCurrentWalletAddress();
     // fetchCaseDetails();
-  }, [caseID, userAddress, caseDetails]);
+  }, [caseID, userAddress, caseDetails, progressIsUpdating]);
 
   // Function to create a snake-like pattern of progress cells
   const createSnakePattern = (progressArray) => {
@@ -311,9 +312,7 @@ const CaseDetailsComponent = ({caseID}) => {
 
       console.log(caseID, formData);
 
-      // const isFileAdded = await uploadCaseDocument(caseID, formData);
-
-      // await isFileAdded.wait();
+      const isFileAdded = await uploadCaseDocument(caseID, formData);
 
       // resettingToInitialValues
       setFileName("");
@@ -322,17 +321,17 @@ const CaseDetailsComponent = ({caseID}) => {
       setProgressIsUpdating(false);
 
       // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
-      // toast(`${isFileAdded}`, {
-      //   position: "top-right",
-      //   autoClose: 1500,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   icon: false,
-      //   hideProgressBar: true,
-      //   closeButton: false,
-      // });
+      toast(`${isFileAdded}`, {
+        position: "top-right",
+        autoClose: 1500,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        icon: false,
+        hideProgressBar: true,
+        closeButton: false,
+      });
     } else {
       console.warn("No file selected for upload.");
     }
@@ -617,13 +616,13 @@ const CaseDetailsComponent = ({caseID}) => {
                           <img
                             src={imagePreview}
                             alt="Image Preview"
-                            className="w-full md:h-[200px] h-[150px] object-cover md:p-2 p-1 bg-white rounded-sm"
+                            className="w-full md:h-[200px] h-[150px] object-cover p-1 bg-white rounded-sm"
                           />
                         ) : (
                           <img
                             src={"/dummy-image.jpg"}
                             alt="Image Preview"
-                            className="w-full md:h-[200px] h-[150px] object-cover md:p-2 p-1 bg-white rounded-sm"
+                            className="w-full md:h-[200px] h-[150px] object-cover p-1 bg-white rounded-sm"
                           />
                         )}
                       </div>
@@ -673,9 +672,26 @@ const CaseDetailsComponent = ({caseID}) => {
         </div>
 
         <div className="flex md:flex-row flex-col">
-          <p className="md:text-base xs:text-xl text-center w-full text-blue-500">
-            Feature coming soon
-          </p>
+          {caseDetails.caseDocumentHash.length > 0 ? (
+            <div className="flex items-start justify-center flex-wrap">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {caseDetails.caseDocumentHash.map((imageUrl, index) => (
+                  <div
+                    key={index}
+                    className="overflow-hidden rounded-md shadow-md transition-transform transform hover:scale-105"
+                  >
+                    <img
+                      src={`https://gateway.pinata.cloud/ipfs/${imageUrl}`}
+                      alt={`Uploaded File ${index + 1}`}
+                      className="w-full h-30 object-cover object-center"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>No files</div>
+          )}
         </div>
       </div>
 
