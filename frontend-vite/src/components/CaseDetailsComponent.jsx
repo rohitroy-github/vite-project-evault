@@ -674,17 +674,26 @@ const CaseDetailsComponent = ({caseID}) => {
         <div className="flex md:flex-row flex-col">
           {caseDetails.caseDocumentHash.length > 0 ? (
             <div className="flex items-start justify-center flex-wrap">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 xs:grid-cols-2 2xl:grid-cols-6 3xl:grid-cols-7 gap-2">
                 {caseDetails.caseDocumentHash.map((imageUrl, index) => (
                   <div
                     key={index}
-                    className="overflow-hidden rounded-md shadow-md transition-transform transform hover:scale-105"
+                    className="overflow-hidden rounded-sm shadow-md transition-transform transform hover:scale-105 p-2 bg-blue-100"
                   >
                     <img
                       src={`https://gateway.pinata.cloud/ipfs/${imageUrl}`}
                       alt={`Uploaded File ${index + 1}`}
-                      className="w-full h-30 object-cover object-center"
+                      className="w-full 3xl:min-h-[100px] md:min-h-[90px] max-h-[80px] object-cover rounded-sm"
                     />
+
+                    <div className="flex pt-2">
+                      <div className="text-xs order-first">
+                        Issued by:{" "}
+                        {superShortenWalletAddress(
+                          caseDetails.caseDocumentUploader[index]
+                        )}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
