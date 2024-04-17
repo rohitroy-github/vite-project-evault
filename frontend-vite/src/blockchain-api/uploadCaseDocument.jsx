@@ -32,8 +32,7 @@ const uploadCaseDocument = async (caseID, formData) => {
       },
     });
 
-    const IMG_IPFS_URL = `https://gateway.pinata.cloud/ipfs/${pinataIPFSResponse.data.IpfsHash}`;
-    console.log("Check", pinataIPFSResponse.data.IpfsHash);
+    // const IMG_IPFS_URL = `https://gateway.pinata.cloud/ipfs/${pinataIPFSResponse.data.IpfsHash}`;
 
     const tx = await eVaultContract.updateCaseDocumentsWithCaseId(
       caseID,

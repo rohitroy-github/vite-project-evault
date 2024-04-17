@@ -32,6 +32,8 @@ const CaseDetailsComponent = ({caseID}) => {
   const [judgeDetails, setJudgeDetails] = useState({name: "", UID: 0});
 
   const [progressIsUpdating, setProgressIsUpdating] = useState(false);
+  const [uploadDocumentDialogBoxIsOpen, setUploadDocumentDialogBoxIsOpen] =
+    useState(false);
 
   const [userAddress, setUserAddress] = useState("");
   const [isUserJudge, setIsUserJudge] = useState(false);
@@ -41,6 +43,7 @@ const CaseDetailsComponent = ({caseID}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [uploadingDocument, setUploadingDocument] = useState(false);
 
   useEffect(() => {
     // Function to fetch case details based on the caseID
@@ -304,8 +307,7 @@ const CaseDetailsComponent = ({caseID}) => {
     e.preventDefault();
 
     if (selectedFile) {
-      // console.log("Uploading file:", selectedFile);
-      // console.log("File name:", fileName);
+      setUploadingDocument(true);
 
       const formData = new FormData();
       formData.append("file", selectedFile);
@@ -318,7 +320,8 @@ const CaseDetailsComponent = ({caseID}) => {
       setFileName("");
       setSelectedFile(null);
       setImagePreview(null);
-      setProgressIsUpdating(false);
+      setUploadDocumentDialogBoxIsOpen(false);
+      setUploadingDocument(false);
 
       // Customization: https://fkhadra.github.io/react-toastify/how-to-style/
       toast(`${isFileAdded}`, {
@@ -595,8 +598,8 @@ const CaseDetailsComponent = ({caseID}) => {
             {/* lawyers&JudgesAreAllowedtoUploadTheDocuments */}
             {isUserJudge | isUserLawyer ? (
               <Dialog
-                open={progressIsUpdating}
-                onOpenChange={setProgressIsUpdating}
+                open={uploadDocumentDialogBoxIsOpen}
+                onOpenChange={setUploadDocumentDialogBoxIsOpen}
               >
                 <DialogTrigger asChild>
                   <div className="md:pb-5 pb-3 flex md:justify-end justify-center">
@@ -655,7 +658,9 @@ const CaseDetailsComponent = ({caseID}) => {
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-300 text-white py-2 px-4 rounded-sm md:text-sm text-xs"
                       >
-                        Upload Document
+                        {uploadingDocument
+                          ? "Uploading File"
+                          : "Upload Document"}
                       </button>
                     </DialogFooter>
                   </form>
@@ -671,14 +676,14 @@ const CaseDetailsComponent = ({caseID}) => {
           </div>
         </div>
 
-        <div className="flex md:flex-row flex-col">
+        <div className="flex md:flex-row flex-col items-center justify-evenly w-full">
           {caseDetails.caseDocumentHash.length > 0 ? (
-            <div className="flex items-start justify-center flex-wrap">
-              <div className="grid grid-cols-1 xs:grid-cols-2 2xl:grid-cols-6 3xl:grid-cols-7 gap-2">
+            <div className="flex flex-wrap">
+              <div className="grid xs:grid-cols-2 2xl:grid-cols-7 3xl:grid-cols-7 gap-2">
                 {caseDetails.caseDocumentHash.map((imageUrl, index) => (
                   <div
                     key={index}
-                    className="overflow-hidden rounded-sm shadow-md transition-transform transform hover:scale-105 p-2 bg-blue-100"
+                    className="overflow-hidden rounded-sm shadow-md transition-transform transform hover:scale-105 2xl:p-2 bg-blue-100 w-full"
                   >
                     <img
                       src={`https://gateway.pinata.cloud/ipfs/${imageUrl}`}
@@ -699,7 +704,7 @@ const CaseDetailsComponent = ({caseID}) => {
               </div>
             </div>
           ) : (
-            <div>No files</div>
+            <p className="text-xs md:text-sm">No case documents found</p>
           )}
         </div>
       </div>
