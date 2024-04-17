@@ -50,14 +50,18 @@ async function main() {
   console.log(`Deployment chainID: [ ${network.config.chainId} ]`);
 
   if (network.config.chainId === 11155111) {
-    console.log(
-      "Waiting for block confirmations on Sepolia testnet ... \u23F3"
-    );
-    // wait6BlockConfirmations
-    await ipfsDriveContract.deployTransaction.wait(6);
-    await verify(ipfsDriveContract.address, []);
+    console.log(`Deployment network: Sepolia Testnet`);
+    console.log("Waiting for block confirmations ... \u23F3");
+    await eVaultMain.deployTransaction.wait(6);
+    await verify(eVaultMain.address, []);
   } else if (network.config.chainId === 31337) {
     console.log(`Deployment network: Localhost [ Hardhat ]`);
+  } else if (network.config.chainId === 80002) {
+    console.log(`Deployment network: Polygon Amoy Testnet`);
+    console.log("Waiting for block confirmations ... \u23F3");
+    await eVaultMain.deployTransaction.wait(3);
+    console.log("3 block confirmations done \u2705");
+    // await verify(eVaultMain.address, []);
   }
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
@@ -175,14 +179,7 @@ async function main() {
   await getLegalCasesForClient(eVaultMain, client1.UID);
 
   console.log("- - - - - - - - - - - - - - - - - - - - -");
-
-  // what happens when we deploy to our hardhat network?
-  if (network.config.chainId === 11155111) {
-    console.log("Waiting for block confirmations \u23F3");
-    // wait6BlockConfirmations
-    await eVaultMain.deployTransaction.wait(6);
-    await verify(eVaultMain.address, []);
-  }
+  console.log("- - - - - - - - - - - - - - - - - - - - -");
 }
 
 // async function verify(contractAddress, args) {
@@ -210,3 +207,4 @@ main().catch((error) => {
 // run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network <network-name>
 // run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network localhost
 // run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network sepolia
+// run >>> npx hardhat run scripts/deploy_fetchCaseDetailsByAClient.js --network amoy

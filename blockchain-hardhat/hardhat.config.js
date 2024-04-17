@@ -11,6 +11,7 @@ require("hardhat-gas-reporter");
 require("./tasks/block-number");
 
 const SEPOLIA_ALCHEMY_RPC_URL = process.env.SEPOLIA_ALCHEMY_RPC_URL;
+const AMOY_ALCHEMY_RPC_URL = process.env.AMOY_ALCHEMY_RPC_URL;
 const METAMASK_PRIVATE_KEY = process.env.METAMASK_PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY
@@ -33,6 +34,13 @@ module.exports = {
   networks: {
     // default
     hardhat: {},
+
+    // https://polygon.technology/blog/introducing-the-amoy-testnet-for-polygon-pos
+    amoy: {
+      url: AMOY_ALCHEMY_RPC_URL,
+      accounts: [METAMASK_PRIVATE_KEY],
+      chainId: 80002,
+    },
 
     sepolia: {
       url: SEPOLIA_ALCHEMY_RPC_URL,
