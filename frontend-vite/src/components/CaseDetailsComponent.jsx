@@ -21,7 +21,7 @@ import {superShortenWalletAddress} from "@/lib/utils";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import getClientDetailsByUID from "@/blockchain-api/getClientDetailsByUID";
-import uploadCaseDocument from "@/blockchain-api/uploadCaseDocument";
+import uploadCaseDocument from "@/blockchain-api/uploadCaseDocumentUsingVerbwire";
 
 const CaseDetailsComponent = ({caseID}) => {
   const [caseDetails, setCaseDetails] = useState(null);
@@ -311,8 +311,6 @@ const CaseDetailsComponent = ({caseID}) => {
 
       const formData = new FormData();
       formData.append("file", selectedFile);
-
-      console.log(caseID, formData);
 
       const isFileAdded = await uploadCaseDocument(caseID, formData);
 
@@ -676,19 +674,19 @@ const CaseDetailsComponent = ({caseID}) => {
           </div>
         </div>
 
-        <div className="flex md:flex-row flex-col items-center justify-evenly w-full">
+        <div className="flex md:flex-row flex-col items-start w-full">
           {caseDetails.caseDocumentHash.length > 0 ? (
             <div className="flex flex-wrap">
-              <div className="grid xs:grid-cols-2 2xl:grid-cols-7 3xl:grid-cols-7 gap-2">
+              <div className="grid xs:grid-cols-2 2xl:grid-cols-7 3xl:grid-cols-8 gap-2">
                 {caseDetails.caseDocumentHash.map((imageUrl, index) => (
                   <div
                     key={index}
-                    className="overflow-hidden rounded-sm shadow-md transition-transform transform hover:scale-105 2xl:p-2 bg-blue-100 w-full"
+                    className="overflow-hidden rounded-sm shadow-md transition-transform transform hover:scale-105 2xl:p-2 p-1 bg-blue-100 w-full"
                   >
                     <img
                       src={`https://gateway.pinata.cloud/ipfs/${imageUrl}`}
                       alt={`Uploaded File ${index + 1}`}
-                      className="w-full 3xl:min-h-[100px] md:min-h-[90px] max-h-[80px] object-cover rounded-sm"
+                      className="w-full 3xl:min-h-[100px] 2xl:min-h-[90px] max-h-[80px] object-cover rounded-sm"
                     />
 
                     <div className="flex pt-2">
