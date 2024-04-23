@@ -13,5 +13,10 @@
     "contract": {
       "address": ""
     }
+  },
+  "2710": {
+    "contract": {
+      "address": "0x7a9a379394C9E0b4b869aCF56fAA88214a5D3900"
+    }
   }
 }

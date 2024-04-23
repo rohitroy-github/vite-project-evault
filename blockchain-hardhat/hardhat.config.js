@@ -11,12 +11,14 @@ require("hardhat-gas-reporter");
 require("./tasks/block-number");
 
 const SEPOLIA_ALCHEMY_RPC_URL = process.env.SEPOLIA_ALCHEMY_RPC_URL;
-const AMOY_ALCHEMY_RPC_URL = process.env.AMOY_ALCHEMY_RPC_URL;
 const METAMASK_PRIVATE_KEY = process.env.METAMASK_PRIVATE_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY
   ? process.env.COINMARKETCAP_API_KEY
   : null;
+
+const AMOY_ALCHEMY_RPC_URL = process.env.AMOY_ALCHEMY_RPC_URL;
+const MORPH_TESTNET_RPC_URL = process.env.MORPH_TESTNET_RPC_URL;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -42,6 +44,13 @@ module.exports = {
       chainId: 80002,
     },
 
+    // https://docs.morphl2.io/docs/build-on-morph/build-on-morph/development-setup
+    morph: {
+      url: process.env.MORPH_TESTNET_RPC_URL,
+      accounts: [METAMASK_PRIVATE_KEY],
+      chainId: 2710,
+    },
+
     sepolia: {
       url: SEPOLIA_ALCHEMY_RPC_URL,
       accounts: [METAMASK_PRIVATE_KEY],
@@ -57,7 +66,20 @@ module.exports = {
     },
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    apiKey: {
+      sepolia: ETHERSCAN_API_KEY,
+      morph: ETHERSCAN_API_KEY,
+    },
+    customChains: [
+      {
+        network: "morph",
+        chainId: 2710,
+        urls: {
+          apiURL: "https://explorer-api-testnet.morphl2.io/api",
+          browserURL: "https://explorer-testnet.morphl2.io",
+        },
+      },
+    ],
   },
 
   gasReporter: {

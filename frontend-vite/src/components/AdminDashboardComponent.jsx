@@ -218,7 +218,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center flex-col w-full md:pb-10 xs:pt-0 xs:pb-5 font-montserrat">
+      <div className="flex items-center justify-center flex-col w-full md:pb-10 xs:pt-0 xs:pb-5 font-montserrat md:min-h-auto min-h-[25vh]">
         <p className="md:text-2xl xs:text-xl font-montserrat md:pb-5 pb-3 text-left">
           Your Past Cases
         </p>
@@ -230,7 +230,7 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
           </Link>
         </div>
 
-        {allCasesOnClient ? (
+        {allCasesOnClient.length > 0 ? (
           <div className="space-y-3 md:w-[75%] w-full">
             {allCasesOnClient.map((caseInfo, index) => (
               <div
@@ -285,8 +285,8 @@ const AdminDashboardComponent = ({aadharUID, adminType}) => {
           </div>
         ) : (
           <div className="space-y-4 md:space-y-3">
-            <p className="text-lg font-montserrat">
-              Fetching your past cases ...
+            <p className="text-sm md:text-base">
+              No past cases found in records.
             </p>
           </div>
         )}
