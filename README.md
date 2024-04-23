@@ -51,7 +51,8 @@ Currently, the app can be tested on <b>Localhost (Hardhat)</b>, <b>Sepolia (EVM)
 <ul>
     <li>Ethereum Sepolia Testnet</li>
     <li>Polygon Amoy Testnet</li>
-    <li>Hardhat Local Testnet</li>
+    <li>Hardhat Local Testnet ✅</li>
+    <li>Morph Testnet ✅ </li>
 </ul>
 
 <h3><b>Guide for testing on local hardhat network :</b></h3>
