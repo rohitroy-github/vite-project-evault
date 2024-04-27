@@ -4,9 +4,9 @@
 
 <h3><b>Snapshots from the project :</b></h3>
 
-<img src="./project-assets/sc1.png" width="350" class="image-align-left"><img src="./project-assets/sc2.png" width="350">
-<img src="./project-assets/sc3.png" width="350"><img src="./project-assets/sc4.png" width="350">
-<img src="./project-assets/sc5.png" width="350"><img src="./project-assets/sc6.png" width="350">
+<img src="./project-assets/sc_home.png" width="350" class="image-align-left"><img src="./project-assets/sc_registration.png" width="350">
+<img src="./project-assets/sc_case_search.png" width="350"><img src="./project-assets/sc_case_details.png" width="350">
+<img src="./project-assets/sc_upload_case_document.png" width="350"><img src="./project-assets/sc_case_document.png" width="350">
 
 Currently, the app can be tested on <b>Localhost (Hardhat)</b>, <b>Sepolia (EVM)</b>& <b>Polygin Amoy</b> test network using Alchemy endpoints.
 
