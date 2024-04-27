@@ -17,15 +17,15 @@ Currently, the app can be tested on <b>Localhost (Hardhat)</b>, <b>Sepolia (EVM)
 <h3><b>E-Vault Features :</b></h3>
 
 <ul>
-    <li>Seamless clients, lawyer and judge registration process.</li>
-    <li>Registering legal case between 2 clients with their respective lawyers.</li>
-    <li>Automatic / Random allocation of judges to the registered cases.</li>
-    <li>Simplistic login system for clients, lawyers & judges using Aadhar UID and Metamask wallet.</li>
-    <li>Updating case progress by allocated judges & lawyers.</li>
-    <li>Uploading case documents using IPFS & keeping case records by associated case lawyers.</li>
-    <li>Fetching basic case information using caseIDs by general public and police.</li>
-    <li>Fetching realtime case progress by associated case entities.</li>
-    <li>Metamask wallet integration and usage for access authorization.</li>
+    <li><h4>Seamless clients, lawyer and judge registration process.</h4></li>
+    <li><h4>Registering legal case between 2 clients with their respective lawyers.</h4></li>
+    <li><h4>Automatic / Random allocation of judges to the registered cases.</h4></li>
+    <li><h4>Simplistic login system for clients, lawyers & judges using Aadhar UID and Metamask wallet.</h4></li>
+    <li><h4>Updating case progress by allocated judges & lawyers.</h4></li>
+    <li><h4>Uploading case documents using IPFS & keeping case records by associated case lawyers.</h4></li>
+    <li><h4>Fetching basic case information using caseIDs by general public and police.</h4></li>
+    <li><h4>Fetching realtime case progress by associated case entities.</h4></li>
+    <li><h4>Metamask wallet integration and usage for access authorization.</h4></li>
 </ul>
 
 <h3><b>Tech Stack :</b></h3>
